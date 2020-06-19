@@ -1,0 +1,31 @@
+
+development:
+  host: localhost
+  adapter: postgresql
+  encoding: unicode
+  database: echotest
+  username: postgres
+  password: miao
+  pool: 5
+  timeout: 5000
+
+
+test:
+  host: localhost
+  adapter: postgresql
+  encoding: unicode
+  database: echotest
+  username: postgres
+  password: miao
+  pool: 5
+  timeout: 5000
+
+production:
+  host: ec2-18-210-51-239.compute-1.amazonaws.com
+  adapter: postgresql
+  encoding: unicode
+  database: echotest
+  username: postgres
+  password: miao
+  pool: 5
+  timeout: 5000
