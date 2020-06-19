@@ -1,0 +1,80 @@
+
+header{
+    color: white; 
+    background-color: #666;  
+};
+#header_txt{
+    padding-top: 5px;  
+    font-size: 25px;
+    position: absolute;
+    top: 10%;
+};
+body{
+    padding-top: 50px;
+};
+.image_map{
+    display: flex;
+    justify-content: flex-start;
+    padding-bottom: 40px;
+};
+.details{
+    display: flex;
+    justify-content: space-between;
+};
+.image_link{
+    padding-left: 40px;
+    font-size: 20px;
+    color: blue;
+    align-self: flex-start;
+};
+
+
+
+/* Clear floats after the columns */
+section:after 
+{
+    content: "";
+    display: block;
+    clear: both;
+}
+
+
+//image movies
+#home-main{
+    height:500px;
+}
+
+#goods-movie{
+    width:900px;
+    height:500px;
+    overflow: hidden;
+    position: relative;
+}
+#movie-img-list{
+    width:800px;
+    height:500px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
