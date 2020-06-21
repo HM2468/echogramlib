@@ -1,10 +1,10 @@
 class CreateCompositions < ActiveRecord::Migration[5.2]
   def change
     create_table :compositions do |t|
-      t.string :speciesCode
+      t.string :species_code
       t.float :percentage
-      t.float :meanLength
-      t.string :echogramName
+      t.float :mean_length
+      t.string :echogram_name
 
       t.timestamps
     end

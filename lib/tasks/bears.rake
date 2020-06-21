@@ -18,17 +18,17 @@ hauls_import = Proc.new{
                 puts "Imported row #{count_row}"
                 #import data from csv file
                 Haul.create!(
-                  echogramName: row[0],
-                  fishDate: row[1].to_date,
-                  strtFishTime: row[2],
-                  stpFishTime: row[3],
-                  strtFishLat: row[4].to_f,
-                  stpFishLat: row[5].to_f,
-                  strtFishLong: row[6].to_f,
-                  stpFishLong: row[7].to_f,
-                  strtFishDepth: row[8].to_f,
-                  stpFishDepth: row[9].to_f,
-                  bottomDepth: row[10].to_f
+                  echogram_name:     row[0],
+                  fish_date:         row[1].to_date,
+                  strt_fish_time:    row[2],
+                  stp_fish_time:     row[3],
+                  strt_fish_lat:     row[4].to_f,
+                  stp_fish_lat:      row[5].to_f,
+                  strt_fish_long:    row[6].to_f,
+                  stp_fish_long:     row[7].to_f,
+                  strt_fish_depth:   row[8].to_f,
+                  stp_fish_depth:    row[9].to_f,
+                  bottom_depth:      row[10].to_f
                 )
                end
   puts "============ENDS============="
@@ -45,11 +45,11 @@ species_import = Proc.new{
                 puts "Imported row #{count_row}"
                 #import data from csv file
                 Species.create!(
-                  speciesCode: row[0].to_s,
-                  scientificName: row[1],
-                  englishName: row[2],
-                  frenchName: row[3],
-                  spanishName: row[4]
+                  species_code:        row[0].to_s,
+                  scientific_name:     row[1],
+                  english_name:        row[2],
+                  french_name:         row[3],
+                  spanish_name:        row[4]
                 )
                end
   puts "============ENDS============="

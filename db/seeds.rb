@@ -15,7 +15,7 @@ generate_Admin = Proc.new{
 generate_users = Proc.new{
   10.times do |n|
     name  = Faker::Name.name
-    email = "example-#{n+1}@echo.com"
+    email = "example-#{n+1}@echogram.com"
     phone = Faker::PhoneNumber.cell_phone.to_s
     password = "password"
     User.create!(name:  name,
@@ -30,20 +30,20 @@ generate_users = Proc.new{
 generate_echogram = Proc.new{
   users = []
   user_record = User.all
-  user_record.each do |i|
-    users << i.id.to_i
+  user_record.each do |item|
+    users << item.id.to_i
   end  
   users.delete_at(0)
   user_num = users.length
   counts = 0
 
   haul_record = Haul.all
-  haul_record.each do |i|
-    name = i.echogramName.to_s
-    fdate = i.fishDate
-    ftime = i.strtFishTime.to_s
-    latitude = ((i.strtFishLat + i.stpFishLat)/2).round(5)
-    longitude = ((i.strtFishLong + i.stpFishLong)/2).round(5)
+  haul_record.each do |item|
+    name = item.echogram_name.to_s
+    fdate = item.fish_date
+    ftime = item.strt_fish_time.to_s
+    latitude = ((item.strt_fish_lat + item.stp_fish_lat)/2).round(5)
+    longitude = ((item.strt_fish_long + item.stp_fish_long)/2).round(5)
     freq = 38
     userid = users[counts%user_num]
     counts += 1
@@ -58,13 +58,13 @@ generate_echogram = Proc.new{
     puts
 
     Echogram.create!( 
-      echogramName: name,
-      recordDate: fdate,
-      recordTime: ftime,
-      latitude: latitude,
-      longitude: longitude,
-      frequency: freq,
-      user_id: userid
+      echogram_name:      name,
+      record_date:        fdate,
+      record_time:        ftime,
+      latitude:           latitude,
+      longitude:          longitude,
+      frequency:          freq,
+      user_id:            userid
     )
   end
 
@@ -72,19 +72,20 @@ generate_echogram = Proc.new{
 
 
 # Genarate species composition
-generate_species_composition = Proc.new{
+generate_composition = Proc.new{
 
     name = []
     gram = Echogram.all
-    gram.each do |i|
-      name << i.echogramName.to_s
+    gram.each do |item|
+      name << item.echogram_name.to_s
     end
+
 
     name.each{|item|
               speciesNo = []
               record = Species.all
-              record.each do |i|
-                speciesNo << i.speciesCode.to_s
+              record.each do |r|
+                speciesNo << r.species_code.to_s
               end
               index1 = rand(40)
               code1 = speciesNo[index1]
@@ -94,6 +95,7 @@ generate_species_composition = Proc.new{
               speciesNo.delete_at(index2)
               index3 = rand(38)
               code3 = speciesNo[index3]
+
               
               p0 = 100
 
@@ -105,8 +107,13 @@ generate_species_composition = Proc.new{
               p33 = 99 - p31 - p32
 
               length = rand(10) + 10
-              echogramName = item
+              echogram_name = item
               speciesAmount = rand(3) + 1
+
+              puts "======================"
+              puts speciesAmount
+
+
               case speciesAmount
                 when 1
                   print item.to_s + " "
@@ -116,10 +123,10 @@ generate_species_composition = Proc.new{
                   puts " "
 
                   Composition.create!(
-                    speciesCode: code1,
-                    percentage: p0,
-                    meanLength: length,
-                    echogramName: item
+                    species_code:       code1,
+                    percentage:         p0,
+                    mean_length:        length,
+                    echogram_name:      item
                   )
 
                 when 2 
@@ -130,10 +137,10 @@ generate_species_composition = Proc.new{
                   puts " "
 
                   Composition.create!(
-                    speciesCode: code1,
-                    percentage: p21,
-                    meanLength: length,
-                    echogramName: item
+                    species_code:       code1,
+                    percentage:         p21,
+                    mean_length:        length,
+                    echogram_name:      item
                     )
 
                   print item.to_s + " "
@@ -143,10 +150,10 @@ generate_species_composition = Proc.new{
                   puts " "
 
                   Composition.create!(
-                    speciesCode: code2,
-                    percentage: p22,
-                    meanLength: length,
-                    echogramName: item
+                    species_code:      code2,
+                    percentage:        p22,
+                    mean_length:       length,
+                    echogram_name:     item
                     )
                 when 3
                   print item.to_s + " "
@@ -156,10 +163,10 @@ generate_species_composition = Proc.new{
                   puts " "
 
                   Composition.create!(
-                    speciesCode: code1,
-                    percentage: p31,
-                    meanLength: length,
-                    echogramName: item
+                    species_code:      code1,
+                    percentage:        p31,
+                    mean_length:       length,
+                    echogram_name:     item
                   )
 
                   print item.to_s + " "
@@ -169,10 +176,10 @@ generate_species_composition = Proc.new{
                   puts " "
 
                   Composition.create!(
-                    speciesCode: code2,
-                    percentage: p32,
-                    meanLength: length,
-                    echogramName: item
+                    species_code:      code2,
+                    percentage:        p32,
+                    mean_length:       length,
+                    echogram_name:     item
                   )
                   print item.to_s + " "
                   print code3.to_s + " "
@@ -180,10 +187,10 @@ generate_species_composition = Proc.new{
                   print length.to_s + " "
                   puts " "
                   Composition.create!(
-                    speciesCode: code3,
-                    percentage: p33,
-                    meanLength: length,
-                    echogramName: item
+                    species_code:       code3,
+                    percentage:         p33,
+                    mean_length:        length,
+                    echogram_name:      item
                   )
                 else 
                   puts "error"
@@ -198,8 +205,19 @@ generate_species_composition = Proc.new{
 #the work truely begins from here
 #mind that the order of the codes below matters
 
-generate_Admin.call
-generate_users.call
-generate_echogram.call
-generate_species_composition.call
+=begin
+    User.destroy_all
+    Echogram.destroy_all
+    Composition.destroy_all
 
+    generate_Admin.call
+    generate_users.call
+    generate_echogram.call
+    generate_composition.call
+=end
+
+SELECT * pg_terminate_backend(pid)
+FROM pg_stat_activity 
+WHERE pid <> pg_backend_pid()
+AND datname = 'echo'
+  

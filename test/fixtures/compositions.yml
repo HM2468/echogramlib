@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  speciesCode: MyString
+  species_code: MyString
   percentage: 1.5
-  meanLength: 1.5
-  echogramName: MyString
+  mean_length: 1.5
+  echogram_name: MyString
 
 two:
-  speciesCode: MyString
+  species_code: MyString
   percentage: 1.5
-  meanLength: 1.5
-  echogramName: MyString
+  mean_length: 1.5
+  echogram_name: MyString
