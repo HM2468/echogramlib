@@ -1,0 +1,27 @@
+<h1> querygram page </h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Echogram</th>
+      <th>RecordDate</th>
+      <th>Uploder</th>
+      <th>SpeciesDetails</th>
+      <th colspan="10"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @display.each do |item| %>
+      <tr>
+        <td>
+            <% name = "/images/" + item["echogram_name"].to_s %>
+            <%= image_tag(name, options = {size: "200x150"})%>           
+        </td>
+        <td><%= item["record_date"] %></td>
+        <td><%= item["name"] %></td>
+        <td><%= "SpeciesCompositions" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

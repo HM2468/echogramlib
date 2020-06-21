@@ -205,7 +205,7 @@ generate_composition = Proc.new{
 #the work truely begins from here
 #mind that the order of the codes below matters
 
-
+=begin
     User.destroy_all
     Echogram.destroy_all
     Composition.destroy_all
@@ -214,5 +214,33 @@ generate_composition = Proc.new{
     generate_users.call
     generate_echogram.call
     generate_composition.call
+=end
+
+column1 = "echograms.echogram_name"
+column2 = "echograms.record_date"
+column3 = "users.name"
+
+sql = "SELECT #{column1},#{column2},#{column3}
+       FROM Echograms INNER JOIN Users ON Echograms.user_id = Users.id"
+#sql = "SELECT echogramName FROM public.echograms"
+#sql = "SELECT * FROM public.echograms WHERE 1 = 0"
+test =  ActiveRecord::Base.connection.exec_query(sql)
+test1 =  ActiveRecord::Base.connection.execute(sql)
+test2 = Echogram.all
+
+puts test.class
+puts test1.class
+puts test2.class
+
+CREATE VIEW my_complex_view AS (sql)
+
+display = MyComplexQuery.all
+
+puts display.class
+
+#test.each do |r|
+#  puts r
+#  puts "====================="
+#end
 
   

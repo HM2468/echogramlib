@@ -1,5 +1,6 @@
 class User < ApplicationRecord
 
+    has_many  :echograms
 
     before_save   :downcase_email
     validates :name,  presence: true, length: { maximum: 50 }
