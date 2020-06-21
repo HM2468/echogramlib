@@ -216,12 +216,11 @@ generate_composition = Proc.new{
     generate_composition.call
 =end
 
-column1 = "echograms.echogram_name"
-column2 = "echograms.record_date"
-column3 = "users.name"
 
-sql = "SELECT #{column1},#{column2},#{column3}
-       FROM Echograms INNER JOIN Users ON Echograms.user_id = Users.id"
+
+sql = "SELECT echograms.echogram_name,echograms.record_date,users.name
+       FROM Echograms INNER JOIN Users ON Echograms.user_id = Users.id
+       ORDER BY users.name"
 #sql = "SELECT echogramName FROM public.echograms"
 #sql = "SELECT * FROM public.echograms WHERE 1 = 0"
 test =  ActiveRecord::Base.connection.exec_query(sql)
@@ -232,15 +231,15 @@ puts test.class
 puts test1.class
 puts test2.class
 
-CREATE VIEW my_complex_view AS (sql)
+puts "==================================="
 
-display = MyComplexQuery.all
+display = MyQuery.all
 
 puts display.class
 
-#test.each do |r|
-#  puts r
-#  puts "====================="
-#end
+display.each do |r|
+  puts r.inspect
+  puts "====================="
+end
 
   

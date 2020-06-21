@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_21_000509) do
+ActiveRecord::Schema.define(version: 2020_06_21_205227) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,8 +24,8 @@ ActiveRecord::Schema.define(version: 2020_06_21_000509) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "echograms", force: :cascade do |t|
-    t.string "echogram_name"
+  create_table "echograms", primary_key: "echogram_name", id: :string, force: :cascade do |t|
+    t.bigserial "id", null: false
     t.date "record_date"
     t.string "record_time"
     t.float "latitude"
@@ -53,8 +53,8 @@ ActiveRecord::Schema.define(version: 2020_06_21_000509) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "species", force: :cascade do |t|
-    t.string "species_code"
+  create_table "species", primary_key: "species_code", id: :string, force: :cascade do |t|
+    t.bigserial "id", null: false
     t.string "scientific_name"
     t.string "english_name"
     t.string "french_name"
@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 2020_06_21_000509) do
 
   create_table "users", force: :cascade do |t|
     t.string "name"
-    t.string "email"
+    t.string "email", null: false
     t.string "phone"
     t.string "password"
     t.string "password_digest"
@@ -74,4 +74,25 @@ ActiveRecord::Schema.define(version: 2020_06_21_000509) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "compositions", "echograms", column: "echogram_name", primary_key: "echogram_name", name: "fky2"
+  add_foreign_key "compositions", "species", column: "species_code", primary_key: "species_code", name: "fkey1"
+  add_foreign_key "echograms", "users", name: "echograms_fkey"
+  add_foreign_key "hauls", "echograms", column: "echogram_name", primary_key: "echogram_name", name: "hauls_fkey"
+
+  create_view "my_complex_views", sql_definition: <<-SQL
+      SELECT echograms.echogram_name,
+      echograms.record_date,
+      users.name
+     FROM (echograms
+       JOIN users ON ((echograms.user_id = users.id)))
+    ORDER BY users.name;
+  SQL
+  create_view "my_queries", sql_definition: <<-SQL
+      SELECT echograms.echogram_name,
+      echograms.record_date,
+      users.name
+     FROM (echograms
+       JOIN users ON ((echograms.user_id = users.id)))
+    ORDER BY users.name;
+  SQL
 end

@@ -1,5 +1,5 @@
 <h1> querygram page </h1>
-
+<%= will_paginate @display%>
 <table>
   <thead>
     <tr>
@@ -15,13 +15,15 @@
     <% @display.each do |item| %>
       <tr>
         <td>
-            <% name = "/images/" + item["echogram_name"].to_s %>
+            <% name = "/images/" + item.echogram_name.to_s %>
             <%= image_tag(name, options = {size: "200x150"})%>           
         </td>
-        <td><%= item["record_date"] %></td>
-        <td><%= item["name"] %></td>
+        <td><%= item.record_date %></td>
+        <td><%= item.name %></td>
         <td><%= "SpeciesCompositions" %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<%= will_paginate @display%>
