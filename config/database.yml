@@ -3,7 +3,7 @@ development:
   host: localhost
   adapter: postgresql
   encoding: unicode
-  database: test0
+  database: echogramlib
   username: postgres
   password: miao
   pool: 5
@@ -14,7 +14,7 @@ test:
   host: localhost
   adapter: postgresql
   encoding: unicode
-  database: test0
+  database: echogramlib
   username: postgres
   password: miao
   pool: 5
@@ -24,7 +24,7 @@ production:
   host: ec2-18-210-51-239.compute-1.amazonaws.com
   adapter: postgresql
   encoding: unicode
-  database: test0
+  database: echogramlib
   username: postgres
   password: miao
   pool: 5

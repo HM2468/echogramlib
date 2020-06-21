@@ -205,7 +205,7 @@ generate_composition = Proc.new{
 #the work truely begins from here
 #mind that the order of the codes below matters
 
-=begin
+
     User.destroy_all
     Echogram.destroy_all
     Composition.destroy_all
@@ -214,10 +214,5 @@ generate_composition = Proc.new{
     generate_users.call
     generate_echogram.call
     generate_composition.call
-=end
 
-SELECT * pg_terminate_backend(pid)
-FROM pg_stat_activity 
-WHERE pid <> pg_backend_pid()
-AND datname = 'echo'
   
