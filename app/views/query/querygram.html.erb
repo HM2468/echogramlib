@@ -1,5 +1,5 @@
 <h3> querygram page </h3>
-<%= will_paginate @display%>
+
 <div class="table-responsive">
   <table class="table table-hover">
     <thead>
@@ -24,7 +24,16 @@
           </td>
           <td> <%= item.record_date %> </td>
           <td> <%= item.name %> </td>
-          <td> <%= @h["#{item.echogram_name.to_s }"] %> </td>
+
+          <td> 
+            <% temp = @h["#{item.echogram_name.to_s }"].to_s %> 
+            <% arr = [] %> 
+            <% arr = temp.split(",").map { |s| s.to_s } %> 
+            <% arr.each do |r| %> 
+              <%= r %> <br><br>
+            <% end %>      
+          </td>
+
           <td> longitude </td>
           <td> latitude </td>
           <td> <%= "Details" %> </td>
