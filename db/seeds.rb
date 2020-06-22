@@ -221,25 +221,65 @@ generate_composition = Proc.new{
 sql = "SELECT echograms.echogram_name,echograms.record_date,users.name
        FROM Echograms INNER JOIN Users ON Echograms.user_id = Users.id
        ORDER BY users.name"
-#sql = "SELECT echogramName FROM public.echograms"
-#sql = "SELECT * FROM public.echograms WHERE 1 = 0"
+
+sql = "SELECT echograms.echogram_name,echograms.record_date,users.name,species.english_name
+       FROM Users INNER JOIN echograms ON echograms.user_id = users.id 
+       INNER JOIN compositions ON echograms.echogram_name = compositions.echogram_name
+       INNER JOIN species ON compositions.species_code = species.species_code 
+       ORDER BY users.name"
+
+
+sql = "SELECT echograms.echogram_name,echograms.record_date,users.name,species.english_name
+       FROM Users INNER JOIN echograms ON echograms.user_id = users.id 
+       INNER JOIN compositions ON echograms.echogram_name = compositions.echogram_name
+       INNER JOIN species ON compositions.species_code = species.species_code 
+       ORDER BY users.name"
+
+
+
+##############################################       #
+##############################################
+
+#
+       
 test =  ActiveRecord::Base.connection.exec_query(sql)
-test1 =  ActiveRecord::Base.connection.execute(sql)
-test2 = Echogram.all
 
-puts test.class
-puts test1.class
-puts test2.class
 
-puts "==================================="
 
-display = MyQuery.all
+#display = MyQuery.all
+##puts display.class
 
-puts display.class
 
-display.each do |r|
-  puts r.inspect
-  puts "====================="
+sql1 = "SELECT echograms.echogram_name AS gram ,species.scientific_name as species
+        FROM echograms INNER JOIN compositions ON echograms.echogram_name = compositions.echogram_name
+        INNER JOIN species ON compositions.species_code = species.species_code 
+        ORDER BY echograms.echogram_name"
+gram_species =  ActiveRecord::Base.connection.exec_query(sql1)
+
+#create and initialize a hash
+#hash key is echogram_name
+#initial hash value is 0
+@h = Hash.new
+gramname = Echogram.all
+gramname.each do |r|
+  temp = r.echogram_name.to_s
+  @h["#{temp}"] = "0"
 end
 
-  
+#assign species name to hash value
+gram_species.each do |r|
+  #get echogram_name as hash key
+  gram = r['gram'].to_s
+  #get species name as hash value
+  species = r['species'].to_s
+  if @h["#{gram}"] == "0"
+    @h["#{gram}"] = "#{species}"
+  else
+    @h["#{gram}"] += ",#{species}"
+  end
+end
+
+@h.each do |r|
+  puts r.inspect
+end
+
