@@ -1,45 +1,31 @@
 <h3> querygram page </h3>
 
-<div class="table-responsive">
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>Echogram Image</th>
-        <th>Record Date</th>
-        <th>Uploader</th>
-        <th>Species</th>
-        <th>Longitude</th>
-        <th>Latitude</th>
-        <th>More Info</th>
-        <th colspan="10"></th>
-      </tr>
-    </thead>
+<%= form_tag( {}, {method: "get"}) do %>
+  <%= label_tag "Year" %>
+  <%= select_tag "year", options_for_select(@all_year) %>
+  <%= submit_tag("Search") %>
+<% end %>
 
-    <tbody>
-      <% @display.each do |item| %>
-        <tr>
-          <td>
-              <% name = "/images/" + item.echogram_name.to_s %>
-              <%= image_tag(name, options = {size: "200x150"})%>           
-          </td>
-          <td> <%= item.record_date %> </td>
-          <td> <%= item.name %> </td>
+<%= form_tag( {}, {method: "get"}) do %>
+  <%= label_tag "Uploader" %>
+  <%= select_tag "uploader", options_for_select(@all_uploader) %>
+  <%= submit_tag("Search") %>
+<% end %>
 
-          <td> 
-            <% temp = @h["#{item.echogram_name.to_s }"].to_s %> 
-            <% arr = [] %> 
-            <% arr = temp.split(",").map { |s| s.to_s } %> 
-            <% arr.each do |r| %> 
-              <%= r %> <br><br>
-            <% end %>      
-          </td>
+<%= form_tag( {}, {method: "get"}) do %>
+  <%= label_tag "Species" %>
+  <%= select_tag "species", options_for_select(@all_species) %>
+  <%= submit_tag("Search") %>
+<% end %>
 
-          <td> longitude </td>
-          <td> latitude </td>
-          <td> <%= "Details" %> </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
-<%= will_paginate @display%>
+
+
+<% if  params[:year] %>
+    <%= render "by_year" %>
+<% elsif  params[:uploader] %>
+    <%= render "by_uploader" %>
+<% elsif  params[:species] %>
+    <%= render "by_species" %>
+<% else %>
+    <%= render "all_records" %>
+<%end%>

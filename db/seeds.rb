@@ -200,6 +200,27 @@ generate_composition = Proc.new{
 
 }
 
+#generate fish speed
+
+generate_fish_speed = Proc.new{
+  count = 0
+  haulid = []
+  haulsrecord = Haul.all
+  haulsrecord.each do |item|
+    haulid << item.id.to_s
+  end
+
+  haulid.each do |item|
+    haul = Haul.find_by(id: item)
+    puts haul.inspect
+    haul.update(fish_speed: '5')
+    count += 1
+    puts "==============updated haul #{count}================"
+  end
+
+}
+
+
 
 #==============================================
 #the work truely begins from here
@@ -214,7 +235,7 @@ generate_composition = Proc.new{
     generate_users.call
     generate_echogram.call
     generate_composition.call
-=end
+    generate_fish_speed.call
 
 
 
@@ -222,10 +243,13 @@ sql = "SELECT echograms.echogram_name,echograms.record_date,users.name
        FROM Echograms INNER JOIN Users ON Echograms.user_id = Users.id
        ORDER BY users.name"
 
-sql = "SELECT echograms.echogram_name,echograms.record_date,users.name,species.english_name
-       FROM Users INNER JOIN echograms ON echograms.user_id = users.id 
-       INNER JOIN compositions ON echograms.echogram_name = compositions.echogram_name
-       INNER JOIN species ON compositions.species_code = species.species_code 
+sql = "SELECT echograms.echogram_name AS gramname,echograms.record_date AS date,
+              echograms.record_time AS time, echograms.latitude AS lat,
+              echograms.longitude AS long, echograms.frequency AS freq,
+              echograms.user_id AS userid, users.name AS username,
+              hauls.fish_speed AS speed
+       FROM users INNER JOIN echograms ON echograms.user_id = users.id 
+       INNER JOIN hauls ON echograms.echogram_name = hauls.echogram_name
        ORDER BY users.name"
 
 
@@ -234,10 +258,38 @@ sql = "SELECT echograms.echogram_name,echograms.record_date,users.name,species.e
 test =  ActiveRecord::Base.connection.exec_query(sql)
 
 
-
-#display = MyQuery.all
-##puts display.class
+test = MyQuery.all
 
 
+puts test.class 
+count = 0
+test.each do |item|
+  puts item.inspect
+  count += 1
+  puts "================#{count}==================="
+end
+
+=end
 
 
+sql = "SELECT my_queries.gramname,species.species_code AS fishcode,
+              species.scientific_name AS sciname, species.english_name AS englishname,
+              compositions.percentage AS percent, compositions.mean_length AS length,
+              my_queries.date,my_queries.time,my_queries.lat,my_queries.long,
+              my_queries.freq,my_queries.userid,my_queries.username,my_queries.speed
+       FROM my_queries INNER JOIN compositions ON my_queries.gramname = compositions.echogram_name 
+       INNER JOIN species ON compositions.species_code = species.species_code
+       ORDER BY species.species_code"
+#
+       
+test =  ActiveRecord::Base.connection.exec_query(sql)
+
+test = FishKind.all
+
+puts test.class 
+count = 0
+test.each do |item|
+  puts item.inspect
+  count += 1
+  puts "================#{count}==================="
+end

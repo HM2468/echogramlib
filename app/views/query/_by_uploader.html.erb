@@ -1,0 +1,44 @@
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Echogram Image</th>
+        <th>Record Date</th>
+        <th>Uploader</th>
+        <th>Species</th>
+        <th>Longitude</th>
+        <th>Latitude</th>
+        <th>More Info</th>
+        <th colspan="10"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @by_uploader.each do |item| %>
+        <tr>
+          <td>
+              <% name = "/images/" + item.gramname.to_s %>
+              <%= image_tag(name, options = {size: "200x150"})%>           
+          </td>
+          
+          <td> <%= item.date %> </td>
+          <td> <%= item.username %> </td>
+
+          <td> 
+            <% temp = @h["#{item.gramname.to_s }"].to_s %> 
+            <% arr = [] %> 
+            <% arr = temp.split(",").map { |s| s.to_s } %> 
+            <% arr.each do |r| %> 
+              <%= r %> <br><br>
+            <% end %>      
+          </td>
+
+          <td> <%= item.long %> </td>
+          <td> <%= item.lat %> </td>
+          <td> <%= "Details" %> </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= will_paginate @by_uploader%>
