@@ -28,7 +28,6 @@ gem 'sass-rails',                      '5.1.0'
 gem 'bootsnap',                   '1.4.5', require: false
 
 group :development, :test do
-
   gem 'byebug',  '11.0.1', platforms: [:mri, :mingw, :x64_mingw]
 end
 

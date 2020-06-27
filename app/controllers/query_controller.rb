@@ -73,7 +73,11 @@ class QueryController < ApplicationController
         chosen_uploader = params[:uploader]
 
         #further select value
-        @by_year = MyQuery.all.where("extract(year from date) = ?",chosen_year).paginate(page: params[:page],per_page: 10)
+        if chosen_year == "————"
+            @by_year = MyQuery.all.where("extract(year from date) = ?","1800").paginate(page: params[:page],per_page: 10)
+        else   
+            @by_year = MyQuery.all.where("extract(year from date) = ?",chosen_year).paginate(page: params[:page],per_page: 10)
+        end
         @by_uploader = MyQuery.all.where(username: chosen_uploader).paginate(page: params[:page],per_page: 10)
         @by_species =  FishKind.all.where(sciname: chosen_species).paginate(page: params[:page],per_page: 10)
 
