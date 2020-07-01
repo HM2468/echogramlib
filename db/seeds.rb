@@ -26,199 +26,7 @@ generate_users = Proc.new{
   end
 }
 
-# Genarate echogram information
-generate_echogram = Proc.new{
-  users = []
-  user_record = User.all
-  user_record.each do |item|
-    users << item.id.to_i
-  end  
-  users.delete_at(0)
-  user_num = users.length
-  counts = 0
 
-  haul_record = Haul.all
-  haul_record.each do |item|
-    name = item.echogram_name.to_s
-    fdate = item.fish_date
-    ftime = item.strt_fish_time.to_s
-    latitude = ((item.strt_fish_lat + item.stp_fish_lat)/2).round(5)
-    longitude = ((item.strt_fish_long + item.stp_fish_long)/2).round(5)
-    freq = 38
-    userid = users[counts%user_num]
-    counts += 1
-    #=============puts status===========
-    print  name.to_s + " "
-    print  fdate.to_s + " "
-    print  ftime.to_s + " "
-    print  latitude.to_s + " "
-    print  longitude.to_s + " "
-    print  freq.to_s + " "
-    print  userid.to_s + " "
-    puts
-
-    Echogram.create!( 
-      echogram_name:      name,
-      record_date:        fdate,
-      record_time:        ftime,
-      latitude:           latitude,
-      longitude:          longitude,
-      frequency:          freq,
-      user_id:            userid
-    )
-  end
-
-}
-
-
-# Genarate species composition
-generate_composition = Proc.new{
-
-    name = []
-    gram = Echogram.all
-    gram.each do |item|
-      name << item.echogram_name.to_s
-    end
-
-
-    name.each{|item|
-              speciesNo = []
-              record = Species.all
-              record.each do |r|
-                speciesNo << r.species_code.to_s
-              end
-              index1 = rand(40)
-              code1 = speciesNo[index1]
-              speciesNo.delete_at(index1)
-              index2 = rand(39)
-              code2 = speciesNo[index2]
-              speciesNo.delete_at(index2)
-              index3 = rand(38)
-              code3 = speciesNo[index3]
-
-              
-              p0 = 100
-
-              p21 = rand(100)
-              p22 = 100 - p21
-
-              p31 = rand(49)
-              p32 = rand(49)
-              p33 = 99 - p31 - p32
-
-              length = rand(10) + 10
-              echogram_name = item
-              speciesAmount = rand(3) + 1
-
-              puts "======================"
-              puts speciesAmount
-
-
-              case speciesAmount
-                when 1
-                  print item.to_s + " "
-                  print code1.to_s + " "
-                  print p0.to_s + " "
-                  print length.to_s + " "
-                  puts " "
-
-                  Composition.create!(
-                    species_code:       code1,
-                    percentage:         p0,
-                    mean_length:        length,
-                    echogram_name:      item
-                  )
-
-                when 2 
-                  print item.to_s + " "
-                  print code1.to_s + " "
-                  print p21.to_s + " "
-                  print length.to_s + " "
-                  puts " "
-
-                  Composition.create!(
-                    species_code:       code1,
-                    percentage:         p21,
-                    mean_length:        length,
-                    echogram_name:      item
-                    )
-
-                  print item.to_s + " "
-                  print code2.to_s + " "
-                  print p22.to_s + " "
-                  print length.to_s + " "
-                  puts " "
-
-                  Composition.create!(
-                    species_code:      code2,
-                    percentage:        p22,
-                    mean_length:       length,
-                    echogram_name:     item
-                    )
-                when 3
-                  print item.to_s + " "
-                  print code1.to_s + " "
-                  print p31.to_s + " "
-                  print length.to_s + " "
-                  puts " "
-
-                  Composition.create!(
-                    species_code:      code1,
-                    percentage:        p31,
-                    mean_length:       length,
-                    echogram_name:     item
-                  )
-
-                  print item.to_s + " "
-                  print code2.to_s + " "
-                  print p32.to_s + " "
-                  print length.to_s + " "
-                  puts " "
-
-                  Composition.create!(
-                    species_code:      code2,
-                    percentage:        p32,
-                    mean_length:       length,
-                    echogram_name:     item
-                  )
-                  print item.to_s + " "
-                  print code3.to_s + " "
-                  print p33.to_s + " "
-                  print length.to_s + " "
-                  puts " "
-                  Composition.create!(
-                    species_code:       code3,
-                    percentage:         p33,
-                    mean_length:        length,
-                    echogram_name:      item
-                  )
-                else 
-                  puts "error"
-              end
-    }
-
-
-}
-
-#generate fish speed
-
-generate_fish_speed = Proc.new{
-  count = 0
-  haulid = []
-  haulsrecord = Haul.all
-  haulsrecord.each do |item|
-    haulid << item.id.to_s
-  end
-
-  haulid.each do |item|
-    haul = Haul.find_by(id: item)
-    puts haul.inspect
-    haul.update(fish_speed: '5')
-    count += 1
-    puts "==============updated haul #{count}================"
-  end
-
-}
 
 
 
@@ -272,19 +80,15 @@ end
 =end
 
 
-sql = "SELECT my_queries.gramname,species.species_code AS fishcode,
-              species.scientific_name AS sciname, species.english_name AS englishname,
-              compositions.percentage AS percent, compositions.mean_length AS length,
-              my_queries.date,my_queries.time,my_queries.lat,my_queries.long,
-              my_queries.freq,my_queries.userid,my_queries.username,my_queries.speed
-       FROM my_queries INNER JOIN compositions ON my_queries.gramname = compositions.echogram_name 
-       INNER JOIN species ON compositions.species_code = species.species_code
-       ORDER BY species.species_code"
+sql = "SELECT echograms.echogram_name AS gramname,echograms.latitude AS lat,
+              echograms.longitude AS long,hauls.fish_date AS date
+       FROM echograms INNER JOIN hauls ON echograms.echogram_name = hauls.echogram_name 
+       ORDER BY echograms.echogram_name"
 #
        
 test =  ActiveRecord::Base.connection.exec_query(sql)
 
-test = FishKind.all
+#test = MyQuery.all
 
 puts test.class 
 count = 0

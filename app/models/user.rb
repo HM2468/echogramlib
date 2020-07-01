@@ -1,7 +1,5 @@
 class User < ApplicationRecord
 
-    has_many  :echograms
-
     before_save   :downcase_email
     validates :name,  presence: true, length: { maximum: 50 }
     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -11,12 +9,7 @@ class User < ApplicationRecord
     has_secure_password
     validates :password, presence: true, length: { minimum: 8 }, allow_nil: true
 
-    has_secure_password
-
-
-
-
-    
+    has_secure_password  
 
     # Converts email to all lower-case.
     def downcase_email

@@ -3,8 +3,10 @@
 #run in rails app with $ rake bears:importdata
 
 
-file_hauls = "lib/assets/haul.csv"
+file_hauls   = "lib/assets/haul.csv"
 file_species = "lib/assets/species.csv"
+file_compositions = "lib/assets/compositions.csv"
+file_echograms = "lib/assets/echograms.csv"
 
 
 #hauls import
@@ -15,7 +17,7 @@ hauls_import = Proc.new{
               skip_blanks: true,
               skip_lines: /^(?:,\s*)+$/) do |row|
                 count_row += 1
-                puts "Imported row #{count_row}"
+                puts "Imported hauls row #{count_row}"
                 #import data from csv file
                 Haul.create!(
                   echogram_name:     row[0],
@@ -42,19 +44,60 @@ species_import = Proc.new{
               skip_blanks: true,
               skip_lines: /^(?:,\s*)+$/) do |row|
                 count_row += 1
-                puts "Imported row #{count_row}"
+                puts "Imported species row #{count_row}"
                 #import data from csv file
                 Species.create!(
                   species_code:        row[0].to_s,
-                  scientific_name:     row[1],
-                  english_name:        row[2],
-                  french_name:         row[3],
-                  spanish_name:        row[4]
+                  scientific_name:     row[1].to_s,
+                  english_name:        row[2].to_s,
+                  image_filename:      row[3].to_s
                 )
                end
   puts "============ENDS============="
 }
 
+
+#echograms import
+echograms_import = Proc.new{
+  count_row = 0  
+  CSV.foreach(file_echograms,
+              headers: true,
+              skip_blanks: true,
+              skip_lines: /^(?:,\s*)+$/) do |row|
+                count_row += 1
+                puts "Imported echograms row #{count_row}"
+                #import data from csv file
+                Echogram.create!(
+                  echogram_name:        row[0].to_s,
+                  frequency:            row[1].to_i,
+                  user_id:              row[2].to_i,
+                  latitude:             row[3].to_f,
+                  longitude:            row[4].to_f
+                )
+               end
+  puts "============ENDS============="
+}
+
+#compositions import
+comopositions_import = Proc.new{
+  count_row = 0  
+  CSV.foreach(file_compositions,
+              headers: true,
+              skip_blanks: true,
+              skip_lines: /^(?:,\s*)+$/) do |row|
+                count_row += 1
+                puts "Imported compositions row #{count_row}"
+                #import data from csv file
+                Composition.create!(
+                  echogram_name:        row[0].to_s,
+                  species_code:         row[1].to_s,
+                  n_individuals:        row[2].to_i,
+                  percentage:           row[3].to_f,
+                  mean_length:          row[4].to_f
+                )
+               end
+  puts "============ENDS============="
+}
 
 #data import from here
 require 'csv'
@@ -63,11 +106,15 @@ namespace :bears do
   desc "Import data from goods.csv"
   task importdata: :environment do
 
-    Haul.destroy_all
+    Composition.destroy_all
     Species.destroy_all
+    Haul.destroy_all
+    Echogram.destroy_all
 
+    echograms_import.call
     hauls_import.call
     species_import.call
+    comopositions_import.call
 
   end
 end

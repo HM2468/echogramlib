@@ -1,43 +1,5 @@
 <h3> querygram page </h3>
 
 
-<div class = "container">
-    <div class = "row">
 
-      <div class="col-xs-6">
-        <%= form_tag( {}, {method: "get"}) do %>
-            <%= label_tag "Year" %>
-            <%= select_tag "year", options_for_select(@all_year) %>
-            <%= submit_tag("Search") %>
-        <% end %>
-      </div>
-
-      <div class="col-xs-6">
-        <%= form_tag( {}, {method: "get"}) do %>
-          <%= label_tag "Uploader" %>
-          <%= select_tag "uploader", options_for_select(@all_uploader) %>
-          <%= submit_tag("Search") %>
-        <% end %>
-      </div>
-
-      <div class="col-xs-6">     
-          <%= form_tag( {}, {method: "get"}) do %>
-            <%= label_tag "Species" %>
-            <%= select_tag "species", options_for_select(@all_species) %>
-            <%= submit_tag("Search") %>
-          <% end %>
-      </div>
-
-    </div>
-
-</div>
-
-<% if  params[:year] %>
-    <%= render "by_year" %>
-<% elsif  params[:uploader] %>
-    <%= render "by_uploader" %>
-<% elsif  params[:species] %>
-    <%= render "by_species" %>
-<% else %>
     <%= render "all_records" %>
-<%end%>
