@@ -1,0 +1,55 @@
+<h3> Image </h3>
+<%= image_tag(@dir, options = {size: "800x600"})%> 
+<table class="table">
+<thead class="thead-dark">
+  <tr>
+    <th> Image name  </th>  
+    <th> Fish date </th>
+    <th> Longitude name </th>  
+    <th> Latitude </th>
+    <th> Frequency </th>       
+  </tr>
+</thead>
+
+<tbody>
+  <% @gram.each do |item| %>
+    <tr>
+      <td> <%= item.gramname %> </td>
+      <td> <%= item.date %> </td>
+      <td> <%= item.long %> </td>
+      <td> <%= item.lat %> </td>
+      <td> 
+        <% temp = item.gramname.to_s %>
+        <%= temp[-7,3] + " kHz" %>  
+      </td>
+    </tr>
+  <% end %>
+</tbody>
+
+
+
+</table>
+
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th> Species code </th>  
+        <th> Scitific name </th>
+        <th> English name </th>  
+        <th> Percentage </th>
+        <th> Mean length </th>       
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @composition.each do |item| %>
+        <tr>
+          <td> <%= item.scode %> </td>
+          <td> <%= item.sciname %> </td>
+          <td> <%= item.engname %> </td>
+          <td> <%= (item.percent.to_d * 100).to_s + "%" %> </td>
+          <td> <%= item.avglength %> </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>

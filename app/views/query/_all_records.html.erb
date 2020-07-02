@@ -18,7 +18,9 @@
               <%= image_tag(name, options = {size: "200x150"})%>           
           </td>
           <td> <%= item.gramname %> </td>
-          <td> details </td>
+          <td><%= link_to 'details', {:controller => "query",
+                                      :action=>"details",
+                                      :item => item.gramname} %></td>
         </tr>
       <% end %>
     </tbody>

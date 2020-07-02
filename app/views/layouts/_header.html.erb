@@ -6,7 +6,7 @@
               <li><%= link_to "Home",          root_path %></li>
               <li><%= link_to "SignUp",        signup_path %></li>
               <li><%= link_to "Query",         querygram_path %></li>
-              <li><%= link_to "Upload",        uploadgram_path %></li>
+              <li><%= link_to "Upload",        '#' %></li>
               <% if logged_in? %>
                    <% if current_user.admin? %>
                       <li class="dropdown">

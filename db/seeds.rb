@@ -69,17 +69,6 @@ end
 
 
 
-temp = MyComposition.all.where(sciname: "Clupea harengus")
 
-test = temp.where('percent>?',0.1 )
-
-
-
-count = 0
-test.each do |item|
-  puts item.inspect
-  count += 1
-  puts "================#{count}==================="
-end  
 
 

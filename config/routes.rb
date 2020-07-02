@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     get    '/home',         to: 'homepage#home'
     get    '/search',       to: 'homepage#search'
     get    '/querygram',    to: 'query#querygram'
-    get    '/uploadgram',   to: 'query#uploadgram'
+    get    '/details',      to: 'query#details'
     get    '/signup',       to: 'users#new'
     post   '/signup',       to: 'users#create'
     get    '/login',        to: 'sessions#new'
