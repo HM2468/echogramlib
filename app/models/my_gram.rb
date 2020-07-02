@@ -1,4 +1,4 @@
-class FishKind < ApplicationRecord
+class MyGram < ApplicationRecord
     def readonly?
       true
     end

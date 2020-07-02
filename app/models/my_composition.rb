@@ -1,4 +1,4 @@
-class MyQuery < ApplicationRecord
+class MyComposition < ApplicationRecord
     def readonly?
       true
     end

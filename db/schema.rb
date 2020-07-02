@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_01_101130) do
+ActiveRecord::Schema.define(version: 2020_07_01_144529) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,4 +76,26 @@ ActiveRecord::Schema.define(version: 2020_07_01_101130) do
   add_foreign_key "compositions", "species", column: "species_code", primary_key: "species_code", name: "fkey1"
   add_foreign_key "echograms", "users", name: "echograms_fkey"
   add_foreign_key "hauls", "echograms", column: "echogram_name", primary_key: "echogram_name", name: "hauls_fkey"
+
+  create_view "my_grams", sql_definition: <<-SQL
+      SELECT echograms.echogram_name AS gramname,
+      echograms.latitude AS lat,
+      echograms.longitude AS long,
+      hauls.fish_date AS date
+     FROM (echograms
+       JOIN hauls ON (((echograms.echogram_name)::text = (hauls.echogram_name)::text)))
+    ORDER BY echograms.echogram_name;
+  SQL
+  create_view "my_compositions", sql_definition: <<-SQL
+      SELECT echograms.echogram_name AS gramname,
+      species.scientific_name AS sciname,
+      species.english_name AS engname,
+      species.species_code AS scode,
+      compositions.percentage AS percent,
+      compositions.mean_length AS avglength
+     FROM ((echograms
+       JOIN compositions ON (((echograms.echogram_name)::text = (compositions.echogram_name)::text)))
+       JOIN species ON (((compositions.species_code)::text = (species.species_code)::text)))
+    ORDER BY echograms.echogram_name;
+  SQL
 end

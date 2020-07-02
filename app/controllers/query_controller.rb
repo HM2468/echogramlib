@@ -1,104 +1,90 @@
 class QueryController < ApplicationController
     def querygram
 
-        new_gram_species_hash = Proc.new{
-            sql = "SELECT echograms.echogram_name AS gram ,species.scientific_name as species
-                    FROM echograms INNER JOIN compositions ON echograms.echogram_name = compositions.echogram_name
-                    INNER JOIN species ON compositions.species_code = species.species_code 
-                    ORDER BY echograms.echogram_name"
-            gram_species =  ActiveRecord::Base.connection.exec_query(sql)
-
-            #create and initialize a hash
-            #hash key is echogram_name
-            #initial hash value is 0
-            @h = Hash.new
-            gramname = Echogram.all
-            gramname.each do |r|
-                temp = r.echogram_name.to_s
-                @h["#{temp}"] = "0"
-            end
-
-            #assign species name to hash value
-            gram_species.each do |r|
-                #get echogram_name as hash key
-                gram = r['gram'].to_s
-                #get species name as hash value
-                species = r['species'].to_s
-                if @h["#{gram}"] == "0"
-                    @h["#{gram}"] = "#{species}"
-                else
-                    @h["#{gram}"] += ",#{species}"
-                end
-            end
-        }
-
         #enquery database to display on guery page
+        @display = MyGram.paginate(page: params[:page],per_page: 10)
+        @count = @display.count
+        @text_spec = "All #{@count} items in the database."
 
-        @display = MyQuery.paginate(page: params[:page],per_page: 10)
-        @all_species = Species.all
-        new_gram_species_hash.call
 
-        #set the drop list value
-        uploader = []
-        uploadyear = []
-        species  = []
-
-        users = User.all
-        users.each do |item|
-            uploader << item.name
-        end
-
-        species_temp = Species.all
+        species = []
+        species_temp = MyComposition.all
         species_temp.each do |item|
-            species << item.scientific_name
+            species << item.sciname
         end
 
-        year_temp = Echogram.all
-        year_temp.each do |item|
-            uploadyear << item.record_date.year
+        species_uniq = species.uniq
+
+        @species_list = species_uniq.insert(0,"All")
+
+        @percent_list = ["All",">10%",">20%",">30%",">40%",">50%",">60%",
+                         ">70%",">80%",">90%"]
+
+        @avglength_list = ["All",">10cm",">20cm",">30cm",">40cm",">50cm",
+                            ">60cm",">70cm",">80cm",">90cm",">100cm"]
+
+
+        percent_hash = {"All"=>0,">10%"=>0.1,">20%"=>0.2,">30%"=>0.3,">40%"=>0.4,
+                        ">50%"=>0.5,">60%"=>0.6,">70%"=>0.7,">80%"=>0.8,">90%"=>0.9}
+        
+        length_hash = {"All"=>0,">10cm"=>10,">20cm"=>20,">30cm"=>30,">40cm"=>40,">50cm"=>50,
+                          ">60cm"=>60,">70cm"=>70,">80cm"=>80,">90cm"=>90,">100cm"=>100}
+        
+        chosen_species_1 = params[:species_1]
+        chosen_length = params[:avglength]
+
+        chosen_species_2 = params[:species_2]
+        chosen_percent   = params[:percent]
+       
+        if  params[:species_1] && params[:avglength]
+
+                if chosen_species_1 != "All" && chosen_length == "All"
+                    temp = MyComposition.all.where(sciname:chosen_species_1)
+                    @count = temp.count
+                    @display = temp.paginate(page: params[:page],per_page: 10)
+                    @text_spec = "Search by Species = #{chosen_species_1},
+                                #{@count} records found."
+                elsif chosen_species_1 != "All" && chosen_length != "All"
+                    temp = MyComposition.all.where(sciname:chosen_species_1)
+                    temp1 = temp.where('avglength>?',length_hash["#{chosen_length}"])
+                    @count = temp1.count
+                    @display = temp1.paginate(page: params[:page],per_page: 10)
+                    @text_spec = "Species: #{chosen_species_1}, 
+                                  Mean length #{chosen_length},
+                                  #{@count} items found."
+                else
+                    @display
+                    @text_spec
+                    @count
+                end
+
+        elsif params[:species_2] && params[:percent]
+
+                if chosen_species_2 != "All" && chosen_percent == "All"
+                    temp = MyComposition.all.where(sciname:chosen_species_2)
+                    @count = temp.count
+                    @display = temp.paginate(page: params[:page],per_page: 10)
+                    @text_spec = "Search by Species = #{chosen_species_2},
+                                 #{@count} records found."
+                elsif chosen_species_2 != "All" && chosen_percent != "All"
+                    temp = MyComposition.all.where(sciname:chosen_species_2)
+                    temp1 = temp.where('percent>?',percent_hash["#{chosen_percent}"])
+                    @count = temp1.count
+                    @display = temp1.paginate(page: params[:page],per_page: 10)
+                    @text_spec = "Species: #{chosen_species_2}, 
+                                  Percentage #{chosen_percent},
+                                  #{@count} items found."
+                else
+                    @display
+                    @text_spec
+                    @count
+                end
+
+        else
+                @display
+                @text_spec
+                @count
         end
-
-        uploader.delete_at(0)
-        @all_uploader = uploader.uniq
-        @all_species = species.uniq
-        @all_year = uploadyear.uniq
-
-        @all_uploader.insert(0,"————")
-        @all_species.insert(0,"————")
-        @all_year.insert(0,"————")
-
-        #pass value from view to controller
-        chosen_year = params[:year]
-        chosen_species = params[:species]
-        chosen_uploader = params[:uploader]
-
-        #further select value
-        if chosen_year == "————"
-            @by_year = MyQuery.all.where("extract(year from date) = ?","1800").paginate(page: params[:page],per_page: 10)
-        else   
-            @by_year = MyQuery.all.where("extract(year from date) = ?",chosen_year).paginate(page: params[:page],per_page: 10)
-        end
-        @by_uploader = MyQuery.all.where(username: chosen_uploader).paginate(page: params[:page],per_page: 10)
-        @by_species =  FishKind.all.where(sciname: chosen_species).paginate(page: params[:page],per_page: 10)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     end
 

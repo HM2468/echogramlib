@@ -1,5 +1,31 @@
-<h3> querygram page </h3>
+<h3> Query condition </h3>
 
+<div class = "container">
+    <div class = "row">
+      <div class = "col-xs-6">
+        <%= form_tag( {}, {method: "get"}) do %>
+            <%= label_tag "Species:" %>
+            <%= select_tag "species_1", options_for_select(@species_list) %>
+            <%= label_tag "Mean length:" %>
+            <%= select_tag "avglength", options_for_select(@avglength_list) %>
+            <%= submit_tag("Search") %>
+        <% end %>
+      </div>
 
+      <div class = "col-xs-6">
+        <%= form_tag( {}, {method: "get"}) do %>
+            <%= label_tag "Species:" %>
+            <%= select_tag "species_2", options_for_select(@species_list) %>
+            <%= label_tag "Percentage:" %>
+            <%= select_tag "percent", options_for_select(@percent_list) %>
+            <%= submit_tag("Search") %>
+        <% end %>
+      </div>
+    </div> 
+</div>
 
+<h3> <%= @text_spec %> </h3>
+
+<%if @count != 0 %>
     <%= render "all_records" %>
+<% end %>

@@ -3,13 +3,9 @@
     <thead>
       <tr>
         <th>Echogram Image</th>
-        <th>Date</th>       
-        <th>Species</th>
-        <th>Percentage</th>
-        <th>MeanLength</th>
-        <th>Longitude</th>
-        <th>Latitude</th>
-        <th>More Info</th>
+        <th>Echogram Filename</th>  
+        <th>More Info</th>      
+
         <th colspan="10"></th>
       </tr>
     </thead>
@@ -21,19 +17,8 @@
               <% name = "/images/" + item.gramname.to_s %>
               <%= image_tag(name, options = {size: "200x150"})%>           
           </td>
-          
-          <td> 
-            <% temp = @h["#{item.gramname.to_s }"].to_s %> 
-            <% arr = [] %> 
-            <% arr = temp.split(",").map { |s| s.to_s } %> 
-            <% arr.each do |r| %> 
-              <%= r %> <br><br>
-            <% end %>      
-          </td>
-
-          <td> <%= item.long %> </td>
-          <td> <%= item.lat %> </td>
-          <td> <%= "Details" %> </td>
+          <td> <%= item.gramname %> </td>
+          <td> details </td>
         </tr>
       <% end %>
     </tbody>
