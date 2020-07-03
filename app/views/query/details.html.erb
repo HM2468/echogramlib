@@ -1,3 +1,6 @@
+<%= link_to image_tag("back.png", options = {size: "30x30"}), @back_url%> 
+
+
 <h3> Image </h3>
 <%= image_tag(@dir, options = {size: "800x600"})%> 
 <table class="table">
@@ -5,7 +8,7 @@
   <tr>
     <th> Image name  </th>  
     <th> Fish date </th>
-    <th> Longitude name </th>  
+    <th> Longitude </th>  
     <th> Latitude </th>
     <th> Frequency </th>       
   </tr>
@@ -34,7 +37,7 @@
     <thead class="thead-dark">
       <tr>
         <th> Species code </th>  
-        <th> Scitific name </th>
+        <th> Scientific name </th>
         <th> English name </th>  
         <th> Percentage </th>
         <th> Mean length </th>       
