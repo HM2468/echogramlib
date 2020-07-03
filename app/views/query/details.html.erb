@@ -3,56 +3,122 @@
 
 <h3> Image </h3>
 <%= image_tag(@dir, options = {size: "800x600"})%> 
+
+<h3> Fish location </h3>
+<div id = "mymap" >  
+  <div id="gmap" style='width: 60%; height:500px;'></div>  
+</div>  
+
+<div id="charts" style="width:100%;height:500px;"></div>
+
 <table class="table">
-<thead class="thead-dark">
-  <tr>
-    <th> Image name  </th>  
-    <th> Fish date </th>
-    <th> Longitude </th>  
-    <th> Latitude </th>
-    <th> Frequency </th>       
-  </tr>
-</thead>
+    <thead class="thead-dark">
+        <tr>
+            <th> Image name  </th>  
+            <th> Fish date </th>
+            <th> Longitude </th>  
+            <th> Latitude </th>
+            <th> Frequency </th>       
+        </tr>
+    </thead>
 
-<tbody>
-  <% @gram.each do |item| %>
-    <tr>
-      <td> <%= item.gramname %> </td>
-      <td> <%= item.date %> </td>
-      <td> <%= item.long %> </td>
-      <td> <%= item.lat %> </td>
-      <td> 
-        <% temp = item.gramname.to_s %>
-        <%= temp[-7,3] + " kHz" %>  
-      </td>
-    </tr>
-  <% end %>
-</tbody>
-
-
-
+    <tbody>
+        <tr>
+        <td> <%= @gram.gramname %> </td>
+        <td> <%= @gram.date %> </td>
+        <td> <%= @gram.long %> </td>
+        <td> <%= @gram.lat %> </td>
+        <td> 
+            <% temp = @gram.gramname.to_s %>
+            <%= temp[-7,3] + " kHz" %>  
+        </td>
+        </tr>
+    </tbody>
 </table>
 
-  <table class="table">
+<table class="table">
     <thead class="thead-dark">
-      <tr>
+        <tr>
         <th> Species code </th>  
         <th> Scientific name </th>
         <th> English name </th>  
         <th> Percentage </th>
         <th> Mean length </th>       
-      </tr>
+        </tr>
     </thead>
 
     <tbody>
-      <% @composition.each do |item| %>
+        <% @composition.each do |item| %>
         <tr>
-          <td> <%= item.scode %> </td>
-          <td> <%= item.sciname %> </td>
-          <td> <%= item.engname %> </td>
-          <td> <%= (item.percent.to_d * 100).to_s + "%" %> </td>
-          <td> <%= item.avglength %> </td>
+            <td> <%= item.scode %> </td>
+            <td> <%= item.sciname %> </td>
+            <td> <%= item.engname %> </td>
+            <td> <%= (item.percent.to_d * 100).to_s + "%" %> </td>
+            <td> <%= item.avglength %> </td>
         </tr>
-      <% end %>
+        <% end %>
     </tbody>
-  </table>
+</table>
+
+
+<script>
+    function initMap() {
+        var map;
+        var marker;
+        var location = {lat: <%=raw @gram.lat %>, lng: <%=raw @gram.long %>};
+        var  ref = {lat: 60, lng: 0};
+
+        map = new google.maps.Map(
+        document.getElementById('gmap'), {zoom: 4, center: ref});
+        marker = new google.maps.Marker({
+                                            position: location, 
+                                            map: map,
+                                            title: 'Echogram location' 
+                                        });
+    }
+</script>
+
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtoY01RdrAUUdBbBSo3mwj7z-zuqza_QA&callback=initMap">
+</script>
+
+ <script>
+$(function () {
+    
+
+        Highcharts.chart('charts', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Species Compositon'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                    }
+                }
+            },
+            series: [{
+                name: 'percentage',
+                colorByPoint: true,
+                data: <%= raw @data%>
+            }]
+        });
+    });
+ </script>

@@ -95,23 +95,27 @@ class QueryController < ApplicationController
         def details
 
             @back_url = session[:my_previous_url]
-
-            temp   = params[:item].to_s       
-            @gram = MyGram.all.where(gramname: temp)
-            @dir   = "/images/" + temp
-            @imagename = temp
+            temp = params[:item].to_s
+            @dir = "/images/" + temp       
+            @gram = MyGram.all.where(gramname: temp).first
             @composition = MyComposition.all.where(gramname: temp)
+            count = @composition.count
+            species = []
+            percent = []
+            @composition.each do |r|
+                species << r.sciname.to_s
+                percent << r.percent.to_f
+            end
 
-            puts "===================test begins======================"
-            puts @gram.inspect
-            puts "==================testing==========================="
+            array = []
+            for i in 0...count
+                t = []
+                t[0] = species[i]
+                t[1] = percent[i]
+                array.push(t)
+            end
+            @data = array
 
-            puts @back_url.inspect
-
-            puts "==================testing==========================="
-
-            puts @composition.inspect
-            puts "===================test ends======================"
         end
 
     private

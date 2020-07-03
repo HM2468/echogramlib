@@ -4,23 +4,21 @@
       <tr>
         <th>Echogram Image</th>
         <th>Echogram Filename</th>  
-        <th>More Info</th>      
-
-        <th colspan="10"></th>
       </tr>
     </thead>
 
     <tbody>
       <% @display.each do |item| %>
-        <tr>
-          <td>
+        <tr>                
+          <td>                                     
               <% name = "/images/" + item.gramname.to_s %>
-              <%= image_tag(name, options = {size: "200x150"})%>           
+              <%= link_to image_tag(name, options = {size: "200x150"}),
+                          {:controller => "query",
+                          :action=>"details",
+                          :item => item.gramname} %>            
           </td>
           <td> <%= item.gramname %> </td>
-          <td><%= link_to 'details', {:controller => "query",
-                                      :action=>"details",
-                                      :item => item.gramname} %></td>
+
         </tr>
       <% end %>
     </tbody>
