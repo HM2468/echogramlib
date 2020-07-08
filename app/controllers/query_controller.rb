@@ -1,6 +1,5 @@
 class QueryController < ApplicationController
     
-    after_action :save_my_previous_url, only: [:details]
         def querygram
             #enquery database to display on guery page
             @display = MyGram.paginate(page: params[:page],per_page: 10)
@@ -94,7 +93,6 @@ class QueryController < ApplicationController
 
         def details
 
-            @back_url = session[:my_previous_url]
             temp = params[:item].to_s
             @dir = "/images/" + temp       
             @gram = MyGram.all.where(gramname: temp).first
@@ -120,9 +118,5 @@ class QueryController < ApplicationController
 
     private
 
-        def save_my_previous_url
-            # session[:previous_url] is a Rails built-in variable to save last url.
-            session[:my_previous_url] = URI(request.referer || '').path
-        end
 
 end

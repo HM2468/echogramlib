@@ -2,39 +2,44 @@
 @import "bootstrap";
 
 h1, h2, h3, h4, h5, h6 {
-  line-height: 1;
+    line-height: 1;
 }
 
 h1 {
-  font-size: 3em;
-  letter-spacing: -2px;
-  margin-bottom: 30px;
-  text-align: center;
+    font-size: 3em;
+    letter-spacing: -2px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+h5 {
+    color:#922B21;      
+    padding: 10px;
+    }
+header{ 
+    padding-top: 2px;
+    text-size-adjust: 25px;
+};
+
+body{
+    background-color:#B0BEC5;
+}
+
+.table > tbody > tr > td {
+    vertical-align: middle;
 }
 
 
-footer {
-    margin-top: 45px;
-    padding-top: 5px;
-    border-top: 1px solid #eaeaea;
-    color: #777;
-}
-footer a {
-    color: #555;
-}
-footer a:hover {
-    color: #222;
-}
-footer small {
-    float: left;
-}
-footer ul {
-    float: right;
-list-style: none;
-}
-footer ul li {
-    float: left;
-    margin-left: 15px;
+.middle {
+ 
+    float: none;
+    display: inline-block; 
+    vertical-align: middle;
+  
+ }
+ .vcen {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
 }
 
 /* sidebar */
@@ -89,10 +94,6 @@ input {
     .form-control {
         color: $state-danger-text;
     }
-}
-
-#userImage{
-    padding-top: 20px;
 }
 
 #userInfo{

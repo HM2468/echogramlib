@@ -1,27 +1,35 @@
-<div class="table-responsive">
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>Echogram Image</th>
-        <th>Echogram Filename</th>  
-      </tr>
-    </thead>
 
-    <tbody>
-      <% @display.each do |item| %>
-        <tr>                
-          <td>                                     
-              <% name = "/images/" + item.gramname.to_s %>
-              <%= link_to image_tag(name, options = {size: "200x150"}),
-                          {:controller => "query",
-                          :action=>"details",
-                          :item => item.gramname} %>            
-          </td>
-          <td> <%= item.gramname %> </td>
+<div class = "container">
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Echogram Image</th>
+            <th>Echogram Filename</th>  
+          </tr>
+        </thead>
 
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+        <tbody>
+          <% @display.each do |item| %>
+            <tr>                
+              <td>                                     
+                  <% name = "/images/" + item.gramname.to_s %>
+                  <%= link_to image_tag(name, options = {size: "200x150"}),
+                              {:controller => "query",
+                              :action=>"details",
+                              :item => item.gramname} %>            
+              </td>
+              <td> <%= item.gramname %> </td>
+
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+
+    <div class="col-md-offset-2 col-lg-offset-2 col-xl-offset-2">
+      <%= will_paginate @display%>
+    </div>
+
 </div>
-<%= will_paginate @display%>

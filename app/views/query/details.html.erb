@@ -1,74 +1,78 @@
 
-<br>
 
+<br>
 <div class = "container">
-    <h3>Echogram</h3>
-    <div class="center-block">
-        <%= image_tag(@dir, options = {size: "800x600"})%> 
-    </div>
+
     <div class = "row">
       <div class = "col-xs-6">
-        <h3>Fish location</h3>
         <br>
-        <div id="gmap" style='width: 100%; height:400px;'></div> 
+        <div id="charts" style="width:100%;height:500px;"></div>
       </div>
 
       <div class = "col-xs-6">
-        <div id="charts" style="width:100%;height:500px;"></div>
-      </div>
+        <br>
+        <div id="gmap" style='width: 100%; height:500px;'></div> 
+     </div>
     </div> 
+    <br>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th> Image name  </th>  
+                <th> Fish date </th>
+                <th> Longitude </th>  
+                <th> Latitude </th>
+                <th> Frequency </th>       
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+            <td> <%= @gram.gramname %> </td>
+            <td> <%= @gram.date %> </td>
+            <td> <%= @gram.long %> </td>
+            <td> <%= @gram.lat %> </td>
+            <td> 
+                <% temp = @gram.gramname.to_s %>
+                <%= temp[-7,3] + " kHz" %>  
+            </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+            <th> Species code </th>  
+            <th> Scientific name </th>
+            <th> English name </th>  
+            <th> Percentage </th>
+            <th> Mean length </th>       
+            </tr>
+        </thead>
+
+        <tbody>
+            <% @composition.each do |item| %>
+            <tr>
+                <td> <%= item.scode %> </td>
+                <td> <%= item.sciname %> </td>
+                <td> <%= item.engname %> </td>
+                <td> <%= (item.percent.to_d * 100).to_s + "%" %> </td>
+                <td> <%= item.avglength %> </td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+
+    <div class="col-md-offset-2 col-lg-offset-2 col-xl-offset-4">
+        <%= image_tag(@dir, options = {size: "800x600"})%> 
+    </div>
+
+    <div>
+        <%= link_to   image_tag("back.png", size: "30x30") , :back %>
+    </div>
 </div>
-
-
-<table class="table">
-    <thead class="thead-dark">
-        <tr>
-            <th> Image name  </th>  
-            <th> Fish date </th>
-            <th> Longitude </th>  
-            <th> Latitude </th>
-            <th> Frequency </th>       
-        </tr>
-    </thead>
-
-    <tbody>
-        <tr>
-        <td> <%= @gram.gramname %> </td>
-        <td> <%= @gram.date %> </td>
-        <td> <%= @gram.long %> </td>
-        <td> <%= @gram.lat %> </td>
-        <td> 
-            <% temp = @gram.gramname.to_s %>
-            <%= temp[-7,3] + " kHz" %>  
-        </td>
-        </tr>
-    </tbody>
-</table>
-
-<table class="table">
-    <thead class="thead-dark">
-        <tr>
-        <th> Species code </th>  
-        <th> Scientific name </th>
-        <th> English name </th>  
-        <th> Percentage </th>
-        <th> Mean length </th>       
-        </tr>
-    </thead>
-
-    <tbody>
-        <% @composition.each do |item| %>
-        <tr>
-            <td> <%= item.scode %> </td>
-            <td> <%= item.sciname %> </td>
-            <td> <%= item.engname %> </td>
-            <td> <%= (item.percent.to_d * 100).to_s + "%" %> </td>
-            <td> <%= item.avglength %> </td>
-        </tr>
-        <% end %>
-    </tbody>
-</table>
-
 
 <script>
     function initMap() {
@@ -78,7 +82,7 @@
         var  ref = {lat: 60, lng: 0};
 
         map = new google.maps.Map(
-        document.getElementById('gmap'), {zoom: 4, center: ref});
+        document.getElementById('gmap'), {zoom: 4, center: ref,mapTypeId: 'satellite'});
         marker = new google.maps.Marker({
                                             position: location, 
                                             map: map,
@@ -92,47 +96,48 @@
 </script>
 
  <script>
-$(function () {
-    
-
-        Highcharts.chart('charts', {
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie',
-                options3d: {
-                    enabled: true,
-                    alpha: 45,
-                    beta: 0
-                }
-            },
-            title: {
-                text: 'Species Compositon'
-            },
-            tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-            },
-            accessibility: {
-                point: {
-                    valueSuffix: '%'
-                }
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
+    $(function () {
+        
+            Highcharts.chart('charts', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie',
+                    options3d: {
                         enabled: true,
-                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                        alpha: 45,
+                        beta: 0
                     }
-                }
-            },
-            series: [{
-                name: 'percentage',
-                colorByPoint: true,
-                data: <%= raw @data%>
-            }]
+                },
+                title: {
+                    text: 'Species Compositon'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                        }
+                    }
+                },
+                series: [{
+                    name: 'percentage',
+                    colorByPoint: true,
+                    data: <%= raw @data%>
+                }]
+            });
         });
-    });
  </script>
+
+ 
