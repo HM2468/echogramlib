@@ -74,6 +74,19 @@ $ rails db:migrate            #migrations on modifying database
 $ rake bears:importdata       #import newest data from csv file to psql
 
 
+Copy all echogram images into public/image, then you can use it normally
+
+In file view/query/details.html.erb:
+
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=<%= Google_Map_API%>&callback=initMap">
+    </script>
+
+replace "<%= Google_Map_API%>" with your own google API key, to get one, refer:
+https://developers.google.com/maps/documentation/javascript/get-api-key
+
+Google API key should not be included in a public github repo.
+
 
 ########## DEPLOY ON GOOGLE CLOUD ###########
 1.Create a virtue machine/Google engine on google cloud platform. 
