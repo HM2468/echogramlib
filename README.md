@@ -65,9 +65,9 @@ https://computingforgeeks.com/install-postgresql-12-on-ubuntu/
 #well done now you should have all data in your database, you can check it by pgadmin4 or postgre client command line
 #or rails console window. I recommand rails console for a quick check
 
-    $ rails c                     #enter rails console window
-    $ puts Echogram.all.inspect   #output all records of model/table Echogram, the same as Haul,User,etc
-    $ q                           #quit from rails console
+      $ rails c                     #enter rails console window
+      $ puts Echogram.all.inspect   #output all records of model/table Echogram, the same as Haul,User,etc
+      $ q                           #quit from rails console
 
 
 
@@ -76,10 +76,10 @@ https://computingforgeeks.com/install-postgresql-12-on-ubuntu/
 
 
 For updating the database run git pull to make sure that your codes are the newest version, then run 
-    $ bundle install
-    $ bundle update
-    $ rails db:migrate            #migrations on modifying database
-    $ rake bears:importdata       #import newest data from csv file to psql
+      $ bundle install
+      $ bundle update
+      $ rails db:migrate            #migrations on modifying database
+      $ rake bears:importdata       #import newest data from csv file to psql
 
 
 **Copy all echogram images into public/image, large file is not uploaded into github, you have to included it manually.
@@ -98,27 +98,27 @@ For updating the database run git pull to make sure that your codes are the newe
 
 
 ########## DEPLOY ON GOOGLE CLOUD ###########
-    1.Create a virtue machine/Google engine on google cloud platform. 
-      Choose the OS system as Ubuntu and the area as european
-    2.Create an guest acoount in this machine and install Ruby on Rails 
-      environment under this account. Ruby version and Rails version 
-      should be exactly the same as specified above.
-      PS: never install under root account, it would cause mounts of problems.
-    3.Create a file to hold the codes. For example, my Ubuntu user account is 
-      huangmiao, I create home/huangmiao/codes to hold all the codes 
-      $ cd  home/huangmiao/codes 
-      $ git pull https://github.com/HM2468/echogramlib.git 
-    5.install psql on this virtue machine as specified above
-    6.$ cd home/huangmiao/codes/echogramlib
-      $ bundle install
-      $ rails db:migrate
-      $ rails db:seed
-      $ rake bears:importdata  
-      $ rails s -b 0.0.0.0 -p 3000
-        Now the website can be accessed at http://xx.xx.xx.xx:3000/
-        xx.xx.xx.xx is the external IP of your Goole virtue machine
-    7. The most important and usefull step is to make your google cloud drive as a 
-      hard disk in your virtue machine. that means your virtue machine can write and 
-      read to the Google cloud drive directly. It would make it possible to utilize large 
-      files on virtue machine for free.
-      All details can be found at https://github.com/rclone/rclone
+      1.Create a virtue machine/Google engine on google cloud platform. 
+        Choose the OS system as Ubuntu and the area as european
+      2.Create an guest acoount in this machine and install Ruby on Rails 
+        environment under this account. Ruby version and Rails version 
+        should be exactly the same as specified above.
+        PS: never install under root account, it would cause mounts of problems.
+      3.Create a file to hold the codes. For example, my Ubuntu user account is 
+        huangmiao, I create home/huangmiao/codes to hold all the codes 
+        $ cd  home/huangmiao/codes 
+        $ git pull https://github.com/HM2468/echogramlib.git 
+      5.install psql on this virtue machine as specified above
+      6.$ cd home/huangmiao/codes/echogramlib
+        $ bundle install
+        $ rails db:migrate
+        $ rails db:seed
+        $ rake bears:importdata  
+        $ rails s -b 0.0.0.0 -p 3000
+          Now the website can be accessed at http://xx.xx.xx.xx:3000/
+          xx.xx.xx.xx is the external IP of your Goole virtue machine
+      7. The most important and usefull step is to make your google cloud drive as a 
+        hard disk in your virtue machine. that means your virtue machine can write and 
+        read to the Google cloud drive directly. It would make it possible to utilize large 
+        files on virtue machine for free.
+        All details can be found at https://github.com/rclone/rclone
