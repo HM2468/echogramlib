@@ -56,10 +56,10 @@ https://computingforgeeks.com/install-postgresql-12-on-ubuntu/
       timeout: 5000
     
 #run commands as below step by step in your command line
-    $ bundle install              #update all gems
-    $ rails db:migrate            #create tables in your postgresql database
-    $ rails db:seed               #generate fake records in some tables for testing use
-    $ rake bears:importdata       #import data from csv file to your database
+      $ bundle install              #update all gems
+      $ rails db:migrate            #create tables in your postgresql database
+      $ rails db:seed               #generate fake records in some tables for testing use
+      $ rake bears:importdata       #import data from csv file to your database
 
 
 #well done now you should have all data in your database, you can check it by pgadmin4 or postgre client command line
@@ -76,8 +76,8 @@ https://computingforgeeks.com/install-postgresql-12-on-ubuntu/
 
 
 For updating the database run git pull to make sure that your codes are the newest version, then run 
-      $ bundle install
-      $ bundle update
+      $ bundle install              #install new gem 
+      $ bundle update               #update all gems 
       $ rails db:migrate            #migrations on modifying database
       $ rake bears:importdata       #import newest data from csv file to psql
 
