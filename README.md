@@ -24,35 +24,35 @@ https://computingforgeeks.com/install-postgresql-12-on-ubuntu/
  
 
 *edit config/database.yml file in rails app
-development:
-  host: localhost        
-  adapter: postgresql
-  encoding: unicode
-  database: echogramlib      #change to your own created in your postgresql client
-  username: postgres         #default value canbe changed to your own 
-  password: miao             #change to your own set by yourself
-  pool: 5
-  timeout: 5000
+    development:
+      host: localhost        
+      adapter: postgresql
+      encoding: unicode
+      database: echogramlib      #change to your own created in your postgresql client
+      username: postgres         #default value canbe changed to your own 
+      password: miao             #change to your own set by yourself
+      pool: 5
+      timeout: 5000
 
-test:                        #keep this part the same as above of "development:"
-  host: localhost
-  adapter: postgresql
-  encoding: unicode
-  database: echogramlib
-  username: postgres
-  password: miao
-  pool: 5
-  timeout: 5000
-  
- production:                #just ignore this part, it is only used for deploy on Heroku or other server             
-  host: 
-  adapter: postgresql
-  encoding: unicode
-  database: echogramlib
-  username: postgres
-  password: miao
-  pool: 5
-  timeout: 5000
+    test:                        #keep this part the same as above of "development:"
+      host: localhost
+      adapter: postgresql
+      encoding: unicode
+      database: echogramlib
+      username: postgres
+      password: miao
+      pool: 5
+      timeout: 5000
+      
+    production:                #just ignore this part, it is only used for deploy on Heroku or other server             
+      host: 
+      adapter: postgresql
+      encoding: unicode
+      database: echogramlib
+      username: postgres
+      password: miao
+      pool: 5
+      timeout: 5000
     
 #run commands as below step by step in your command line
 $ bundle install              #update all gems
