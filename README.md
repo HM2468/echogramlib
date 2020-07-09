@@ -71,12 +71,13 @@ https://computingforgeeks.com/install-postgresql-12-on-ubuntu/
 
 
 
-###################################################################################################
-**To update the database run git pull to make sure that your codes are the newest version, then run 
-      $ bundle install              #install new gem 
-      $ bundle update               #update all gems 
-      $ rails db:migrate            #migrations on modifying database
-      $ rake bears:importdata       #import newest data from csv file to psql
+########################################################################
+**To update the database run git pull to make sure that your codes 
+  are the newest version, then run 
+    $ bundle install              #install new gem 
+    $ bundle update               #update all gems 
+    $ rails db:migrate            #migrations on modifying database
+    $ rake bears:importdata       #import newest data from csv file to psql
 
 **Copy all echogram images into public/image, large file is not uploaded into github, you have to included it manually.
 
