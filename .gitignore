@@ -16,6 +16,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
+/config/secrets.yml
 /public/images/*
 !/log/.keep
 !/tmp/.keep
