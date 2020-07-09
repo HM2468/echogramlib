@@ -71,8 +71,7 @@ https://computingforgeeks.com/install-postgresql-12-on-ubuntu/
 
 
 
-########################################################################
-**To update the database run git pull to make sure that your codes 
+#To update the database run git pull to make sure that your codes 
   are the newest version, then run 
     $ bundle install              #install new gem 
     $ bundle update               #update all gems 
@@ -94,7 +93,7 @@ https://computingforgeeks.com/install-postgresql-12-on-ubuntu/
     Google API key should not be included in a public github repo.
 
 
-########## DEPLOY ON GOOGLE CLOUD ###########
+#DEPLOY ON GOOGLE CLOUD
       1.Create a virtue machine/Google engine on google cloud platform. 
         Choose the OS system as Ubuntu and the area as european
       2.Create an guest acoount in this machine and install Ruby on Rails 
