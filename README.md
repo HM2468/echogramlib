@@ -11,19 +11,20 @@ Things you may want to cover:
 
 * database: postgresql 
 
-*install postgresql client on Ubuntu can refer to 
+**install postgresql client on Ubuntu can refer to 
 https://computingforgeeks.com/install-postgresql-12-on-ubuntu/
 
-*create your username,password in postgresql as is said above 
+**create your username,password in postgresql as is said above 
 
-*create a databse and connect to it on your ubuntu  as is said above 
+**create a databse and connect to it on your ubuntu  as is said above 
 #this step may be somewhat tricky but I can not find an universal tutorial for you all
  for it has something to do with the pc environment.
  my suggestion is "if failed, google and try again"
  if still can't be successfully connected, try to seek help from Bruce, I am also a beginner
  
 
-*edit config/database.yml file in rails app
+**edit config/database.yml file in rails app
+
     development:
       host: localhost        
       adapter: postgresql
