@@ -46,7 +46,8 @@
             <tr>
             <th> Species code </th>  
             <th> Scientific name </th>
-            <th> English name </th>  
+            <th> Common name </th>
+            <th> Individuals num </th>   
             <th> Percentage </th>
             <th> Mean length </th>       
             </tr>
@@ -58,6 +59,7 @@
                 <td> <%= item.scode %> </td>
                 <td> <%= item.sciname %> </td>
                 <td> <%= item.engname %> </td>
+                <td> <%= item.num %> </td>
                 <td> <%= (item.percent.to_d * 100).to_s + "%" %> </td>
                 <td> <%= item.avglength %> </td>
             </tr>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_01_144529) do
+ActiveRecord::Schema.define(version: 2020_07_14_183509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,7 +92,8 @@ ActiveRecord::Schema.define(version: 2020_07_01_144529) do
       species.english_name AS engname,
       species.species_code AS scode,
       compositions.percentage AS percent,
-      compositions.mean_length AS avglength
+      compositions.mean_length AS avglength,
+      compositions.n_individuals AS num
      FROM ((echograms
        JOIN compositions ON (((echograms.echogram_name)::text = (compositions.echogram_name)::text)))
        JOIN species ON (((compositions.species_code)::text = (species.species_code)::text)))
