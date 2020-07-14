@@ -1,27 +1,17 @@
 
 
 <div class = "container">
-    <h4> Query condition </h4>
     <div class = "row">
-      <div class = "col-xs-6">
+    <h4> Filt by </h4>
         <%= form_tag( {}, {method: "get"}) do %>
             <%= label_tag "Species:" %>
-            <%= select_tag "species_1", options_for_select(@species_list) %>
+            <%= select_tag "species", options_for_select(@species_list) %>
+            <%= label_tag "Percentage:" %>
+            <%= select_tag "percent", options_for_select(@percent_list) %>
             <%= label_tag "Mean length:" %>
             <%= select_tag "avglength", options_for_select(@avglength_list) %>
             <%= submit_tag("Search") %>
         <% end %>
-      </div>
-
-      <div class = "col-xs-6">
-        <%= form_tag( {}, {method: "get"}) do %>
-            <%= label_tag "Species:" %>
-            <%= select_tag "species_2", options_for_select(@species_list) %>
-            <%= label_tag "Percentage:" %>
-            <%= select_tag "percent", options_for_select(@percent_list) %>
-            <%= submit_tag("Search") %>
-        <% end %>
-      </div>
     </div> 
 
 
