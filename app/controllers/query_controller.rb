@@ -75,25 +75,41 @@ class QueryController < ApplicationController
                             #{@count} items found."
 
         elsif chosen_species == "All" && chosen_length !=  "All" && chosen_percent ==  "All" 
-            temp = MyComposition.all
-            temp1 = temp.where('avglength>?',length_hash["#{chosen_length}"])
+            temp = MyComposition.where('avglength>?',length_hash["#{chosen_length}"])
+            gram = []
+            temp.each do |item|
+                gram << item.gramname
+            end
+            findname = gram.uniq
+            temp1 = MyGram.where(gramname:findname)
             @count = temp1.count
             @display = temp1.paginate(page: params[:page],per_page: 10)
             @text_spec = " Mean length #{chosen_length},
                            #{@count} items found."
         
         elsif chosen_species == "All" && chosen_length ==  "All" && chosen_percent !=  "All" 
-            temp = MyComposition.all
-            temp1 = temp.where('percent>?',percent_hash["#{chosen_percent}"])
+
+            temp = MyComposition.where('percent>?',percent_hash["#{chosen_percent}"])
+            gram = []
+            temp.each do |item|
+                gram << item.gramname
+            end
+            findname = gram.uniq
+            temp1 = MyGram.where(gramname:findname)           
             @count = temp1.count
             @display = temp1.paginate(page: params[:page],per_page: 10)
             @text_spec = "Percentage #{chosen_percent},
                             #{@count} items found."
 
         elsif chosen_species == "All" && chosen_length !=  "All" && chosen_percent !=  "All" 
-            temp = MyComposition.all
-            temp1 = temp.where('percent>?',percent_hash["#{chosen_percent}"])
-            temp2 = temp1.where('avglength>?',length_hash["#{chosen_length}"])
+            temp = MyComposition.where('percent>?',percent_hash["#{chosen_percent}"])
+            temp1 = temp.where('avglength>?',length_hash["#{chosen_length}"])
+            gram = []
+            temp.each do |item|
+                gram << item.gramname
+            end
+            findname = gram.uniq
+            temp2 = MyGram.where(gramname:findname)            
             @count = temp2.count
             @display = temp2.paginate(page: params[:page],per_page: 10)
             @text_spec = "Mean length #{chosen_length},

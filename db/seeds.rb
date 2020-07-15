@@ -34,26 +34,15 @@ generate_users = Proc.new{
 #the work truely begins from here
 #mind that the order of the codes below matters
 
-=begin
-    User.destroy_all
 
-    generate_Admin.call
-    generate_users.call
- 
-
-
-#
-sql = "SELECT echograms.echogram_name as gramname ,species.scientific_name as sciname,
-              species.english_name as engname, species.species_code as scode,
-              compositions.percentage as percent, compositions.mean_length as avglength
-       FROM echograms INNER JOIN compositions ON echograms.echogram_name = compositions.echogram_name
-       INNER JOIN species ON compositions.species_code = species.species_code 
-       ORDER BY echograms.echogram_name"
-#
-       
-#test =  ActiveRecord::Base.connection.exec_query(sql)
-
-test = MyComposition.all
+temp = MyComposition.where('avglength>?',70)
+gram = []
+temp.each do |item|
+  gram << item.gramname
+end
+findname = gram.uniq
+puts findname.inspect
+test = MyGram.where(gramname:findname)
 
 
 puts test.class 
@@ -64,7 +53,7 @@ test.each do |item|
   puts "================#{count}==================="
 end      
 
-=end
+
 
 
 
