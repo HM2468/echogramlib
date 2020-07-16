@@ -5,7 +5,8 @@
         <thead>
           <tr>
             <th>Echogram Image</th>
-            <th>Echogram Filename</th>  
+            <th>Echogram name</th>
+            <th>Frequency</th>  
           </tr>
         </thead>
 
@@ -13,13 +14,16 @@
           <% @display.each do |item| %>
             <tr>                
               <td>                                     
-                  <% name = "/images/" + item.gramname.to_s %>
+                  <% name = "/images/" + item.image_filename.to_s %>
                   <%= link_to image_tag(name, options = {size: "200x150"}),
                               {:controller => "query",
                               :action=>"details",
-                              :item => item.gramname} %>            
+                              :item => item.echogram_name} %>            
               </td>
-              <td> <%= item.gramname %> </td>
+              <td> <%= item.echogram_name %> </td>
+              <td> 
+                  <%= item.frequency.to_s + " kHz" %>
+              </td>
 
             </tr>
           <% end %>

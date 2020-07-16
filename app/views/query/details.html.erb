@@ -18,25 +18,23 @@
     <table class="table table-bordered">
         <thead class="thead-dark">
             <tr>
-                <th> Image name  </th>  
-                <th> Fish date </th>
-                <th> Longitude </th>  
-                <th> Latitude </th>
-                <th> Frequency </th>       
+                <th> Image name  </th>
+                <th> Frequency   </th>   
+                <th> Longitude   </th>  
+                <th> Latitude    </th>
+      
             </tr>
         </thead>
 
         <tbody>
-            <tr>
-            <td> <%= @gram.gramname %> </td>
-            <td> <%= @gram.date %> </td>
-            <td> <%= @gram.long %> </td>
-            <td> <%= @gram.lat %> </td>
-            <td> 
-                <% temp = @gram.gramname.to_s %>
-                <%= temp[-7,3] + " kHz" %>  
-            </td>
+          <% @gram.each do |item| %>
+            <tr>                
+              <td> <%= item.echogram_name %> </td>
+              <td> <%= item.frequency.to_s + " kHz" %> </td>
+              <td> <%= item.longitude %> </td>
+              <td> <%= item.latitude %> </td>
             </tr>
+          <% end %>
         </tbody>
     </table>
 
@@ -68,7 +66,11 @@
     </table>
 
     <div class="col-md-offset-2 col-lg-offset-2 col-xl-offset-4">
-        <%= image_tag(@dir, options = {size: "800x600"})%> 
+        <% @gram.each do |item| %> 
+            <h2> <%= item.frequency.to_s + " kHz" %> </h2>                                
+            <% name = "/images/" + item.image_filename.to_s %>
+            <%= image_tag(name, options = {size: "800x600"})%>  
+        <% end %>
     </div>
 
     <div>
@@ -80,7 +82,7 @@
     function initMap() {
         var map;
         var marker;
-        var location = {lat: <%=raw @gram.lat %>, lng: <%=raw @gram.long %>};
+        var location = {lat: <%=raw @gram.first.latitude %>, lng: <%=raw @gram.first.longitude %>};
         var  ref = {lat: 60, lng: 0};
 
         map = new google.maps.Map(

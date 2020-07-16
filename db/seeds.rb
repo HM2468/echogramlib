@@ -41,7 +41,6 @@ temp.each do |item|
   gram << item.gramname
 end
 findname = gram.uniq
-puts findname.inspect
 test = MyGram.where(gramname:findname)
 
 

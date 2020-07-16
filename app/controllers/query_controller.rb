@@ -3,7 +3,7 @@ class QueryController < ApplicationController
     def querygram
 
         #enquery database to display on guery page
-        @display = MyGram.paginate(page: params[:page],per_page: 10)
+        @display = Echogram.paginate(page: params[:page],per_page: 10)
         @count = @display.count
         @text_spec = "All #{@count} items in the database."
 
@@ -40,16 +40,26 @@ class QueryController < ApplicationController
         #query algorithm 
         if  chosen_species != "All" && chosen_length ==  "All" && chosen_percent ==  "All"
             temp = MyComposition.all.where(sciname:chosen_species)
-            @count = temp.count
-            @display = temp.paginate(page: params[:page],per_page: 10)
+            gramname = []
+            temp.each do |item|
+                gramname << item.gramname
+            end
+            temp1 = Echogram.where(echogram_name:gramname)
+            @count = temp1.count
+            @display = temp1.paginate(page: params[:page],per_page: 10)
             @text_spec = "Filt by Species = #{chosen_species},
                         #{@count} records found."
 
         elsif chosen_species != "All" && chosen_length !=  "All" && chosen_percent ==  "All" 
             temp = MyComposition.all.where(sciname:chosen_species)
             temp1 = temp.where('avglength>?',length_hash["#{chosen_length}"])
-            @count = temp1.count
-            @display = temp1.paginate(page: params[:page],per_page: 10)
+            gramname = []
+            temp1.each do |item|
+                gramname << item.gramname
+            end
+            temp2 = Echogram.where(echogram_name:gramname)
+            @count = temp2.count
+            @display = temp2.paginate(page: params[:page],per_page: 10)
             @text_spec = "Species: #{chosen_species}, 
                             Mean length #{chosen_length},
                             #{@count} items found."
@@ -57,8 +67,13 @@ class QueryController < ApplicationController
         elsif chosen_species != "All" && chosen_length ==  "All" && chosen_percent !=  "All" 
             temp = MyComposition.all.where(sciname:chosen_species)
             temp1 = temp.where('percent>?',percent_hash["#{chosen_percent}"])
-            @count = temp1.count
-            @display = temp1.paginate(page: params[:page],per_page: 10)
+            gramname = []
+            temp1.each do |item|
+                gramname << item.gramname
+            end
+            temp2 = Echogram.where(echogram_name:gramname)
+            @count = temp2.count
+            @display = temp2.paginate(page: params[:page],per_page: 10)
             @text_spec = "Species: #{chosen_species}, 
                             Percentage #{chosen_percent},
                             #{@count} items found."
@@ -67,8 +82,13 @@ class QueryController < ApplicationController
             temp = MyComposition.all.where(sciname:chosen_species)
             temp1 = temp.where('percent>?',percent_hash["#{chosen_percent}"])
             temp2 = temp1.where('avglength>?',length_hash["#{chosen_length}"])
-            @count = temp2.count
-            @display = temp2.paginate(page: params[:page],per_page: 10)
+            gramname = []
+            temp2.each do |item|
+                gramname << item.gramname
+            end
+            temp3 = Echogram.where(echogram_name:gramname)
+            @count = temp3.count
+            @display = temp3.paginate(page: params[:page],per_page: 10)
             @text_spec = "Species: #{chosen_species}, 
                             Mean length #{chosen_length},
                             Percentage #{chosen_percent},
@@ -81,7 +101,7 @@ class QueryController < ApplicationController
                 gram << item.gramname
             end
             findname = gram.uniq
-            temp1 = MyGram.where(gramname:findname)
+            temp1 = Echogram.where(echogram_name:findname)
             @count = temp1.count
             @display = temp1.paginate(page: params[:page],per_page: 10)
             @text_spec = " Mean length #{chosen_length},
@@ -95,13 +115,13 @@ class QueryController < ApplicationController
                 gram << item.gramname
             end
             findname = gram.uniq
-            temp1 = MyGram.where(gramname:findname)           
+            temp1 = Echogram.where(echogram_name:findname)           
             @count = temp1.count
             @display = temp1.paginate(page: params[:page],per_page: 10)
             @text_spec = "Percentage #{chosen_percent},
                             #{@count} items found."
 
-        elsif chosen_species == "All" && chosen_length !=  "All" && chosen_percent !=  "All" 
+        elsif chosen_species == "All" && chosen_length != "All" && chosen_percent != "All" 
             temp = MyComposition.where('percent>?',percent_hash["#{chosen_percent}"])
             temp1 = temp.where('avglength>?',length_hash["#{chosen_length}"])
             gram = []
@@ -109,7 +129,7 @@ class QueryController < ApplicationController
                 gram << item.gramname
             end
             findname = gram.uniq
-            temp2 = MyGram.where(gramname:findname)            
+            temp2 = Echogram.where(echogram_name:findname)            
             @count = temp2.count
             @display = temp2.paginate(page: params[:page],per_page: 10)
             @text_spec = "Mean length #{chosen_length},
@@ -126,10 +146,20 @@ class QueryController < ApplicationController
 
 
     def details
-        temp = params[:item].to_s
-        @dir = "/images/" + temp       
-        @gram = MyGram.all.where(gramname: temp).first
-        @composition = MyComposition.all.where(gramname: temp)
+        temp = params[:item] 
+
+
+        temp1 = params[:item].first.to_s  
+        @gram = Echogram.all.where(echogram_name: temp)
+        @composition = MyComposition.where(gramname: temp)
+
+        puts "===============test================"
+        @composition.each do |r|
+            puts r.inspect
+        end
+        puts "===============test================"
+
+
         count = @composition.count
         species = []
         percent = []

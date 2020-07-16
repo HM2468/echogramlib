@@ -3,7 +3,7 @@
 #run in rails app with $ rake bears:importdata
 
 
-file_hauls   = "lib/assets/haul.csv"
+file_hauls   = "lib/assets/hauls.csv"
 file_species = "lib/assets/species.csv"
 file_compositions = "lib/assets/compositions.csv"
 file_echograms = "lib/assets/echograms.csv"
@@ -20,17 +20,18 @@ hauls_import = Proc.new{
                 puts "Imported hauls row #{count_row}"
                 #import data from csv file
                 Haul.create!(
-                  echogram_name:     row[0],
-                  fish_date:         row[1].to_date,
-                  strt_fish_time:    row[2],
-                  stp_fish_time:     row[3],
-                  strt_fish_lat:     row[4].to_f,
-                  stp_fish_lat:      row[5].to_f,
-                  strt_fish_long:    row[6].to_f,
-                  stp_fish_long:     row[7].to_f,
-                  strt_fish_depth:   row[8].to_f,
-                  stp_fish_depth:    row[9].to_f,
-                  bottom_depth:      row[10].to_f
+                  id:                row[0].to_i,
+                  echogram_name:     row[1],
+                  fish_date:         row[2].to_date,
+                  strt_fish_time:    row[3],
+                  stp_fish_time:     row[4],
+                  strt_fish_lat:     row[5].to_f,
+                  stp_fish_lat:      row[6].to_f,
+                  strt_fish_long:    row[7].to_f,
+                  stp_fish_long:     row[8].to_f,
+                  strt_fish_depth:   row[9].to_f,
+                  stp_fish_depth:    row[10].to_f,
+                  bottom_depth:      row[11].to_f
                 )
                end
   puts "============ENDS============="
@@ -68,11 +69,13 @@ echograms_import = Proc.new{
                 puts "Imported echograms row #{count_row}"
                 #import data from csv file
                 Echogram.create!(
-                  echogram_name:        row[0].to_s,
-                  frequency:            row[1].to_i,
-                  user_id:              row[2].to_i,
-                  latitude:             row[3].to_f,
-                  longitude:            row[4].to_f
+                  haul_id:              row[0].to_i,
+                  echogram_name:        row[1].to_s,
+                  frequency:            row[2].to_i,
+                  image_filename:       row[3].to_s,
+                  user_id:              row[4].to_i,
+                  latitude:             row[5].to_f,
+                  longitude:            row[6].to_f
                 )
                end
   puts "============ENDS============="
@@ -90,10 +93,10 @@ comopositions_import = Proc.new{
                 #import data from csv file
                 Composition.create!(
                   echogram_name:        row[0].to_s,
-                  species_code:         row[1].to_s,
-                  n_individuals:        row[2].to_i,
-                  percentage:           row[3].to_f,
-                  mean_length:          row[4].to_f
+                  species_code:         row[2].to_s,
+                  n_individuals:        row[3].to_i,
+                  percentage:           row[5].to_f,
+                  mean_length:          row[6].to_f
                 )
                end
   puts "============ENDS============="

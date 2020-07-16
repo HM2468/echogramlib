@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_14_183509) do
+ActiveRecord::Schema.define(version: 2020_07_16_215019) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,14 +25,16 @@ ActiveRecord::Schema.define(version: 2020_07_14_183509) do
     t.integer "n_individuals"
   end
 
-  create_table "echograms", primary_key: "echogram_name", id: :string, force: :cascade do |t|
-    t.bigserial "id", null: false
+  create_table "echograms", force: :cascade do |t|
+    t.string "echogram_name", null: false
     t.float "latitude"
     t.float "longitude"
     t.integer "frequency"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "haul_id"
+    t.string "image_filename"
   end
 
   create_table "hauls", force: :cascade do |t|
@@ -72,10 +74,8 @@ ActiveRecord::Schema.define(version: 2020_07_14_183509) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "compositions", "echograms", column: "echogram_name", primary_key: "echogram_name", name: "fky2"
-  add_foreign_key "compositions", "species", column: "species_code", primary_key: "species_code", name: "fkey1"
+  add_foreign_key "compositions", "species", column: "species_code", primary_key: "species_code", name: "compositions_fkey"
   add_foreign_key "echograms", "users", name: "echograms_fkey"
-  add_foreign_key "hauls", "echograms", column: "echogram_name", primary_key: "echogram_name", name: "hauls_fkey"
 
   create_view "my_grams", sql_definition: <<-SQL
       SELECT echograms.echogram_name AS gramname,
@@ -87,16 +87,15 @@ ActiveRecord::Schema.define(version: 2020_07_14_183509) do
     ORDER BY echograms.echogram_name;
   SQL
   create_view "my_compositions", sql_definition: <<-SQL
-      SELECT echograms.echogram_name AS gramname,
+      SELECT compositions.echogram_name AS gramname,
       species.scientific_name AS sciname,
       species.english_name AS engname,
       species.species_code AS scode,
       compositions.percentage AS percent,
       compositions.mean_length AS avglength,
       compositions.n_individuals AS num
-     FROM ((echograms
-       JOIN compositions ON (((echograms.echogram_name)::text = (compositions.echogram_name)::text)))
+     FROM (compositions
        JOIN species ON (((compositions.species_code)::text = (species.species_code)::text)))
-    ORDER BY echograms.echogram_name;
+    ORDER BY compositions.echogram_name;
   SQL
 end
