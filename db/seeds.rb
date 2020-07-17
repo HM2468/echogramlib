@@ -34,19 +34,11 @@ generate_users = Proc.new{
 #the work truely begins from here
 #mind that the order of the codes below matters
 
-temp = MyComposition.where(sciname: "Clupea harengus")
-temp1 = temp.where('avglength>?',30)
-name = []
-temp1.each do |item|
-    name << item.gramname
-end
-gramname = name.uniq
-test = Echogram.where(echogram_name:gramname)
 
+all_gram = Echogram.all
 
-puts test.class 
 count = 0
-test.each do |item|
+all_gram.each do |item|
   puts item.inspect
   count += 1
   puts "================#{count}==================="
