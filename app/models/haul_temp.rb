@@ -1,0 +1,2 @@
+class HaulTemp < ApplicationRecord
+end

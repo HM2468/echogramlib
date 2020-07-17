@@ -159,17 +159,7 @@ class QueryController < ApplicationController
                     @text_spec
                     @count
             end
-        end
-        puts "==================================================="
-        puts "=====chosen_species: #{chosen_species}====="
-        puts "=====chosen_length: #{chosen_length}====="
-        puts "=====chosen_percent: #{chosen_percent}====="
-        puts "=====per: #{per}====="
-        puts "=====len: #{len}====="
-        puts "=====@count: #{@count}====="
-        puts @text_spec
-        puts "==================================================="
-        
+        end      
     end
 
 

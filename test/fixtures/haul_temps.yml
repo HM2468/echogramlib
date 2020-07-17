@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  echogram_name: MyString
+  strt_fish_time: MyString
+  stp_fish_time: MyString
+  fish_date: 2020-07-17
+  strt_fish_lat: 1.5
+  stp_fish_lat: 1.5
+  strt_fish_long: 1.5
+  stp_fish_long: 1.5
+  strt_fish_depth: 1.5
+  stp_fish_depth: 1.5
+  bottom_depth: 1.5
+  fish_speed: 1.5
+
+two:
+  echogram_name: MyString
+  strt_fish_time: MyString
+  stp_fish_time: MyString
+  fish_date: 2020-07-17
+  strt_fish_lat: 1.5
+  stp_fish_lat: 1.5
+  strt_fish_long: 1.5
+  stp_fish_long: 1.5
+  strt_fish_depth: 1.5
+  stp_fish_depth: 1.5
+  bottom_depth: 1.5
+  fish_speed: 1.5

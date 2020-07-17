@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  echogram_name: MyString
+  image_filename: MyString
+  frequency: 1
+  haul_id: 1
+  user_id: 1
+  latitude: 1.5
+  longitude: 1.5
+
+two:
+  echogram_name: MyString
+  image_filename: MyString
+  frequency: 1
+  haul_id: 1
+  user_id: 1
+  latitude: 1.5
+  longitude: 1.5

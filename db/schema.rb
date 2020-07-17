@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_17_004240) do
+ActiveRecord::Schema.define(version: 2020_07_17_223733) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "composition_temps", force: :cascade do |t|
+    t.string "echogram_name"
+    t.string "species_code"
+    t.integer "n_individuals"
+    t.float "percentage"
+    t.float "mean_length"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "compositions", force: :cascade do |t|
     t.string "species_code"
@@ -23,6 +33,18 @@ ActiveRecord::Schema.define(version: 2020_07_17_004240) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "n_individuals"
+  end
+
+  create_table "echogram_temps", force: :cascade do |t|
+    t.string "echogram_name"
+    t.string "image_filename"
+    t.integer "frequency"
+    t.integer "haul_id"
+    t.integer "user_id"
+    t.float "latitude"
+    t.float "longitude"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "echograms", force: :cascade do |t|
@@ -35,6 +57,23 @@ ActiveRecord::Schema.define(version: 2020_07_17_004240) do
     t.datetime "updated_at", null: false
     t.integer "haul_id"
     t.string "image_filename"
+  end
+
+  create_table "haul_temps", force: :cascade do |t|
+    t.string "echogram_name"
+    t.string "strt_fish_time"
+    t.string "stp_fish_time"
+    t.date "fish_date"
+    t.float "strt_fish_lat"
+    t.float "stp_fish_lat"
+    t.float "strt_fish_long"
+    t.float "stp_fish_long"
+    t.float "strt_fish_depth"
+    t.float "stp_fish_depth"
+    t.float "bottom_depth"
+    t.float "fish_speed"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "hauls", force: :cascade do |t|
@@ -61,6 +100,15 @@ ActiveRecord::Schema.define(version: 2020_07_17_004240) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "image_filename"
+  end
+
+  create_table "species_temps", force: :cascade do |t|
+    t.string "species_code"
+    t.string "scientific_name"
+    t.string "english_name"
+    t.string "image_filename"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

@@ -1,0 +1,2 @@
+class SpeciesTemp < ApplicationRecord
+end

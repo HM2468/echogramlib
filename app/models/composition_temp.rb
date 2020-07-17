@@ -1,0 +1,2 @@
+class CompositionTemp < ApplicationRecord
+end

@@ -1,0 +1,2 @@
+class EchogramTemp < ApplicationRecord
+end
