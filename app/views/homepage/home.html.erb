@@ -1,18 +1,87 @@
-
-    <h3>echogram </h3>
-
-    <script src="/javascripts/homepage.js"></script>
-    
-    <div id="home-main" class="main-box">
-        <div id="goods-movie">
-            <div class="movie-img-list">
-                <img id="img2" class="movie-img" src="/images/Clupea harengus.bmp"/>
-                <img id="img4" class="movie-img" src="/images/Sardina pilchardus.jpg"/>
-                <img id="img5" class="movie-img" src="/images/Scomber scombrus.jpg"/>
-                <img id="img5" class="movie-img" src="/images/Trachurus_declivis.jpg"/>
-            </div>   
-        </div>   
-    </div>
-
-
 </div>
+
+<!--
+    
+<h3>echogram </h3>
+
+<script src="/javascripts/homepage.js"></script>
+
+<div id="home-main" class="main-box">
+    <div id="goods-movie">
+        <div class="movie-img-list">
+            <img id="img2" class="movie-img" src="/images/Clupea harengus.bmp"/>
+            <img id="img4" class="movie-img" src="/images/Sardina pilchardus.jpg"/>
+            <img id="img5" class="movie-img" src="/images/Scomber scombrus.jpg"/>
+            <img id="img5" class="movie-img" src="/images/Trachurus_declivis.jpg"/>
+        </div>   
+    </div>   
+</div>
+
+--> 
+
+
+
+
+        <div class = "container"> 
+
+            <div class="jumbotron">
+                <h1 >Welcome to the Echogram Library</h1>
+                <p class="text-justify">This web application was made for the fishermen and scientist 
+                            who want to enrich the library with new records or simply seek already existing Echogram</p>
+                <p class="text-justify">Join the community!</p> 
+                <p><%= link_to "Sign up now!", signup_path, class: "btn btn-primary btn-lg", role:"button" %></p>
+            </div>
+
+            <br>
+            <br>
+
+            <h3>What is an Echogram?</h3>
+
+            <br>
+            <br>
+
+        </div>
+
+
+<div class="table-responsive">
+<table class="table">
+<tbody>
+    <td>
+        <!--Carousel container-->
+        <div id="echogram" class="carousel slide" data-ride="carousel" data-interval="5000" data-pause="hover" style="width:800px;height:400px; margin:auto;">
+    
+            <!--Content--> 
+            <div class="carousel-inner" role="listbox">
+
+                <!--Slide 1--> 
+                <div class="item active">
+                    <img src="/images/echogram_20010710_161427_0038.gif/" class="img-responsive" alt="Echogram 1">
+                </div>
+
+                 <!--Slide 2-->
+                <div class="item">
+                    <img src="/images/echogram_20010721_113408_0038.gif/" class="img-responsive" alt="Echogram 2">
+                </div>
+
+                 <!--Slide 3-->
+                <div class="item">
+                    <img src="/images/echogram_20020628_124235_0038.gif/" class="img-responsive" alt="Echogram 3">
+                </div>
+
+            </div>
+
+             <!--Previous/Next controls--> 
+            <a class="left carousel-control" href="#echogram" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#echogram" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+            </a>
+
+        </div>
+    </td>
+</tbody>
+</table>
+</div> 

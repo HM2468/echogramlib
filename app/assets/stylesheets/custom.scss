@@ -11,18 +11,47 @@ h1 {
     margin-bottom: 30px;
     text-align: center;
 }
+
+h2 {                                /*add by me */
+    font-size: 2em;
+    letter-spacing: -1px;
+    margin-bottom: 20px;
+    text-align: left;
+    font-weight: normal;
+    color: rgb(0, 0, 0);
+}
+
+
+p {                                /*add by me */
+    font-size: 20px;
+    letter-spacing: -1px;
+    margin-bottom: 20px;
+    text-align: left;
+    font-weight: normal;
+    color: #777;
+}
+
+
+h3 {
+    font-size: 1.5em;               /*add by me */
+    line-height: 1.7em;
+}
+
 h5 {
     color:#922B21;      
     padding: 10px;
     }
+
+    /*
 header{ 
     padding-top: 2px;
     text-size-adjust: 25px;
-};
+}; */
 
+/*
 body{
     background-color:#B0BEC5;
-}
+}*/
 
 .table > tbody > tr > td {
     vertical-align: middle;
@@ -106,5 +135,51 @@ input {
 }
 
 .center{
-    text-align:center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
 }
+
+footer {
+    margin-top: 45px;
+    padding-top: 5px;
+    border-top: 1px solid #eaeaea;
+    color: #777;
+}
+footer a {
+    color: #555;
+}
+footer a:hover {
+    color: #222;
+}
+footer small {
+    float: left;
+}
+footer ul {
+    float: right;
+list-style: none;
+}
+footer ul li {
+    float: left;
+    margin-left: 15px;
+}
+
+.logo {
+    float: left;
+    margin-right: 40px;
+    font-size: 1.3em;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    padding-top: 10px;
+    font-weight: bold;
+    &:hover {
+    color: rgb(73, 70, 70);
+    text-decoration: none;
+    }
+}
+
+.container {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }

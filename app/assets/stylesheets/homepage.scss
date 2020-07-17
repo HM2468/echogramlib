@@ -1,9 +1,27 @@
-
-
+header{
+    color: white; 
+    background-color: #666;  
+};
+#header_txt{
+    padding-top: 5px;  
+    font-size: 25px;
+    position: absolute;
+    top: 10%;
+};
+body{
+    padding-top: 50px;
+    font: 20px "Montserrat", sans-serif;
+};
 
 .details{
     display: flex;
     justify-content: space-between;
+};
+.image_link{
+    padding-left: 40px;
+    font-size: 20px;
+    color: blue;
+    align-self: flex-start;
 };
 
 
@@ -16,6 +34,8 @@ section:after
     clear: both;
 }
 
+
+/*
 
 //image movies
 #home-main{
@@ -33,9 +53,32 @@ section:after
     height:500px;
 }
 
+*/
+
+.carousel-inner > .item > img {
+    width:800px;
+    height:400px;
+}
 
 
 
+
+.brand-centered {
+
+    
+    width: 100%;
+    left: 0;
+    top: 0;
+}
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+
+.navbar-right{
+    margin-right: 20px;
+}
 
 
 
