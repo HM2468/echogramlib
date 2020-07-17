@@ -2,18 +2,12 @@ class QueryController < ApplicationController
     
     def querygram
 
-        #enquery database to display on guery page
+        #initialize guery page parameters
         @display = Echogram.paginate(page: params[:page],per_page: 10)
         @count = @display.count
         @text_spec = "All #{@count} items in the database."
 
-        #creat and initialize a species name array
-        species_arr = []
-        MyComposition.all.each do |item|
-            species_arr << item.sciname
-        end
-
-        #sort species list by frequncy appeared DEC
+        #sort species list by apperance frequncy in DEC
         species_arr = []
         MyComposition.all.each do |item|
             species_arr << item.sciname
@@ -29,7 +23,6 @@ class QueryController < ApplicationController
         sorted_h = freq_h.sort_by {|k,v| -v}
         sorted_arr = []
         sorted_h.each{ |key,value| sorted_arr << key }
-
 
         #initialize parameters to show in drop-down list in quergram.html.erb
         @species_list = sorted_arr.insert(0,"All")
@@ -51,13 +44,18 @@ class QueryController < ApplicationController
         chosen_length  = params[:avglength]
         chosen_percent = params[:percent] 
 
-        per = percent_hash["#{chosen_percent}"]
-        len = length_hash["#{chosen_length}"]
-                
-        puts "======================================="
-        puts per
-        puts len
-        puts "======================================="
+        per = percent_hash["#{chosen_percent}"].to_f
+        len = length_hash["#{chosen_length}"].to_f
+
+
+        puts "==================================================="
+        puts "=====chosen_species: #{chosen_species}====="
+        puts "=====chosen_length: #{chosen_length}====="
+        puts "=====chosen_percent: #{chosen_percent}====="
+        puts "=====per: #{per}====="
+        puts "=====len: #{len}====="
+        puts "==================================================="
+        
         #query algorithm 
         if  chosen_species != "All" && chosen_length ==  "All" && chosen_percent ==  "All"
             temp = MyComposition.where(sciname:chosen_species)
@@ -74,9 +72,9 @@ class QueryController < ApplicationController
 
         elsif chosen_species != "All" && chosen_length !=  "All" && chosen_percent ==  "All" 
             temp = MyComposition.where(sciname:chosen_species)
-            temp1 = temp.where('avglength>?',length_hash["#{chosen_length}"])
+            temp1 = temp.where('avglength>?',len)
             name = []
-            temp.each do |item|
+            temp1.each do |item|
                 name << item.gramname
             end
             gramname = name.uniq
@@ -89,9 +87,9 @@ class QueryController < ApplicationController
 
         elsif chosen_species != "All" && chosen_length ==  "All" && chosen_percent !=  "All" 
             temp = MyComposition.where(sciname:chosen_species)
-            temp1 = temp.where('percent>?',percent_hash["#{chosen_percent}"])
+            temp1 = temp.where('percent>?',per)
             name = []
-            temp.each do |item|
+            temp1.each do |item|
                 name << item.gramname
             end
             gramname = name.uniq
@@ -104,10 +102,10 @@ class QueryController < ApplicationController
 
         elsif chosen_species != "All" && chosen_length !=  "All" && chosen_percent !=  "All" 
             temp = MyComposition.where(sciname:chosen_species)
-            temp1 = temp.where('percent>?',percent_hash["#{chosen_percent}"])
-            temp2 = temp1.where('avglength>?',length_hash["#{chosen_length}"])
+            temp1 = temp.where('percent>?',per)
+            temp2 = temp1.where('avglength>?',len)
             name = []
-            temp.each do |item|
+            temp2.each do |item|
                 name << item.gramname
             end
             gramname = name.uniq
@@ -120,7 +118,7 @@ class QueryController < ApplicationController
                             #{@count} items found."
 
         elsif chosen_species == "All" && chosen_length !=  "All" && chosen_percent ==  "All" 
-            temp = MyComposition.where('avglength>?',length_hash["#{chosen_length}"])
+            temp = MyComposition.where('avglength>?',len)
             gram = []
             temp.each do |item|
                 gram << item.gramname
@@ -134,7 +132,7 @@ class QueryController < ApplicationController
         
         elsif chosen_species == "All" && chosen_length ==  "All" && chosen_percent !=  "All" 
 
-            temp = MyComposition.where('percent>?',percent_hash["#{chosen_percent}"])
+            temp = MyComposition.where('percent>?',per)
             gram = []
             temp.each do |item|
                 gram << item.gramname
@@ -147,12 +145,11 @@ class QueryController < ApplicationController
                             #{@count} items found."
 
         elsif chosen_species == "All" && chosen_length != "All" && chosen_percent != "All" 
-                    per = percent_hash["#{chosen_percent}"]
-        len = length_hash["#{chosen_length}"]
-            temp = MyComposition.where("'percent>?', per and
-                                       'avglength>?',len")
+
+            temp = MyComposition.where('percent>?',   per)
+            temp1 = temp.where('avglength>?', len)
             gram = []
-            temp.each do |item|
+            temp1.each do |item|
                 gram << item.gramname
             end
             findname = gram.uniq

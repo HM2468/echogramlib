@@ -7,10 +7,10 @@
         <%= form_tag( {}, {method: "get"}) do %>
             <%= label_tag "Species:" %>
             <%= select_tag "species", options_for_select(@species_list) %>
-            <%= label_tag "Percentage:" %>
-            <%= select_tag "percent", options_for_select(@percent_list) %>
             <%= label_tag "Mean length:" %>
             <%= select_tag "avglength", options_for_select(@avglength_list) %>
+            <%= label_tag "Percentage:" %>
+            <%= select_tag "percent", options_for_select(@percent_list) %>
             <%= submit_tag("Search") %>
         <% end %>
     </div> 
