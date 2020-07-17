@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_16_215019) do
+ActiveRecord::Schema.define(version: 2020_07_17_004240) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,15 +77,6 @@ ActiveRecord::Schema.define(version: 2020_07_16_215019) do
   add_foreign_key "compositions", "species", column: "species_code", primary_key: "species_code", name: "compositions_fkey"
   add_foreign_key "echograms", "users", name: "echograms_fkey"
 
-  create_view "my_grams", sql_definition: <<-SQL
-      SELECT echograms.echogram_name AS gramname,
-      echograms.latitude AS lat,
-      echograms.longitude AS long,
-      hauls.fish_date AS date
-     FROM (echograms
-       JOIN hauls ON (((echograms.echogram_name)::text = (hauls.echogram_name)::text)))
-    ORDER BY echograms.echogram_name;
-  SQL
   create_view "my_compositions", sql_definition: <<-SQL
       SELECT compositions.echogram_name AS gramname,
       species.scientific_name AS sciname,
@@ -97,5 +88,16 @@ ActiveRecord::Schema.define(version: 2020_07_16_215019) do
      FROM (compositions
        JOIN species ON (((compositions.species_code)::text = (species.species_code)::text)))
     ORDER BY compositions.echogram_name;
+  SQL
+  create_view "my_grams", sql_definition: <<-SQL
+      SELECT echograms.echogram_name AS gramname,
+      echograms.latitude AS lat,
+      echograms.longitude AS long,
+      hauls.fish_date AS date,
+      echograms.frequency,
+      echograms.image_filename AS image
+     FROM (echograms
+       JOIN hauls ON ((echograms.haul_id = hauls.id)))
+    ORDER BY echograms.echogram_name;
   SQL
 end
