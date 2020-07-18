@@ -5,6 +5,7 @@
     <ul>
         <li>Name: <%= @user.name %> </li>
         <li>Email: <%= @user.email %> </li>
-        <li>Phone:  <%= @user.phone %> </li>
+        <li>Phone:  <%= @user.phone %> </li>    
     </ul>
+    <p><%= link_to "Edit My Data", edit_user_path(current_user) %></p>
 </div>

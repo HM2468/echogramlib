@@ -21,7 +21,7 @@
             <ul class="nav navbar-nav">
               <li><%= link_to "Home",          root_path %></li>
               <li><%= link_to "Query",         querygram_path %></li>
-              <li><%= link_to "Upload",        '#' %></li>
+              <li><%= link_to "Upload",        loadpage_path %></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li><%= link_to "SignUp",        signup_path %></li>
@@ -47,7 +47,7 @@
                         </a>
                         <ul class="dropdown-menu">
                           <li><%= link_to "My Profile", current_user %></li>
-                          <li><%= link_to "Edit", edit_user_path(current_user) %></li>
+                          <li><%= link_to "MyUpload", myupload_path(current_user) %></li>
                           <li class="divider"></li>
                           <li>
                             <%= link_to "Log out", logout_path, method: :delete %>
