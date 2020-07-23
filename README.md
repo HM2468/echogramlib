@@ -18,9 +18,9 @@ https://computingforgeeks.com/install-postgresql-12-on-ubuntu/
 
 **create a databse and connect to it on your ubuntu  as is said above 
 #this step may be somewhat tricky but I can not find an universal tutorial for you all
- for it has something to do with the pc environment.
- my suggestion is "if failed, google and try again"
- if still can't be successfully connected, try to seek help from Bruce, I am also a beginner
+#for it has something to do with the pc environment.
+#my suggestion is "if failed, google and try again"
+#if still can't be successfully connected, try to seek help from Bruce, I am also a beginner
  
 
 **edit config/database.yml file in rails app
@@ -45,7 +45,7 @@ https://computingforgeeks.com/install-postgresql-12-on-ubuntu/
       pool: 5
       timeout: 5000
       
-    production:                #just ignore this part, it is only used for deploy on Heroku or other server             
+    production:                 #just ignore this part, it is only used for deploy on Heroku or other server             
       host: 
       adapter: postgresql
       encoding: unicode
@@ -59,7 +59,7 @@ https://computingforgeeks.com/install-postgresql-12-on-ubuntu/
       $ bundle install              #update all gems
       $ rails db:migrate            #create tables in your postgresql database
       $ rails db:seed               #generate fake records in some tables for testing use
-      $ rake bears:importdata       #import data from csv file to your database
+      $ rake  data:importdata       #import data from csv file to your database
 
 
 #well done now you should have all data in your database, you can check it by pgadmin4 or postgre client command line
@@ -72,11 +72,11 @@ https://computingforgeeks.com/install-postgresql-12-on-ubuntu/
 
 
 #To update the database run git pull to make sure that your codes 
-  are the newest version, then run 
+#are the newest version, then run 
     $ bundle install              #install new gem 
     $ bundle update               #update all gems 
     $ rails db:migrate            #migrations on modifying database
-    $ rake bears:importdata       #import newest data from csv file to psql
+    $ rake data:importdata        #import newest data from csv file to psql
 
 **Copy all echogram images into public/image, large file is not uploaded into github, you have to included it manually.
 
@@ -89,8 +89,8 @@ https://computingforgeeks.com/install-postgresql-12-on-ubuntu/
     replace "<%= Google_Map_API%>" with your own google API key, to get one, refer:
     https://developers.google.com/maps/documentation/javascript/get-api-key
 
-    then the google map can be displayed normally.
-    Google API key should not be included in a public github repo.
+    #then the google map can be displayed normally.
+    #Google API key should not be included in a public github repo.
 
 
 #DEPLOY ON GOOGLE CLOUD
@@ -109,11 +109,11 @@ https://computingforgeeks.com/install-postgresql-12-on-ubuntu/
         $ bundle install
         $ rails db:migrate
         $ rails db:seed
-        $ rake bears:importdata  
+        $ rake data:importdata  
         $ rails s -b 0.0.0.0 -p 3000
           Now the website can be accessed at http://xx.xx.xx.xx:3000/
           xx.xx.xx.xx is the external IP of your Goole virtue machine
-      7. The most important and usefull step is to make your google cloud drive as a 
+      7.The most important and usefull step is to make your google cloud drive as a 
         hard disk in your virtue machine. that means your virtue machine can write and 
         read to the Google cloud drive directly. It would make it possible to utilize large 
         files on virtue machine for free.

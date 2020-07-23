@@ -40,7 +40,7 @@ class QueryController < ApplicationController
         length_hash = {"All"=>0,">10cm"=>10,">20cm"=>20,">30cm"=>30,">40cm"=>40,">50cm"=>50,
                             ">60cm"=>60,">70cm"=>70,">80cm"=>80,">90cm"=>90,">100cm"=>100}
         
-        #get parameters from front end 
+        #get parameters from front end download
         chosen_species = params[:species]
         chosen_length  = params[:avglength]
         chosen_percent = params[:percent] 

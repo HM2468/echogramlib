@@ -1,6 +1,6 @@
 
 ##this rake file is to import data from CSV file
-#run in rails app with $ rake bears:importdata
+#run in rails app with $ rake data:importdata
 
 
 file_hauls   = "lib/assets/hauls.csv"
@@ -105,8 +105,8 @@ comopositions_import = Proc.new{
 #data import from here
 require 'csv'
 require 'date'
-namespace :bears do
-  desc "Import data from goods.csv"
+namespace :data do
+  desc "Import data from csv files"
   task importdata: :environment do
 
     Composition.destroy_all
