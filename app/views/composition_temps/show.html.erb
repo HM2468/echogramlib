@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Echogram name:</strong>
+  <%= @composition_temp.echogram_name %>
+</p>
+
+<p>
+  <strong>Species code:</strong>
+  <%= @composition_temp.species_code %>
+</p>
+
+<p>
+  <strong>N individuals:</strong>
+  <%= @composition_temp.n_individuals %>
+</p>
+
+<p>
+  <strong>Percentage:</strong>
+  <%= @composition_temp.percentage %>
+</p>
+
+<p>
+  <strong>Mean length:</strong>
+  <%= @composition_temp.mean_length %>
+</p>
+
+<%= link_to 'Edit', edit_composition_temp_path(@composition_temp) %> |
+<%= link_to 'Back', composition_temps_path %>

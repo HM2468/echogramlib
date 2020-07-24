@@ -1,0 +1,65 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Echogram name:</strong>
+  <%= @echogram_temp.echogram_name %>
+</p>
+
+<p>
+  <strong>Image filename:</strong>
+  <%= @echogram_temp.image_filename %>
+</p>
+
+<p>
+  <strong>Frequency:</strong>
+  <%= @echogram_temp.frequency %>
+</p>
+
+<p>
+  <strong>Haul:</strong>
+  <%= @echogram_temp.haul_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @echogram_temp.user_id %>
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @echogram_temp.latitude %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @echogram_temp.longitude %>
+</p>
+
+<p>
+  <strong> Echogram Image: </strong> <br>
+  <% if @echogram_temp.gram.attached? %>
+    <%= image_tag(@echogram_temp.gram)  %>
+    <br>
+    <%= link_to 'Download file', rails_blob_path(@echogram_temp.gram, disposition: 'attachment') %>
+    <br>
+
+    <%= form_for @echogram_temp do |f| %>
+
+      <%= f.fields_for :gram_attachment_attributes do |form| %>
+          <%= form.hidden_field :id, value: @echogram_temp.gram_attachment.id %>
+          <%= form.hidden_field :_destroy, value: true %>
+      <% end %>
+
+      <%= f.submit "Delete Image" %>
+
+    <% end %>
+
+    <p>
+      <strong>Metadata:</strong><br><%= @echogram_temp.gram.metadata %><br>
+      <strong>Byte size:</strong><br><%= @echogram_temp.gram.byte_size %><br>
+    </p>
+
+  <% end %>
+</p>
+
+<%= link_to 'Back', echogram_temps_path %>

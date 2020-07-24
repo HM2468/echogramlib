@@ -1,0 +1,42 @@
+<%= form_with(model: echogram_temp, local: true) do |form| %>
+
+  <% if echogram_temp.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(echogram_temp.errors.count, "error") %> prohibited this echogram_temp from being saved:</h2>
+
+      <ul>
+      <% echogram_temp.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= label_tag "Latitude:" %>
+    <%= form.text_field :latitude %>
+  </div>
+
+  <div class="field">
+    <%= label_tag "Longitude:" %>
+    <%= form.text_field :longitude %>
+  </div>
+
+
+  <div class="field">
+    <%= label_tag "Select an image:" %>
+    <%= form.file_field :gram %>
+
+    <% if echogram_temp.gram.attached? && echogram_temp.gram.representable? %>
+      <br>
+      <%= image_tag(echogram_temp.gram.representation(resize: '250x250').processed) %>
+    <% end %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Upload" %>
+  </div>
+
+<% end %>
+
+

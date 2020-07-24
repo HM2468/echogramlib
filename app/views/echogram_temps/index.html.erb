@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Upload notes:</h1>
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Echogram name</th>
+      <th>Image filename</th>
+      <th>Frequency</th>
+      <th>Haul</th>
+      <th>User</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @echogram_temps.each do |echogram_temp| %>
+      <tr>
+        <td><%= echogram_temp.echogram_name %></td>
+        <td><%= echogram_temp.image_filename %></td>
+        <td><%= echogram_temp.frequency %></td>
+        <td><%= echogram_temp.haul_id %></td>
+        <td><%= echogram_temp.user_id %></td>
+        <td><%= echogram_temp.latitude %></td>
+        <td><%= echogram_temp.longitude %></td>
+        <td><%= link_to 'Show', echogram_temp %></td>
+        <td><%= link_to 'Delete', echogram_temp, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Upload a New Echogram', new_echogram_temp_path %>

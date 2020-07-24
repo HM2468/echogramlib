@@ -1,0 +1,42 @@
+<%= form_with(model: composition_temp, local: true) do |form| %>
+  <% if composition_temp.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(composition_temp.errors.count, "error") %> prohibited this composition_temp from being saved:</h2>
+
+      <ul>
+      <% composition_temp.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :echogram_name %>
+    <%= form.text_field :echogram_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :species_code %>
+    <%= form.text_field :species_code %>
+  </div>
+
+  <div class="field">
+    <%= form.label :n_individuals %>
+    <%= form.number_field :n_individuals %>
+  </div>
+
+  <div class="field">
+    <%= form.label :percentage %>
+    <%= form.text_field :percentage %>
+  </div>
+
+  <div class="field">
+    <%= form.label :mean_length %>
+    <%= form.text_field :mean_length %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
