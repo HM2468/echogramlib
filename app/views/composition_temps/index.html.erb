@@ -1,14 +1,13 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Composition Temps</h1>
+<h3>Composition Temps</h3>
 
 <table>
   <thead>
     <tr>
       <th>Echogram name</th>
-      <th>Species code</th>
-      <th>N individuals</th>
-      <th>Percentage</th>
+      <th>Species</th>
+      <th>Numbers</th>
       <th>Mean length</th>
       <th colspan="3"></th>
     </tr>
@@ -18,12 +17,10 @@
     <% @composition_temps.each do |composition_temp| %>
       <tr>
         <td><%= composition_temp.echogram_name %></td>
-        <td><%= composition_temp.species_code %></td>
-        <td><%= composition_temp.n_individuals %></td>
-        <td><%= composition_temp.percentage %></td>
+        <td><%= composition_temp.species %></td>
+        <td><%= composition_temp.numbers %></td>
         <td><%= composition_temp.mean_length %></td>
         <td><%= link_to 'Show', composition_temp %></td>
-        <td><%= link_to 'Edit', edit_composition_temp_path(composition_temp) %></td>
         <td><%= link_to 'Destroy', composition_temp, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>

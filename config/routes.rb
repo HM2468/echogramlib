@@ -2,9 +2,8 @@ Rails.application.routes.draw do
 
     resources :users
 
-    resources :echogram_temps do
-        resources :composition_temps
-    end
+    resources :echogram_temps, only: [:new,:create,:index,:show,:destroy]
+    resources :composition_temps,only:[:new,:create,:index,:show,:destroy]
 
     get    '/new',          to: 'sessions#new'    
     get    '/home',         to: 'homepage#home'
@@ -12,6 +11,7 @@ Rails.application.routes.draw do
     get    '/querygram',    to: 'query#querygram'
     get    '/details',      to: 'query#details'
     get    '/loadpage',     to: 'upload#loadpage'
+    get    '/newgramtemp',  to: 'upload#newgramtem'
     get    '/myupload',     to: 'upload#myupload'
     get    '/signup',       to: 'users#new'
     post   '/signup',       to: 'users#create'

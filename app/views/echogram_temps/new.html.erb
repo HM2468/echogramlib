@@ -1,5 +1,20 @@
-<h1>Upload a new echogram</h1>
+<h3> Uploading Notes </h3>
+<p>
+    <ul>
+
+        <li> Image file name should in downcase like: <br><strong>echogram_yyyymmdd_hhmmss_ffff.gif</strong> </li>
+        <li> <strong>yyyymmdd</strong> is fish date,<br> eg.20200722 stands for July 22th 2020 </li>
+        <li> <strong>hhmmss</strong> is start fish time, <br>eg.233009 stands for 23:30:09</li>
+        <li> <strong>ffff</strong> is frequency,<br>eg. 38kHz should be 0038,120kHz should be 0120 </li>
+        <li> suported image format: gif,png,jpg,jpeg </li>
+        <li> "_" can't be omited </li>
+        <li> Image size should be within 3M </li>
+        
+    </ul>
+</p>
+
 
 <%= render 'form', echogram_temp: @echogram_temp %>
+<%= link_to 'Back', :back %> |
+<%= link_to 'my upload', echogram_temps_path %>
 
-<%= link_to 'Back', echogram_temps_path %>

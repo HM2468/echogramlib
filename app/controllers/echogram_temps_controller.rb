@@ -1,6 +1,6 @@
 class EchogramTempsController < ApplicationController
 
-  before_action :set_echogram_temp, only: [:show, :edit, :update, :destroy]
+  before_action :set_echogram_temp, only: [:show, :update, :destroy]
 
   def index
     @echogram_temps = EchogramTemp.all
@@ -11,9 +11,6 @@ class EchogramTempsController < ApplicationController
 
   def new
     @echogram_temp = EchogramTemp.new
-  end
-
-  def edit
   end
 
   def create
@@ -27,9 +24,9 @@ class EchogramTempsController < ApplicationController
         filename = temp[:gram].original_filename.to_s
         gramname = filename[0,24]
         freq = filename[25,4].to_i
-        userid = 8
+        userid = session[:user_id] 
     else
-       @echogram_temp.errors
+        @echogram_temp.errors
     end
    
     @echogram_temp.update(
@@ -39,29 +36,13 @@ class EchogramTempsController < ApplicationController
       user_id:        userid
     )
 
-    respond_to do |format|
-      if @echogram_temp.save
-        format.html { redirect_to @echogram_temp, notice: 'Echogram was successfully created.' }
-        format.json { render :show, status: :created, location: @echogram_temp }
-      else
-        format.html { render :new }
-        format.json { render json: @echogram_temp.errors, status: :unprocessable_entity }
-      end
+    if @echogram_temp.save
+      flash[:success] = "Image successfully uploaded."
+      redirect_to @echogram_temp
+    else
+      render 'new'
     end
-  end
 
-
-  def update
-    
-    respond_to do |format|
-      if @echogram_temp.update(echogram_temp_params)
-        format.html { redirect_to @echogram_temp, notice: 'Echogram was successfully updated.' }
-        format.json { render :show, status: :ok, location: @echogram_temp }
-      else
-        format.html { render :edit }
-        format.json { render json: @echogram_temp.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
   def destroy
@@ -74,11 +55,9 @@ class EchogramTempsController < ApplicationController
   end
 
   private
-
     def set_echogram_temp
       @echogram_temp = EchogramTemp.find(params[:id])
     end
-
 
     def echogram_temp_params
       params.require(:echogram_temp).permit(

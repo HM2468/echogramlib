@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_24_025423) do
+ActiveRecord::Schema.define(version: 2020_07_24_085228) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,8 +38,8 @@ ActiveRecord::Schema.define(version: 2020_07_24_025423) do
 
   create_table "composition_temps", force: :cascade do |t|
     t.string "echogram_name"
-    t.string "species_code"
-    t.integer "n_individuals"
+    t.string "species"
+    t.integer "numbers"
     t.float "percentage"
     t.float "mean_length"
     t.datetime "created_at", null: false
@@ -123,15 +123,6 @@ ActiveRecord::Schema.define(version: 2020_07_24_025423) do
     t.string "image_filename"
   end
 
-  create_table "species_temps", primary_key: "species_code", id: :string, force: :cascade do |t|
-    t.bigserial "id", null: false
-    t.string "scientific_name"
-    t.string "english_name"
-    t.string "image_filename"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email", null: false
@@ -144,7 +135,6 @@ ActiveRecord::Schema.define(version: 2020_07_24_025423) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "composition_temps", "species_temps", column: "species_code", primary_key: "species_code", name: "composition_temps_fkey"
   add_foreign_key "compositions", "species", column: "species_code", primary_key: "species_code", name: "compositions_fkey"
   add_foreign_key "echogram_temps", "users", name: "echogram_temps_fkey1"
   add_foreign_key "echograms", "users", name: "echograms_fkey"

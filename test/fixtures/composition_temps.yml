@@ -2,14 +2,14 @@
 
 one:
   echogram_name: MyString
-  species_code: MyString
-  n_individuals: 1
+  species: MyString
+  numbers: 1
   percentage: 1.5
   mean_length: 1.5
 
 two:
   echogram_name: MyString
-  species_code: MyString
-  n_individuals: 1
+  species: MyString
+  numbers: 1
   percentage: 1.5
   mean_length: 1.5

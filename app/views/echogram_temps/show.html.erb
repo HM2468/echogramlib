@@ -1,4 +1,3 @@
-<p id="notice"><%= notice %></p>
 
 <p>
   <strong>Echogram name:</strong>
@@ -12,17 +11,7 @@
 
 <p>
   <strong>Frequency:</strong>
-  <%= @echogram_temp.frequency %>
-</p>
-
-<p>
-  <strong>Haul:</strong>
-  <%= @echogram_temp.haul_id %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @echogram_temp.user_id %>
+  <%= @echogram_temp.frequency %> kHz
 </p>
 
 <p>
@@ -36,30 +25,24 @@
 </p>
 
 <p>
-  <strong> Echogram Image: </strong> <br>
+  <strong>Byte size: </strong> <%= @echogram_temp.gram.byte_size/1024 %> kb
+</p>
+
+
+<p>
+  <strong>Image width: </strong> <%= @echogram_temp.gram.metadata[:width] %> pix
+</p>
+
+<p>
+  <strong>Image height:</strong> <%= @echogram_temp.gram.metadata[:height] %> pix
+</p>
+
+<p>
+  <strong> Echogram Image: </strong> <br><br>
   <% if @echogram_temp.gram.attached? %>
-    <%= image_tag(@echogram_temp.gram)  %>
-    <br>
-    <%= link_to 'Download file', rails_blob_path(@echogram_temp.gram, disposition: 'attachment') %>
-    <br>
-
-    <%= form_for @echogram_temp do |f| %>
-
-      <%= f.fields_for :gram_attachment_attributes do |form| %>
-          <%= form.hidden_field :id, value: @echogram_temp.gram_attachment.id %>
-          <%= form.hidden_field :_destroy, value: true %>
-      <% end %>
-
-      <%= f.submit "Delete Image" %>
-
-    <% end %>
-
-    <p>
-      <strong>Metadata:</strong><br><%= @echogram_temp.gram.metadata %><br>
-      <strong>Byte size:</strong><br><%= @echogram_temp.gram.byte_size %><br>
-    </p>
-
+      <%= image_tag(@echogram_temp.gram.representation(resize: '400x300').processed) %>
   <% end %>
 </p>
 
-<%= link_to 'Back', echogram_temps_path %>
+<%= link_to 'Back', :back %> |
+<%= link_to 'Add species compositions', new_composition_temp_path %>

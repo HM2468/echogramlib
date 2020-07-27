@@ -33,12 +33,16 @@ generate_users = Proc.new{
 #==============================================
 #the work truely begins from here
 #mind that the order of the codes below matters
-
-
-all_gram = Echogram.all
+gram = EchogramTemp.all.where(user_id: 12)
+gramname = []
+gram.each do |r|
+  gramname << r.echogram_name
+end
+uniqname = gramname.uniq
+test = uniqname.insert(0,"Select echogram")
 
 count = 0
-all_gram.each do |item|
+test.each do |item|
   puts item.inspect
   count += 1
   puts "================#{count}==================="

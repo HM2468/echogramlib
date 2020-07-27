@@ -2,8 +2,7 @@
 
   <% if echogram_temp.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(echogram_temp.errors.count, "error") %> prohibited this echogram_temp from being saved:</h2>
-
+      <h3><%= pluralize(echogram_temp.errors.count, "errors") %> occured:</h3>
       <ul>
       <% echogram_temp.errors.full_messages.each do |message| %>
         <li><%= message %></li>

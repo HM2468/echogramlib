@@ -29,5 +29,18 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
+
+
 en:
-  hello: "Hello world"
+  errors:
+    format: "%{message}"
+     
+  activerecord:
+      errors:
+        models:
+          user:
+            attributes:
+              password_confirmation:
+                blank: "Password Confirmation input is empty."
+
+
