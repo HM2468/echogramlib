@@ -1,59 +1,36 @@
 class CompositionTempsController < ApplicationController
-  before_action :set_composition_temp, only: [:show, :edit, :update, :destroy]
-
-
-  def index
-    @composition_temps = CompositionTemp.all
-  end
-
-
-  def show
-  end
-
 
   def new
+    $gram_id = params[:gram_id]
     @composition_temp = CompositionTemp.new
     @all = specieslist
-    @gramname = gramlist
+    @default = default_gram($gram_id) 
   end
-
- 
-  def edit
-  end
-
 
   def create
+    @default = default_gram($gram_id)
     @all = specieslist
-    @gramname = gramlist
     @composition_temp = CompositionTemp.new(composition_temp_params)
 
     if @composition_temp.save
       flash[:success] = "Added species compositions."
-      redirect_to @composition_temp
+      redirect_to back_url($gram_id)
     else
       render 'new'
     end
-
-
   end
 
-
-  def update
-  end
 
   def destroy
-    @composition_temp.destroy
-    respond_to do |format|
-      format.html { redirect_to composition_temps_url, notice: 'Composition temp was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    comp_id = params[:comp_id]
+    gram_id = params[:gram_id]
+    @composition_temp = CompositionTemp.find(comp_id)
+    @composition_temp.destroy  
+    redirect_to back_url(gram_id)
+    flash[:success] = "Species composition record deleted."
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_composition_temp
-      @composition_temp = CompositionTemp.find(params[:id])
-    end
 
     # Only allow a list of trusted parameters through.
     def composition_temp_params
@@ -80,14 +57,16 @@ class CompositionTempsController < ApplicationController
       return sorted.insert(0,"Select species")
     end
 
-    #select list in _form.html.erb
-    def gramlist
-      gram = EchogramTemp.all.where(user_id: session[:user_id])
-      gramname = []
-      gram.each do |r|
-        gramname << r.echogram_name
-      end
-      uniqname = gramname.uniq
-      return uniqname.insert(0,"Select echogram")
+    def default_gram(id)
+      gram = EchogramTemp.find(id)
+      gramname = gram.echogram_name
+      array = []
+      array << gramname
+      return array
     end
+
+    def back_url(id)
+      url = "/echogram_temps/#{id}"
+    end
+
 end

@@ -1,27 +1,39 @@
 
 
-<h3>My uploads:</h3>
 
 
-<table>
-  <thead>
-    <tr>
-      <th>Image filename</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class = "container">
+  <h3>My uploads:</h3>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <tbody>
+        <% @display.each do |item| %>
+          <tr>                
+              <td>
+                  <% if item.gram.attached? %>            
+                      <%= link_to image_tag(item.gram.representation(resize: '200x150').processed),item %> 
+                  <% end %> 
+              </td>
 
-  <tbody>
-    <% @echogram_temps.each do |echogram_temp| %>
-      <tr>
-        <td><%= echogram_temp.image_filename %></td>
-        <td><%= link_to 'Show', echogram_temp %></td>
-        <td><%= link_to 'Delete', echogram_temp, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+              <td> 
+                  <%= item.image_filename %> 
+                  <br>                    
+                  <%= link_to "Details", item %>                    
+                  <br>
+                  <%= link_to "Delete", item, method: :delete, data: { confirm: 'Are you sure?' }   %> 
+              </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+</div>
 
-<br>
-<%= link_to 'Back', :back %> |
-<%= link_to 'Upload a New Echogram', new_echogram_temp_path %>
+
+    <div class="col-md-offset-2 col-lg-offset-2 col-xl-offset-2">
+      <%= will_paginate @display%>
+    </div>
+
+
+    
+    <%= link_to 'Back', :back %> |
+    <%= link_to 'Upload', new_echogram_temp_path %>

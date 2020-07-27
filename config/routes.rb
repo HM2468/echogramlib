@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     resources :users
 
     resources :echogram_temps, only: [:new,:create,:index,:show,:destroy]
-    resources :composition_temps,only:[:new,:create,:index,:show,:destroy]
+    resources :composition_temps,only:[:new,:create,:destroy]
 
     get    '/new',          to: 'sessions#new'    
     get    '/home',         to: 'homepage#home'

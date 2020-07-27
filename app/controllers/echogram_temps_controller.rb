@@ -1,9 +1,13 @@
 class EchogramTempsController < ApplicationController
 
-  before_action :set_echogram_temp, only: [:show, :update, :destroy]
+  before_action :set_echogram_temp, only: [:update, :destroy]
+  before_action :display_composition, only: [:show]
 
   def index
     @echogram_temps = EchogramTemp.all
+    temp = EchogramTemp.all.where(user_id: session[:user_id])
+    sorted = temp.order(created_at: :desc)
+    @display = sorted.paginate(page: params[:page],per_page: 10)
   end
 
   def show
@@ -15,7 +19,6 @@ class EchogramTempsController < ApplicationController
 
   def create
     temp = echogram_temp_params
-    #EchogramTemp.destroy_all
     @echogram_temp = EchogramTemp.new(echogram_temp_params)
 
     if temp[:gram]
@@ -38,7 +41,7 @@ class EchogramTempsController < ApplicationController
 
     if @echogram_temp.save
       flash[:success] = "Image successfully uploaded."
-      redirect_to @echogram_temp
+      redirect_to echogram_temps_url
     else
       render 'new'
     end
@@ -48,15 +51,19 @@ class EchogramTempsController < ApplicationController
   def destroy
     @echogram_temp.destroy
     @echogram_temp.gram.purge
-    respond_to do |format|
-      format.html { redirect_to echogram_temps_url, notice: 'Echogram temp was successfully deleted.' }
-      format.json { head :no_content }
-    end
+    redirect_to echogram_temps_url
+    flash[:success] = "Echogram temp was successfully deleted."
   end
 
   private
     def set_echogram_temp
       @echogram_temp = EchogramTemp.find(params[:id])
+    end
+
+    def display_composition
+      temp = set_echogram_temp
+      name = temp.echogram_name
+      @composition = CompositionTemp.all.where(echogram_name:name)
     end
 
     def echogram_temp_params

@@ -1,0 +1,33 @@
+<div class = "container">
+    <div class="table-responsive">
+      <table class="table table-hover">
+
+
+        <tbody>
+          <% @display.each do |item| %>
+            <tr>                
+                <td>
+                    <%= item.image_filename %> <br>
+
+                    <% if item.gram.attached? %>            
+                        <%= link_to image_tag(@display.gram.representation(resize: '200x150').processed),
+                                    {:controller => "upload",
+                                    :action=>"composition",
+                                    :item => item.echogram_name} %> 
+                    <% end %> 
+                </td>
+
+                <td> 
+                    <%= link_to "Delete", "#"  %> <br>
+                    <%= link_to "Add species composition", "#"  %>
+                </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+
+    <div class="col-md-offset-2 col-lg-offset-2 col-xl-offset-2">
+      <%= will_paginate @display%>
+    </div>

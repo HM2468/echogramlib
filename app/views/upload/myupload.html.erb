@@ -1,1 +1,11 @@
-<h3>my upload</h3>
+<h3>My upload</h3>
+
+
+
+<% if @echogram_temp.gram.attached? %>
+    <%= image_tag(@echogram_temp.gram.representation(resize: '400x300').processed) %>
+<% end %>
+
+<%= link_to "Back", :back %>
+
+</div>
