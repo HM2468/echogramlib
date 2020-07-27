@@ -55,10 +55,7 @@ section:after
 
 */
 
-.carousel-inner > .item > img {
-    width:800px;
-    height:400px;
-}
+
 
 
 
@@ -82,7 +79,17 @@ section:after
 
 
 
+.sidenav {
+    padding-top: 20px;
+    background-color: #f1f1f1;
+    height: 100%;
+  }
 
+
+
+#zoom:hover{
+    transform: scale(1.2);
+}
 
 
 

@@ -16,11 +16,14 @@
     <%= form.text_field :latitude %>
   </div>
 
+<br>
+
   <div class="field">
     <%= label_tag "Longitude:" %>
     <%= form.text_field :longitude %>
   </div>
 
+<br>
 
   <div class="field">
     <%= label_tag "Select an image:" %>
@@ -32,8 +35,10 @@
     <% end %>
   </div>
 
+<br>
+
   <div class="actions">
-    <%= form.submit "Upload" %>
+    <%= form.submit "Upload", class:"btn btn-primary btn-block btn-lg"%>
   </div>
 
 <% end %>

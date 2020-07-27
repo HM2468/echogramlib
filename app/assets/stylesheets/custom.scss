@@ -12,7 +12,7 @@ h1 {
   text-align: center;
 }
 
-h2 {                                /*add by anna */
+h2 {                                
     font-size: 2em;
     letter-spacing: -1px;
     margin-bottom: 20px;
@@ -22,16 +22,28 @@ h2 {                                /*add by anna */
 }
 
 h3 {
-    font-size: 1.5em;               /*add by anna */
+    font-size: 1.5em;               
+    line-height: 1.7em;
+}
+
+h4 {
+    font-size: 1.0em;               
     line-height: 1.7em;
 }
 
 h5 {
+    font-size: 1.0em; 
     color:#922B21;      
     padding: 10px;
     }
 
-p {                                /*add by anna */
+h6 {
+    font-size: 20px;
+    text-align: left;
+    color: rgb(0, 0, 0); 
+}
+
+p {                               
     font-size: 20px;
     letter-spacing: -1px;
     margin-bottom: 20px;
@@ -39,6 +51,8 @@ p {                                /*add by anna */
     font-weight: normal;
     color: #777;
 }
+
+
 
 .table > tbody > tr > td {
     vertical-align: middle;
@@ -118,10 +132,13 @@ input {
 
 .center{
     text-align:center;
+    margin-right: auto;
+    width: 70%;
 }
+
 .logo {
     float: left;
-    margin-right: 40px;
+    margin-right: 20px;
     font-size: 1.3em;
     color: #fff;
     text-transform: uppercase;
@@ -132,4 +149,96 @@ input {
     color: rgb(73, 70, 70);
     text-decoration: none;
     }
+}
+
+
+.container {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+
+
+
+#usertable {
+        table-layout: auto ;
+        width: 100% ;
+      }
+#usertable td {
+        width: 50% ;
+        padding: 10px ;
+      }
+
+
+    .footer{
+        background: black;
+        color:white;
+        
+        display: flex;
+        flex-flow: row wrap;
+        margin: 0 auto;
+        padding: 15px;
+        background-color: #242729;
+        background-image: none;
+        background-repeat: no-repeat;
+        border-top: 0;
+        background-size: auto;
+        color: #6a737c;
+        padding-top: 0;
+        padding-bottom: 0;
+
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: auto; 
+        
+        .links{
+          ul {list-style-type: none;}
+          li a{
+            color: white;
+            transition: color .2s;
+            &:hover{
+              text-decoration:none;
+              color:rgb(158, 158, 158);
+              }
+          }
+        }  
+        .about-company{
+          i{font-size: 25px;}
+          a{
+            color:white;
+            transition: color .2s;
+            &:hover{color:#4180CB}
+          }
+        } 
+        .location{
+          i{font-size: 18px;}
+        }
+        .copyright p{border-top:1px solid rgba(255,255,255,.1);} 
+    }
+
+    .footer h4{
+        color: white;
+        font-size:1.0em;
+    }
+    .footer p{
+        color: rgb(158, 158, 158);
+        font-size: 15px;
+    }
+
+
+    #page-container {
+        position: relative;
+        min-height: 70vh;
+      }
+      
+    #content-wrap {
+        padding-bottom: auto;    /* Footer height */
+      }
+      
+  
+.uploadpage p{
+
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+
 }

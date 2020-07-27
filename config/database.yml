@@ -5,7 +5,7 @@ development:
   encoding: unicode
   database: echogramlib
   username: postgres
-  password: miao
+  password: annar00
   pool: 5
   timeout: 5000
 
@@ -16,7 +16,7 @@ test:
   encoding: unicode
   database: echogramlib
   username: postgres
-  password: miao
+  password: annar00
   pool: 5
   timeout: 5000
 
