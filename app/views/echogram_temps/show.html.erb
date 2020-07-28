@@ -46,7 +46,7 @@
 
 
 
-
+<% if @composition.count != 0 %>
   <p>
     <strong>Species Composition:</strong>
   </p>
@@ -76,10 +76,11 @@
           <% end %>
       </tbody>
   </table>
-
+<% end%>
 
 
 
 <%= link_to 'Back', echogram_temps_path %> |
 <%= link_to 'Add Compositions', new_composition_temp_path(:gram_id => params[:id])%>
+
 

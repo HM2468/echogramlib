@@ -4,10 +4,10 @@
 # Create a main sample user.
 generate_Admin = Proc.new{
   User.create!(name:  "Admin",
-             email: "administrator@echogram.com",
-             phone:  "07564123456",
-             password:              "echo1234",
-             password_confirmation: "echo1234",
+             email: "echogramlib@gmail.com",
+             phone:  "075641234567",
+             password:              "echogram2020",
+             password_confirmation: "echogram2020",
              admin:     true)
 }
 
@@ -26,7 +26,8 @@ generate_users = Proc.new{
   end
 }
 
-
+#generate_Admin.call
+#generate_users.call
 
 
 

@@ -36,4 +36,6 @@
 
     
     <%= link_to 'Back', :back %> |
-    <%= link_to 'Upload', new_echogram_temp_path %>
+    <%= link_to 'Upload New Images', new_echogram_temp_path %> |
+
+    <%= link_to  button_tag("Confirm Uploading", data: { confirm: "Are you sure?" } ),myupload_path %>
