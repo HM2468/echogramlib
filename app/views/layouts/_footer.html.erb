@@ -13,9 +13,11 @@
       <h4 class="mt-lg-0 mt-sm-3">Useful Links</h4>
         <ul class="list-unstyled">
           <li>- <%= link_to "Sign Up", signup_path, style:"font-size:15px" %></li>
-          <li>- <a href="#" style="font-size:15px">Your Account</a></li>
-          <li>- <a href="querygram" style="font-size:15px">Search</a></li>
-          <li>- <a href="#" style="font-size:15px">Upload</a></li>
+          <li>- <%= link_to "My Uploads", echogram_temps_path,  style:"font-size:15px"%></li>
+          <%# <li>- <a href="echogram_temps/index" style="font-size:15px">My uploads</a></li> %>
+          <li>- <%= link_to "Search", querygram_path, style:"font-size:15px" %></li>
+          <li>- <%= link_to "Upload", new_echogram_temp_path, style:"font-size:15px" %></li>
+          <%# <li>- <a href="#" style="font-size:15px">Upload</a></li>  %>
         </ul>
     </div>
     <div class="col-lg-4 col-sm-6 location">

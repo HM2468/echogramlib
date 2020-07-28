@@ -18,11 +18,14 @@
     <div id="content-wrap">
       <% flash.each do |message_type, message| %>
           <div class="alert alert-<%= message_type %>"><%= message %></div>
-      <% end %>
-      <%= yield %>
+        <% end %>
+        <%= yield %>
+      </div>
     </div>
-    </div>
-     <div id="page-container">
+
+    <div id="page-container">
      <%= render 'layouts/footer' %>
+    </div>
+    
   </body>
 </html>

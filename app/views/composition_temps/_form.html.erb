@@ -14,29 +14,37 @@
     </div>
   <% end %>
 
+<br>
 
   <div class>
     <%= label_tag "Echogram image:" %>
     <%= form.select "echogram_name", options_for_select(@default) %>
   </div>
 
+  <br>
+
   <div class="field">
     <%= label_tag "Species:" %>
     <%= form.select "species", options_for_select(@all) %>
   </div>
+
+  <br>
 
   <div class="field">
   <%= label_tag "Individual numbers:" %>
     <%= form.number_field :numbers %>
   </div>
 
+  <br>
 
   <div class="field">
   <%= label_tag "Mean length:" %>
     <%= form.text_field :mean_length %>
   </div>
 
+  <br>
+
   <div class="actions">
-    <%= form.submit "Add"%>
+    <%= form.submit "Add", class:"btn btn-primary btn-block btn-lg"%>
   </div>
 <% end %>

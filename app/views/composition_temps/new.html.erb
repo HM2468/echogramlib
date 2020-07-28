@@ -1,5 +1,17 @@
 <h3>Add species compositions</h3>
 
-<%= render 'form', composition_temp: @composition_temp %>
+<br>
 
-<%= link_to 'Back', composition_temps_path %>
+<%= render 'form', composition_temp: @composition_temp %>
+<br><br>
+
+
+<%# <%= link_to 'Back', composition_temps_path, class:"btn btn-default btn-lg" %>   <!--if you use this and click on back, it gives path error, so i tryed the solution below-->
+
+<button onclick="goBack()" class="btn btn-default btn-lg" class="responsive">Back</button>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>

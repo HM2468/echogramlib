@@ -3,10 +3,15 @@
 
 
 <div class = "container">
-  <h3>My uploads:</h3>
+  <h3>My uploads: <a href="#" onclick="return false;" data-toggle="popover" 
+          data-trigger="focus" data-placement="right"  title="How it works?" 
+          data-content="1) Use Details button to show and add Echogram details
+                        2) Use Upload button to upload a new image
+                        3) Use Delete button to delete the entire record">
+          <span class="glyphicon glyphicon-info-sign" style="font-size:20px;"></span></a></h2></h3> <br>
   <div class="table-responsive">
     <table class="table table-hover">
-      <tbody>
+    
         <% @display.each do |item| %>
           <tr>                
               <td>
@@ -17,23 +22,35 @@
 
               <td> 
                   <%= item.image_filename %> 
-                  <br>                    
-                  <%= link_to "Details", item %>                    
-                  <br>
-                  <%= link_to "Delete", item, method: :delete, data: { confirm: 'Are you sure?' }   %> 
+                  <br> <br>                    
+                  <%= link_to "Details", item, class:"btn btn-primary btn-lg", style:"margin-right:20px" %>                    
+                  <%= link_to "Delete", item, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger btn-lg"   %> 
               </td>
           </tr>
         <% end %>
-      </tbody>
+      
     </table>
-</div>
+
+  </div>
+
+  <br><br>
 
 
-    <div class="col-md-offset-2 col-lg-offset-2 col-xl-offset-2">
+    <%= link_to 'Back', :back, class:"btn btn-default btn-lg", style:"margin-right:20px" %> 
+    <%= link_to 'Upload', new_echogram_temp_path, class:"btn btn-default btn-lg" %>
+
+     <div class="col-md-offset-2 col-lg-offset-2 col-xl-offset-2">
       <%= will_paginate @display%>
     </div>
 
+</div>
 
     
-    <%= link_to 'Back', :back %> |
-    <%= link_to 'Upload', new_echogram_temp_path %>
+    
+
+
+  <script>
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})
+</script>
