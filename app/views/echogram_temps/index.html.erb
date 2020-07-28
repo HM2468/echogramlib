@@ -17,10 +17,11 @@
 
               <td> 
                   <%= item.image_filename %> 
-                  <br>                    
-                  <%= link_to "Details", item %>                    
+                  <br>                                       
                   <br>
-                  <%= link_to "Delete", item, method: :delete, data: { confirm: 'Are you sure?' }   %> 
+                  <% if item.editable %>
+                     <%= link_to "Delete", item, method: :delete, data: { confirm: 'Are you sure?' }   %> 
+                  <% end %>
               </td>
           </tr>
         <% end %>
@@ -38,4 +39,4 @@
     <%= link_to 'Back', :back %> |
     <%= link_to 'Upload New Images', new_echogram_temp_path %> |
 
-    <%= link_to  button_tag("Confirm Uploading", data: { confirm: "Are you sure?" } ),myupload_path %>
+    <%= link_to  button_tag("Confirm Uploading", data: { confirm: "Are you sure?" } ), submit_path %>

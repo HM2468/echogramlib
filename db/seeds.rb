@@ -34,6 +34,7 @@ generate_users = Proc.new{
 #==============================================
 #the work truely begins from here
 #mind that the order of the codes below matters
+=begin
 gram = EchogramTemp.all.where(user_id: 12)
 gramname = []
 gram.each do |r|
@@ -48,6 +49,14 @@ test.each do |item|
   count += 1
   puts "================#{count}==================="
 end      
+=end
+gram = EchogramTemp.all
+count = gram.count
+if count > 0
+  gram.each do |item|
+    item.update(editable:true)
+  end
+end
 
 
 

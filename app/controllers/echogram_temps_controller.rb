@@ -1,5 +1,6 @@
 class EchogramTempsController < ApplicationController
 
+  before_action :logged_in_user, only: [:new,:create,:index,:show,:destroy]
   before_action :set_echogram_temp, only: [:update, :destroy]
   before_action :display_composition, only: [:show]
 
@@ -36,7 +37,8 @@ class EchogramTempsController < ApplicationController
       echogram_name:  gramname,
       image_filename: filename,
       frequency:      freq,
-      user_id:        userid
+      user_id:        userid,
+      editable:       true
     )
 
     if @echogram_temp.save
@@ -49,8 +51,20 @@ class EchogramTempsController < ApplicationController
   end
 
   def destroy
-    @echogram_temp.destroy
+    name = @echogram_temp.echogram_name
+    comp = CompositionTemp.where(echogram_name:name)
+    num = comp.count
+
+    #delete attached image file
+    if num > 0
+      comp.destroy_all
+    end
+
+    #delete associated species compositions
     @echogram_temp.gram.purge
+
+    #delete echogram_temps table record
+    @echogram_temp.destroy
     redirect_to echogram_temps_url
     flash[:success] = "Echogram temp was successfully deleted."
   end

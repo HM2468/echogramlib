@@ -45,42 +45,66 @@
 </p>
 
 
+<% if @echogram_temp.editable %> 
+    <% if @composition.count != 0 %>
+      <p>
+        <strong>Species Composition:</strong>
+      </p>
+      <table class="table table-bordered">
+          <thead class="thead-dark">
+              <tr>
+                <th> Species </th>
+                <th> Numbers </th>   
+                <th> Mean length </th> 
+                <th> Operation </th>      
+              </tr>
+          </thead>
 
-<% if @composition.count != 0 %>
-  <p>
-    <strong>Species Composition:</strong>
-  </p>
-  <table class="table table-bordered">
-      <thead class="thead-dark">
-          <tr>
-            <th> Species </th>
-            <th> Numbers </th>   
-            <th> Mean length </th> 
-            <th> Operation </th>      
-          </tr>
-      </thead>
+          <tbody>
+              <% @composition.each do |item| %>
+                <tr>
+                    <td> <%= item.species %> </td>
+                    <td> <%= item.numbers %> </td>
+                    <td> <%= item.mean_length %> </td>
+                    <td> 
+                        <%= link_to "Delete", composition_temp_path(:comp_id => item.id, :gram_id => params[:id]), 
+                                              method: :delete, 
+                                              data: {gram_id: params[:id], 
+                                              confirm: 'Are you sure?' }  %> 
+                    </td>
+                </tr>
+              <% end %>
+          </tbody>
+      </table>
+    <% end%>
 
-      <tbody>
-          <% @composition.each do |item| %>
-            <tr>
-                <td> <%= item.species %> </td>
-                <td> <%= item.numbers %> </td>
-                <td> <%= item.mean_length %> </td>
-                <td> 
-                    <%= link_to "Delete", composition_temp_path(:comp_id => item.id, :gram_id => params[:id]), 
-                                          method: :delete, 
-                                          data: {gram_id: params[:id], 
-                                          confirm: 'Are you sure?' }  %> 
-                </td>
-            </tr>
-          <% end %>
-      </tbody>
-  </table>
-<% end%>
-
-
-
-<%= link_to 'Back', echogram_temps_path %> |
-<%= link_to 'Add Compositions', new_composition_temp_path(:gram_id => params[:id])%>
+    <%= link_to 'Back', echogram_temps_path %> |
+    <%= link_to 'Add Compositions', new_composition_temp_path(:gram_id => params[:id])%>
+<% else %> 
+    <% if @composition.count != 0 %>
+      <p>
+        <strong>Species Composition:</strong>
+      </p>
+      <table class="table table-bordered">
+          <thead class="thead-dark">
+              <tr>
+                <th> Species </th>
+                <th> Numbers </th>   
+                <th> Mean length </th>    
+              </tr>
+          </thead>
+          <tbody>
+              <% @composition.each do |item| %>
+                <tr>
+                    <td> <%= item.species %> </td>
+                    <td> <%= item.numbers %> </td>
+                    <td> <%= item.mean_length %> </td>
+                </tr>
+              <% end %>
+          </tbody>
+      </table>
+    <% end%>
+    <%= link_to 'Back', echogram_temps_path %>
+<% end %> 
 
 

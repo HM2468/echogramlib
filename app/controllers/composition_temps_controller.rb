@@ -1,5 +1,7 @@
 class CompositionTempsController < ApplicationController
 
+  before_action :logged_in_user, only: [:new,:create,:destroy]
+
   def new
     $gram_id = params[:gram_id]
     @composition_temp = CompositionTemp.new
