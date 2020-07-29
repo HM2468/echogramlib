@@ -29,14 +29,17 @@
     </table>
 </div>
 
+<div class="col-md-offset-2 col-lg-offset-2 col-xl-offset-2">
+  <%= will_paginate @display%>
+</div>
 
-    <div class="col-md-offset-2 col-lg-offset-2 col-xl-offset-2">
-      <%= will_paginate @display%>
-    </div>
 
-
-    
+<% if @display.count == 0 %>
+    <p> You haven't uploaded any images.<p>
+    <%= link_to 'Back', :back %> |
+    <%= link_to 'Upload New Images', new_echogram_temp_path %> 
+<% else %>
     <%= link_to 'Back', :back %> |
     <%= link_to 'Upload New Images', new_echogram_temp_path %> |
-
     <%= link_to  button_tag("Confirm Uploading", data: { confirm: "Are you sure?" } ), submit_path %>
+<% end %>

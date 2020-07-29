@@ -8,13 +8,16 @@ class UploadController < ApplicationController
                 flash[:danger] = "You have already submitted everything."
                 redirect_to echogram_temps_path
             else
+                #email to admin for confirmation
+                SubmitMailer.mail_admin(user).deliver_now
+
+                #email to current user for feedback of submitting
+                SubmitMailer.mail_user(user).deliver_now
+
                 gram.each do |item|
                     item.update(editable: false)
                 end
-                #email to admin for confirmation
-                SubmitMailer.mail_admin.deliver_now
-                #email to current user for feedback of submitting
-                #SubmitMailer.mail_user.deliver_now
+
                 flash[:success] = "Your uploading is submited."
                 redirect_to echogram_temps_path
             end
