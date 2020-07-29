@@ -39,6 +39,9 @@ Rails.application.configure do
   #   arguments: '-i'
   # }
   
+  # defaul sending gmail account passwd
+  Gmail_Passwd = Rails.application.secrets.Gmail_Passwd
+
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.perform_caching = false
@@ -49,7 +52,7 @@ Rails.application.configure do
   port:                    587,
   domain:                 'gmail.com',
   user_name:              'echogramlib@gmail.com',
-  password:               'xxxxxxxxx',
+  password:               Gmail_Passwd,
   authentication:         'plain',
   enable_starttls_auto:   true  }
 
@@ -82,6 +85,7 @@ Rails.application.configure do
 
   # google map API
   Google_Map_API = Rails.application.secrets.Google_Map_API
+
 
 
 end
