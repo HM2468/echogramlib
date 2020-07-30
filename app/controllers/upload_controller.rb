@@ -43,12 +43,7 @@ class UploadController < ApplicationController
         temp = EchogramTemp.find_by!(image_filename: params[:filename])
         gramname = temp.echogram_name
         compositions = CompositionTemp.where(echogram_name:gramname)  
-        sum = 0.0
-        unless composition_temp_empty?(gramname)         
-            compositions.each do |r|
-                sum += r.numbers.to_f
-            end
-        end
+
 
         filename = temp.image_filename
         dest_folder = "/Users/HM/Desktop/echogramlib/public/images/"
@@ -70,10 +65,18 @@ class UploadController < ApplicationController
             user_id:            temp.user_id
         )
 
-        unless composition_empty?(gramname)
+
+        unless composition_temp_empty?(gramname) 
+            
+            sum = 0.0
+            compositions.each do |r|
+                sum += r.numbers.to_f
+            end
+
+            hash = species_hash
+
             compositions.each do |r|
                 sciname = split_string(r.species)
-                hash = species_hash
                 percent = (r.numbers/sum).round(4)
                 Composition.create!(
                     echogram_name:     gramname,
@@ -85,6 +88,8 @@ class UploadController < ApplicationController
                 r.destroy
             end
         end
+
+
 
         temp.gram.purge
         temp.destroy
@@ -146,7 +151,8 @@ private
 
     def split_string(string)
         array = string.split('/')
-        return array[1]
+        temp  = array[1]
+        return temp.to_s
     end
 
 end
