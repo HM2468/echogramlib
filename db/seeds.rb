@@ -26,5 +26,15 @@ generate_users = Proc.new{
   end
 }
 
-generate_Admin.call
-generate_users.call
+#generate_Admin.call
+#generate_users.call
+
+
+temp = Echogram.all
+count = 1
+temp.each do |r|
+	puts "=============#{count}============="
+  puts r.image_filename 
+  puts "=================================="
+	count += 1
+end

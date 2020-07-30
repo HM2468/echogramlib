@@ -3,50 +3,24 @@ class QueryController < ApplicationController
     def querygram
 
         #initialize guery page parameters
-        gram = Echogram.all
-        @display = gram.paginate(page: params[:page],per_page: 10)
-        @count = gram.count
+        gram       = Echogram.all.order(created_at: :desc)
+        @display   = gram.paginate(page: params[:page],per_page: 10)
+        @count     = gram.count
         @text_spec = "All #{@count} items in the database."
 
         #sort species list by apperance frequncy in Decrease order
-        species_arr = []
-        MyComposition.all.each do |item|
-            species_arr << item.sciname
-        end
-        species_uniq = species_arr.uniq
-        freq_h = Hash.new
-        species_uniq.each do |r|
-          freq_h["#{r}"] = 0
-        end
-        species_arr.each do |r|
-          freq_h["#{r}"] += 1
-        end
-        sorted_h = freq_h.sort_by {|k,v| -v}
-        sorted_arr = []
-        sorted_h.each{ |key,value| sorted_arr << key }
+        @species_list   = species_order_by_freq_desc
+        @percent_list   = percent_list
+        @avglength_list = avglength_list
 
-        #initialize parameters to show in drop-down list in quergram.html.erb
-        @species_list = sorted_arr.insert(0,"All")
-
-        @percent_list = ["All",">10%",">20%",">30%",">40%",">50%",">60%",
-                            ">70%",">80%",">90%",">99.9%"]
-
-        @avglength_list = ["All",">10cm",">20cm",">30cm",">40cm",">50cm",
-                            ">60cm",">70cm",">80cm",">90cm",">100cm"]
-
-        percent_hash = {"All"=>0,">10%"=>0.1,">20%"=>0.2,">30%"=>0.3,">40%"=>0.4,">50%"=>0.5,
-                        ">60%"=>0.6,">70%"=>0.7,">80%"=>0.8,">90%"=>0.9,">99.9%"=>0.999}
-        
-        length_hash = {"All"=>0,">10cm"=>10,">20cm"=>20,">30cm"=>30,">40cm"=>40,">50cm"=>50,
-                            ">60cm"=>60,">70cm"=>70,">80cm"=>80,">90cm"=>90,">100cm"=>100}
-        
+      
         #get parameters from front end download
         chosen_species = params[:species]
         chosen_length  = params[:avglength]
         chosen_percent = params[:percent] 
 
-        per = percent_hash["#{chosen_percent}"].to_f
-        len = length_hash["#{chosen_length}"].to_f
+        per = get_percent(chosen_percent)
+        len = get_length(chosen_length)
 
 
         #query algorithm 
@@ -159,7 +133,8 @@ class QueryController < ApplicationController
                     @text_spec
                     @count
             end
-        end      
+        end   
+
     end
 
 
@@ -187,7 +162,61 @@ class QueryController < ApplicationController
             array.push(t)
         end
         @data = array
-
     end
+
+    private
+
+        def species_order_by_freq_desc
+            species_arr = []
+            MyComposition.all.each do |item|
+                species_arr << item.sciname
+            end
+            species_uniq = species_arr.uniq
+            freq_h = Hash.new
+            species_uniq.each do |r|
+              freq_h["#{r}"] = 0
+            end
+            species_arr.each do |r|
+              freq_h["#{r}"] += 1
+            end
+            sorted_h = freq_h.sort_by {|k,v| -v}
+            sorted_arr = []
+            sorted_h.each{ |key,value| sorted_arr << key }
+    
+            return sorted_arr.insert(0,"All")
+        end
+
+        def percent_list
+
+            ["All",">10%",">20%",">30%",">40%",">50%",">60%",
+             ">70%",">80%",">90%",">99.9%"]
+        end
+
+        def avglength_list
+
+            ["All",">10cm",">20cm",">30cm",">40cm",">50cm",
+             ">60cm",">70cm",">80cm",">90cm",">100cm"]
+        end
+
+        def get_percent(key)
+
+            percent_hash = {"All"=>0,">10%"=>0.1,">20%"=>0.2,">30%"=>0.3,
+                            ">40%"=>0.4,">50%"=>0.5,">60%"=>0.6,">70%"=>0.7,
+                            ">80%"=>0.8,">90%"=>0.9,">99.9%"=>0.999}
+
+            per = percent_hash["#{key}"].to_f
+
+        end
+
+        def get_length(key)
+
+            length_hash = {"All"=>0,">10cm"=>10,">20cm"=>20,">30cm"=>30,
+                           ">40cm"=>40,">50cm"=>50,">60cm"=>60,">70cm"=>70,
+                           ">80cm"=>80,">90cm"=>90,">100cm"=>100}
+            
+            len = length_hash["#{key}"].to_f
+
+        end
+
 
 end

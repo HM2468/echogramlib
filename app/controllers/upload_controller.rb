@@ -32,6 +32,7 @@ class UploadController < ApplicationController
     end
 
     def confirm
+        #global params shared in confirm/accept/reject
         $id  = params[:id]
         user_gram = EchogramTemp.all.where(user_id: $id)
         sorted = user_gram.order(created_at: :desc)
@@ -60,7 +61,7 @@ class UploadController < ApplicationController
             end
         end
 
-        Echogram.new(
+        Echogram.create!(
             echogram_name:      gramname,
             image_filename:     filename,
             frequency:          temp.frequency,
@@ -74,7 +75,7 @@ class UploadController < ApplicationController
                 sciname = split_string(r.species)
                 hash = species_hash
                 percent = (r.numbers/sum).round(4)
-                Composition.new(
+                Composition.create!(
                     echogram_name:     gramname,
                     species_code:      hash["#{sciname}"],
                     mean_length:       r.mean_length,
