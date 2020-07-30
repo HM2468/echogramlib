@@ -1,0 +1,36 @@
+
+
+
+
+<div class = "container">
+
+<div class="table-responsive">
+  <table class="table table-hover">
+    <tbody>
+      <% @display.each do |item| %>
+        <tr> 
+          <% unless item.editable %>               
+              <td>
+                  <% if item.gram.attached? %>            
+                      <%= link_to image_tag(item.gram.representation(resize: '200x150').processed),item %> 
+                  <% end %> 
+              </td>
+
+              <td>  
+                  <%= item.image_filename %> <br>                                       
+                  <%= link_to "Accept", accept_path(:filename => item.image_filename)  %> <br> 
+                  <%= link_to "Reject", reject_path(:filename => item.image_filename)  %> <br> 
+              </td>
+          <% end %> 
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="col-md-offset-2 col-lg-offset-2 col-xl-offset-2">
+<%= will_paginate @display%>
+</div>
+
+
+

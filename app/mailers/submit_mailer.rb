@@ -4,7 +4,7 @@ class SubmitMailer < ApplicationMailer
     def mail_admin(user_id)      
         current_user = User.find_by(id: user_id)
         @name = current_user.name
-        @url = "1234567"
+        @url = "http://localhost:3000/confirm?id=#{user_id}"
         mail(to: "huangmiao2468@gmail.com", subject: 'New uploading.')
     end
 
