@@ -17,9 +17,11 @@
               </td>
 
               <td>  
-                  <%= item.image_filename %> <br>                                       
-                  <%= link_to "Accept", accept_path(:filename => item.image_filename)  %> <br> 
-                  <%= link_to "Reject", reject_path(:filename => item.image_filename)  %> <br> 
+                  <%= item.image_filename %> <br><br>                                        
+                  <%= link_to "Accept", accept_path(:filename => item.image_filename), 
+                                        class:"btn btn-primary btn-lg"%>    
+                  <%= link_to "Reject", reject_path(:filename => item.image_filename), 
+                                        class:"btn btn-danger btn-lg"  %> 
               </td>
           <% end %> 
         </tr>

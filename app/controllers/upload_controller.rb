@@ -46,8 +46,8 @@ class UploadController < ApplicationController
 
 
         filename = temp.image_filename
-        dest_folder = "/Users/HM/Desktop/echogramlib/public/images/"
-        newfile = dest_folder + filename
+        #dest_folder = "/Users/HM/Desktop/echogramlib/public/images/"
+        newfile = Rails.root + "public/images/" + filename
 
         unless FileTest::exist?(newfile)
             binary = temp.gram.download
