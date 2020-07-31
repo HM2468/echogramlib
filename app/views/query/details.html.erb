@@ -105,7 +105,7 @@
         var map;
         var marker;
         var location = {lat: <%=raw @gram.first.latitude %>, lng: <%=raw @gram.first.longitude %>};
-        var  ref = {lat: 60, lng: 0};
+        var  ref = location;
 
         map = new google.maps.Map(
         document.getElementById('gmap'), {zoom: 4, center: ref,mapTypeId: 'satellite'});
