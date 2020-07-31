@@ -1,3 +1,5 @@
+<!--
+
 <% provide(:title, @user.name) %>
 
 
@@ -5,7 +7,41 @@
     <ul>
         <li>Name: <%= @user.name %> </li>
         <li>Email: <%= @user.email %> </li>
-        <li>Phone:  <%= @user.phone %> </li>    
+        <li>Phone:  <%= @user.phone %> </li>
     </ul>
-    <p><%= link_to "Edit My Data", edit_user_path(current_user) %></p>
+</div>
+
+-->
+
+
+<div class="container">
+
+<% provide(:title, @user.name) %>
+
+
+<div id = "userInfo">
+<div class="table-responsive">  
+<h2>User details</h2>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Name:</th>
+                <td><%= @user.name %></td>
+            </tr>
+             <tr>
+                <th>Email:</th>
+                <td><%= @user.email %></td>
+            </tr>
+            <tr>
+                <th>Phone:</th>
+                <td><%= @user.phone %></td>
+            </tr>
+        </thead>
+    </table>
+</div>
+<p><%= link_to "Edit My Data", edit_user_path(current_user),  class:"btn btn-primary btn-lg"%></p>
+</div>
+
+
+
 </div>

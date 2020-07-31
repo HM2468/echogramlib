@@ -35,30 +35,52 @@ section:after
 }
 
 
-/*
 
-//image movies
-#home-main{
-    height:500px;
+
+
+
+.brand-centered {
+
+    
+    width: 100%;
+    left: 0;
+    top: 0;
+}
+  .navbar-brand {
+    display: flex;
+    align-items: center;
 }
 
-#goods-movie{
-    width:900px;
-    height:500px;
-    overflow: hidden;
-    position: relative;
-}
-#movie-img-list{
-    width:800px;
-    height:500px;
+
+.navbar-right{
+    margin-right: 20px;
 }
 
-*/
 
-.carousel-inner > .item > img {
-    width:800px;
-    height:400px;
+.sidenav {
+    padding-top: 20px;
+    background-color: #f1f1f1;
+    height: 100%;
+  }
+
+
+
+#zoom:hover{
+    transform: scale(1.2);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

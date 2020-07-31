@@ -1,3 +1,5 @@
+<div class="container">
+
 <h1>Log in</h1>
 
 <div class="row">
@@ -6,11 +8,20 @@
             <%= f.label :email %>
             <%= f.email_field :email, class: 'form-control' %>
 
+            <br>
+
             <%= f.label :password %>
             <%= f.password_field :password, class: 'form-control' %>
+
+            <br>
             
             <%= f.submit "Log in", class: "btn btn-primary" %>
         <% end %>
+
+            <br>
+
         <p>New user? <%= link_to "Sign up now!", signup_path %></p>
     </div>
+</div>
+
 </div>

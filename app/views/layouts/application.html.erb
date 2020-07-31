@@ -4,6 +4,7 @@
     <% #change the title of a page. CONFUSED %>
     <title><%= full_title(yield(:title)) %></title>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -11,14 +12,22 @@
     <%= render 'layouts/shim' %>
   </head>
 
+
   <body>
     <%= render 'layouts/header' %>
-    <div class="container">
+    <div class="container" id="page-container">
+    <div id="content-wrap">
       <% flash.each do |message_type, message| %>
           <div class="alert alert-<%= message_type %>"><%= message %></div>
-      <% end %>
-      <%= yield %>
-      <%= render 'layouts/footer' %>
+        <% end %>
+        <%= yield %>
+      </div>
     </div>
+
+    <div id="page-container">
+     <%= render 'layouts/footer' %>
+    </div>
+    
   </body>
 </html>
+

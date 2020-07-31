@@ -1,55 +1,64 @@
+<div class="container">
+  <div class="uploadpage">
+  <h2>Image Features</h2> <br>
 
-<p>
-  <strong>Echogram name:</strong>
-  <%= @echogram_temp.echogram_name %>
-</p>
+  <p>
+    <strong>Echogram name:</strong>
+    <%= @echogram_temp.echogram_name %>
+  </p>
 
-<p>
-  <strong>Image filename:</strong>
-  <%= @echogram_temp.image_filename %>
-</p>
+  <p>
+    <strong>Image filename:</strong>
+    <%= @echogram_temp.image_filename %>
+  </p>
 
-<p>
-  <strong>Frequency:</strong>
-  <%= @echogram_temp.frequency %> kHz
-</p>
+  <p>
+    <strong>Frequency:</strong>
+    <%= @echogram_temp.frequency %> kHz
+  </p>
 
-<p>
-  <strong>Latitude:</strong>
-  <%= @echogram_temp.latitude %>
-</p>
+  <p>
+    <strong>Latitude:</strong>
+    <%= @echogram_temp.latitude %>
+  </p>
 
-<p>
-  <strong>Longitude:</strong>
-  <%= @echogram_temp.longitude %>
-</p>
+  <p>
+    <strong>Longitude:</strong>
+    <%= @echogram_temp.longitude %>
+  </p>
 
-<p>
-  <strong>Byte size: </strong> <%= @echogram_temp.gram.byte_size/1024 %> kb
-</p>
+  <p>
+    <strong>Byte size: </strong> <%= @echogram_temp.gram.byte_size/1024 %> kb
+  </p>
 
 
-<p>
-  <strong>Image width: </strong> <%= @echogram_temp.gram.metadata[:width] %> pix
-</p>
+  <p>
+    <strong>Image width: </strong> <%= @echogram_temp.gram.metadata[:width] %> pix
+  </p>
 
-<p>
-  <strong>Image height:</strong> <%= @echogram_temp.gram.metadata[:height] %> pix
-</p>
+  <p>
+    <strong>Image height:</strong> <%= @echogram_temp.gram.metadata[:height] %> pix
+  </p>
 
-<p>
-  <strong> Echogram Image: </strong> <br><br>
-  <% if @echogram_temp.gram.attached? %>
-      <%= image_tag(@echogram_temp.gram.representation(resize: '400x300').processed) %>
-  <% end %>
-</p>
+  <p>
+    <strong> Echogram Image: </strong> <br><br>
+    <% if @echogram_temp.gram.attached? %>
+        <%= image_tag(@echogram_temp.gram.representation(resize: '400x300').processed) %>
+    <% end %>
+  </p>
+  </div>
 
+  <br>
 
 <% if @echogram_temp.editable %> 
     <% if @composition.count != 0 %>
-      <p>
-        <strong>Species Composition:</strong>
-      </p>
+      <h3>
+        Species Composition: <a href="#" onclick="return false;" data-toggle="popover" 
+          data-trigger="focus" data-placement="right"  title="How it works?" 
+          data-content="1) Use Add Species Composition button to add the species to your Echogram image">
+          <span class="glyphicon glyphicon-info-sign" style="font-size:20px;"></span></a>
+      </h3>
+      <div class="table-responsive">
       <table class="table table-bordered">
           <thead class="thead-dark">
               <tr>
@@ -76,15 +85,19 @@
               <% end %>
           </tbody>
       </table>
+      </div>
     <% end%>
 
-    <%= link_to 'Back', echogram_temps_path %> |
-    <%= link_to 'Add Compositions', new_composition_temp_path(:gram_id => params[:id])%>
+    <br>
+
+    <%= link_to 'Back', echogram_temps_path, class:"btn btn-default btn-lg", style:"margin-right:20px" %> 
+    <%= link_to 'Add Compositions', new_composition_temp_path(:gram_id => params[:id]), class:"btn btn-primary btn-lg"%>
 <% else %> 
     <% if @composition.count != 0 %>
-      <p>
-        <strong>Species Composition:</strong>
-      </p>
+      <h3>
+        Species Composition:
+      </h3>
+      <div class="table-responsive">
       <table class="table table-bordered">
           <thead class="thead-dark">
               <tr>
@@ -103,8 +116,17 @@
               <% end %>
           </tbody>
       </table>
+      </div>
     <% end%>
-    <%= link_to 'Back', echogram_temps_path %>
+    <%= link_to 'Back', echogram_temps_path,  class:"btn btn-default btn-lg"%>
 <% end %> 
 
+</div>
 
+
+
+<script>
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})
+</script>

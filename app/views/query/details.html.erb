@@ -4,17 +4,25 @@
 <div class = "container">
 
     <div class = "row">
-      <div class = "col-xs-6">
+      <div class = "col-sm-6">
         <br>
         <div id="charts" style="width:100%;height:500px;"></div>
       </div>
 
-      <div class = "col-xs-6">
+      <div class = "col-sm-6">
         <br>
         <div id="gmap" style='width: 100%; height:500px;'></div> 
      </div>
     </div> 
+    
     <br>
+    <br>
+    <br>
+
+    <h2>Detailed information</h2>
+    <br>
+
+    <div class="table-responsive"> 
     <table class="table table-bordered">
         <thead class="thead-dark">
             <tr>
@@ -37,8 +45,13 @@
           <% end %>
         </tbody>
     </table>
+    </div>
+
 
     <br>
+    <br>
+
+    <div class="table-responsive"> 
     <table class="table table-bordered">
         <thead class="thead-dark">
             <tr>
@@ -64,19 +77,28 @@
             <% end %>
         </tbody>
     </table>
-
-    <div class="col-md-offset-2 col-lg-offset-2 col-xl-offset-4">
-        <% @gram.each do |item| %> 
-            <h2> <%= item.frequency.to_s + " kHz" %> </h2>                                
-            <% name = "/images/" + item.image_filename.to_s %>
-            <%= image_tag(name, options = {size: "800x600"})%>  
-        <% end %>
     </div>
 
-    <div>
-        <%= link_to   image_tag("back.png", size: "30x30") , :back %>
-    </div>
 </div>
+
+   
+    <div class="container">
+    <h2>Echogram images</h2>
+        <div class="row">
+            <div class="col-md-offset-2 col-lg-offset-2 col-xl-offset-4">
+            <% @gram.each do |item| %> <br><br>
+                <h4> Echogram frequency: <%= item.frequency.to_s + " kHz" %> </h4>                                
+                <% name = "/images/" + item.image_filename.to_s %>
+                <%= image_tag(name, options = {size: "800x600", class: "img-responsive"})%>  
+            <% end %>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <%= link_to "Back", :back,  class:"btn btn-default btn-lg" %> 
+    </div>
 
 <script>
     function initMap() {

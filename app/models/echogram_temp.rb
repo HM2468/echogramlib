@@ -4,7 +4,6 @@ class EchogramTemp < ApplicationRecord
     # allows destroying an echogram via a profile's update action
     accepts_nested_attributes_for :gram_attachment, allow_destroy: true  
     validate :gram_valid?
-    validates :image_filename, uniqueness: true
      
     #no blank form allowwed 
     validates_presence_of :latitude, message: 'Latitude input is empty.'
@@ -16,7 +15,7 @@ class EchogramTemp < ApplicationRecord
         if gram.attached?
           if !name_valid?(gram.filename.to_s)
              errors.add :gram, 'Image file name format error.' 
-          elsif gram.byte_size > (1080 ** 2)  
+          elsif gram.byte_size > (3*1024*1024)  
             errors.add :gram, 'Image file size is too big.'
           else
           end
