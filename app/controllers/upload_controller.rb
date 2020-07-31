@@ -44,9 +44,7 @@ class UploadController < ApplicationController
         gramname = temp.echogram_name
         compositions = CompositionTemp.where(echogram_name:gramname)  
 
-
         filename = temp.image_filename
-        #dest_folder = "/Users/HM/Desktop/echogramlib/public/images/"
         newfile = Rails.root + "public/images/" + filename
 
         unless FileTest::exist?(newfile)
