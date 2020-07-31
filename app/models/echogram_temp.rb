@@ -3,13 +3,20 @@ class EchogramTemp < ApplicationRecord
     has_one_attached :gram
     # allows destroying an echogram via a profile's update action
     accepts_nested_attributes_for :gram_attachment, allow_destroy: true  
+
+
     validate :gram_valid?
      
     #no blank form allowwed 
     validates_presence_of :latitude, message: 'Latitude input is empty.'
     validates_presence_of :longitude, message: 'Longitude input is empty.'
+    validates_inclusion_of :latitude, :in => (-90..90), message: 'Latitude input invalid.'
+    validates_inclusion_of :longitude, :in => (-180..180), message: 'Longitude input invalid.'
     
     private
+
+      def coordinate_valid?
+      end
 
       def gram_valid?
         if gram.attached?
@@ -24,22 +31,29 @@ class EchogramTemp < ApplicationRecord
 
       def name_valid(imagename)
         if imagename_downcase_valid?(imagename)
-            if imagename_split_valid?(imagename)
-                unless imagename_format_valid?(imagename)
-                  errors.add :gram, 'File format invalid.'
-                end
-                unless imagename_prefix_valid?(imagename) 
-                  errors.add :gram, 'Image file name should start with echogram_.'
-                end
-                unless  imagename_date_valid?(imagename)
-                  errors.add :gram, 'Fishing date in filename is invalid'
-                end
-                unless imagename_time_valid?(imagename)
-                  errors.add :gram, 'Start fishing time in filename is invalid'
-                end
+
+            if imagename_prefix_valid?(imagename)
+
+                  if imagename_split_valid?(imagename)
+                      unless imagename_format_valid?(imagename)
+                        errors.add :gram, 'File format invalid.'
+                      end
+
+                      unless  imagename_date_valid?(imagename)
+                        errors.add :gram, 'Fishing date in filename is invalid'
+                      end
+
+                      unless imagename_time_valid?(imagename)
+                        errors.add :gram, 'Start fishing time in filename is invalid'
+                      end
+                  else
+                    errors.add :gram, 'Filename should be split with "_" in right place.'
+                  end
+                  
             else
-              errors.add :gram, 'Filename should be split with _ in right place.'
+              errors.add :gram, 'Image file name should start with "echogram_".'
             end
+
         else
             errors.add :gram, 'All letters should be in downcase.' 
         end
