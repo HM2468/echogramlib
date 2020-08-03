@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
     get    '/new',          to: 'sessions#new'    
     get    '/home',         to: 'homepage#home'
+    get    '/pdf',          to: 'homepage#pdf'
     get    '/search',       to: 'homepage#search'
     get    '/querygram',    to: 'query#querygram'
     get    '/details',      to: 'query#details'
@@ -19,6 +20,7 @@ Rails.application.routes.draw do
     post   '/login',        to: 'sessions#create'
     delete '/logout',       to: 'sessions#destroy'
 
-    root 'homepage#home'
 
+    root 'homepage#home'
+    
 end

@@ -87,5 +87,4 @@ Rails.application.configure do
   Google_Map_API = Rails.application.secrets.Google_Map_API
 
 
-
 end

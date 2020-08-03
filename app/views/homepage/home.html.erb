@@ -3,13 +3,14 @@
             <div class = "container"> 
                 <div class="jumbotron">
                     <h1 >Welcome to the Echogram Library</h1>
-                    <p class="text-justify">This web application was made for the fishermen and scientist 
-                                who want to enrich the Echogram Library with new records or simply search for already existing Echogram.</p>
-                    <p class="text-justify" style="font-weight: bold">How it works?</p> 
-                    <p class="text-justify">Simply as that: <br><br>
-                                            1) use the <%= link_to "Query page", querygram_path %> if you want to search for existing catchment records, or <%= link_to "sign up", signup_path%> first and then <br><br>
-                                            2) use the <%= link_to "Upload page", '#' %> if you want to upload your own catchment. </p> <br>
-                    <p class="text-justify" style="font-weight: bold">Well, you are ready to join the community!</p> 
+                    <p class="text-justify">This web application is for fishermen and scientists 
+                                            who want to add to the Echogram Library with new echogram records or simply search for existing echograms.
+                    </p>
+                    <p class="text-justify" style="font-weight: bold">How it works:</p> 
+                    <p class="text-justify"> 
+                                            1) Use the <%= link_to "Query page", querygram_path %> if you want to search for existing records, or <%= link_to "sign up", signup_path%> first and then <br><br>
+                                            2) use the <%= link_to "Upload page", '#' %> if you want to upload your own record(s). </p> <br>
+                    <p class="text-justify" style="font-weight: bold">Then you are ready to join the community!</p> 
                     <p><%= link_to "Sign up now!", signup_path, class: "btn btn-primary btn-lg", role:"button" %></p>
                 </div>
 
@@ -27,7 +28,7 @@
     <a href="/images/echogram_20010710_161427_0038.gif/" target="_blank">
         <img src="/images/echogram_20010710_161427_0038 - resized.gif" alt="Echo1" style="width:100%" id="zoom">
         <div class="caption">
-          <h6>North sea area. <br> 4040 individual of Herring with mean length of 25,48. 38 kHz</h6>
+          <h6>North sea area. <br> Echogram at 38 KHz where 4040 individual herring were caught with a mean length of 25.4 cm</h6>
         </div>
       </a>
     </div>
@@ -37,7 +38,7 @@
     <a href="/images/echogram_20020630_140542_0038.gif/" target="_blank">
         <img src="/images/echogram_20020630_140542_0038 - resized.gif/" alt="Echo2" style="width:100%" id="zoom">
         <div class="caption">
-          <h6>North sea area. <br> 12540 individual of Herring with mean length of 25,42. 38 kHz</h6>
+          <h6>North sea area. <br> Echogram at 38 kHz where 12540 individual herring were caught with a mean length of 25.4 cm</h6>
         </div>
       </a>
     </div>
@@ -47,7 +48,7 @@
       <a href="/images/echogram_20020628_124235_0038.gif/" target="_blank">
         <img src="/images/echogram_20020628_124235_0038 - resized.gif/" alt="echo3" style="width:100%" id="zoom">
         <div class="caption">
-          <h6>North sea area. <br> 10134 individual of Herring with mean length of 25,28. 38 kHz</h6>
+          <h6>North sea area. <br> Echogram at 38 kHz where 10134 individual herring were caught with a mean length of 25.3 cm</h6>
         </div>
       </a>
     </div>
@@ -60,12 +61,16 @@
 
 <div class="container">
 
-<p class="text-justify">An echogram is the representation of the shape and position of the fish school that release an echotrace. 
-Particularly, it represents the water column in two dimensions where the x axis represents the distance travelled by the ship during the measure and the y axis correspond to the depth of the water column. 
-The colours visible in the echogram show the intensity (in dB unit) of the signal detected, where the brown colour is the more intense one. The intensity of the echo depends on the dimension of the object (bigger is the object bigger is the signal) and on the object composition, so how much is different from the water. 
-The echogram is the product of the acoustic signal converted into electric signal derived from the acoustic surveys used in science to evaluate the distribution and behaviour of the marine species.
+<p class="text-justify">An echogram is a two dimensional representation of objects which scatter sound in the water column. 
+It can reveal the shape and position of fish schools which form echotraces. 
+The two dimensions are, typically, distance on the x axis, and depth on the y axis. 
+The two axes are not scaled equivalently, with the x axis on a much larger scale (a few kilometres) than the y axis (10's of metres). 
+The colours represent the intensity (in decibels) of the detected echo, where the brown colour is the most intense, green and blue are weaker targets, and white space indicate empty water. 
+The intensity of the echo depends on the dimension of the object (generally the bigger the object the bigger the echo) and on its composition, i.e. how different it is from water. 
+The acoustic signal represented on an echogram forms the basis of acoustic surveys which are used in science to evaluate the distribution and behaviour of the marine species. 
+It is also used by fishermen to determine when and where to set their nets.
 <br><br>
-(Reference: Fernandes et al 2006 SIMFAMI_final_report)
+Reference: Fernandes et al 2006 SIMFAMI_final_report
 </p>
 
 

@@ -25,7 +25,6 @@ generate_users = Proc.new{
                 password_confirmation: password)
   end
 }
-
+User.destroy_all
 generate_Admin.call
-generate_users.call
 

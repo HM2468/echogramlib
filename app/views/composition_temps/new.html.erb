@@ -1,17 +1,19 @@
 <h3>Add species compositions</h3>
 
+ <br>
+ <p> 
+ Select species from the drop-down menu.
+ <br>
+ Individual number range is (1,10000)
+ <br>
+ Mean length is in centimeter, and range is (0,500)
+
+ </p>
+
+
 <%= render 'form', composition_temp: @composition_temp %>
 
 <br><br>
 
-<%= link_to 'Back', :back, class:"btn btn-default btn-lg" %>
-
-<%# <%= link_to 'Back', composition_temps_path, class:"btn btn-default btn-lg" %>   <!--if you use this and click on back, it gives path error, so i tryed the solution below-->
-
-<%# <button onclick="goBack()" class="btn btn-default btn-lg" class="responsive">Back</button>
-
-<script>
-    function goBack() {
-        window.history.back();
-    }
-</script> %>
+<%= link_to 'Back', @back_url, class:"btn btn-default btn-lg" %>
+  

@@ -110,4 +110,6 @@ Rails.application.configure do
   password:               Gmail_Passwd,
   authentication:         'plain',
   enable_starttls_auto:   true  }
+
+
 end

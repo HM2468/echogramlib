@@ -7,12 +7,14 @@ class CompositionTempsController < ApplicationController
     @composition_temp = CompositionTemp.new
     @all = specieslist
     @default = default_gram($gram_id) 
+    @back_url = request.base_url + "/echogram_temps/#{$gram_id}"
   end
 
   def create
     @default = default_gram($gram_id)
     @all = specieslist
     @composition_temp = CompositionTemp.new(composition_temp_params)
+    @back_url = request.base_url + "/echogram_temps/#{$gram_id}"
 
     if @composition_temp.save
       flash[:success] = "Added species compositions."
@@ -21,7 +23,6 @@ class CompositionTempsController < ApplicationController
       render 'new'
     end
   end
-
 
   def destroy
     comp_id = params[:comp_id]
@@ -33,7 +34,6 @@ class CompositionTempsController < ApplicationController
   end
 
   private
-
     # Only allow a list of trusted parameters through.
     def composition_temp_params
       params.require(:composition_temp).permit(

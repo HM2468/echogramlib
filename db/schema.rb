@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_28_135544) do
+ActiveRecord::Schema.define(version: 2020_08_01_193935) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,9 +39,9 @@ ActiveRecord::Schema.define(version: 2020_07_28_135544) do
   create_table "composition_temps", force: :cascade do |t|
     t.string "echogram_name"
     t.string "species"
-    t.integer "numbers"
+    t.string "numbers"
     t.float "percentage"
-    t.float "mean_length"
+    t.string "mean_length"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -62,8 +62,8 @@ ActiveRecord::Schema.define(version: 2020_07_28_135544) do
     t.integer "frequency"
     t.integer "haul_id"
     t.integer "user_id"
-    t.float "latitude"
-    t.float "longitude"
+    t.string "latitude"
+    t.string "longitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "editable"

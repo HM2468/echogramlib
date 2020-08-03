@@ -3,7 +3,7 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
       <div class="container-fluid">
        <a class="navbar-brand"><img src="/images/logo.png" style="width:50px;height:50px;" class="img-responsive"></a>
-       <%= link_to "EchogramLib", root_path, class: "logo" %>      
+       <%= link_to "EchoLib", root_path, class: "logo" %>      
         <nav>
           <div class="navbar-header">
               <button type="button" class="navbar-toggle collapsed"
@@ -24,6 +24,7 @@
               <li><%= link_to "Upload",        new_echogram_temp_path %></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+              <li><%= link_to "Help",          pdf_path, target: :_blank %></li>
               <li><%= link_to "SignUp",        signup_path %></li>
               <% if logged_in? %>
                    <% if current_user.admin? %>
