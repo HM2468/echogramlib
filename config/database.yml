@@ -1,11 +1,11 @@
 
 development:
-  host: localhost
+  host: ec2-54-217-213-79.eu-west-1.compute.amazonaws.com
   adapter: postgresql
   encoding: unicode
-  database: echogramlib
-  username: postgres
-  password: miao
+  database: dd7n1hmp0e8eie
+  username: okhpbsvmmiials
+  password: ded8386c3b3289c3c0311255addfe87dd0f29374b7a01f61a881890459c4ca44
   pool: 5
   timeout: 5000
 
