@@ -16,11 +16,35 @@
             <%= select_tag "avglength", options_for_select(@avglength_list) %>
             <%= label_tag "Percentage:" %>
             <%= select_tag "percent", options_for_select(@percent_list) %>
-            <%= submit_tag("Search", class: "btn btn-default btn-lg") %>
+            <%= submit_tag("Filter", class: "btn btn-default btn-lg") %>
         <% end %>
       </div> 
     </div>
+
+    <br>
+
+    <h2> Search by      <a href="#" onclick="return false;" data-toggle="popover" 
+    data-trigger="focus" data-placement="right"  title="How it works?" 
+    data-content="1) Input a string you want to search.
+                  2) The results are all echogram images whose file name contain the string you input.">
+    <span class="glyphicon glyphicon-info-sign" style="font-size:20px;"></span></a> </h2> 
+
+    <div class = "row" >
+    <div class = "col-sm-6">
+      <%= form_tag( {}, {method: "get", id: "filter"}) do %>
+          <%= label_tag "Enter a string to search:" %>
+          <%= text_field_tag(:searching )%>
+          <%= submit_tag("Search", class: "btn btn-default btn-lg") %>
+      <% end %>
+    </div> 
+  </div>
+
+
+
+
 </div>
+
+
 
 
 

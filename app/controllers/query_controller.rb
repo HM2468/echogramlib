@@ -18,14 +18,14 @@ class QueryController < ApplicationController
         chosen_species = params[:species]
         chosen_length  = params[:avglength]
         chosen_percent = params[:percent] 
+        search_input   = params[:searching] 
 
         per = get_percent(chosen_percent)
         len = get_length(chosen_length)
 
 
         #query algorithm 
-       if  chosen_species || chosen_length || chosen_percent
-        
+       if  chosen_species || chosen_length || chosen_percent       
             if  chosen_species != "All" && chosen_length ==  "All" && chosen_percent ==  "All"
                 temp = MyComposition.where(sciname:chosen_species)
                 name = []
@@ -132,8 +132,28 @@ class QueryController < ApplicationController
                     @display
                     @text_spec
                     @count
-            end
-        end   
+            end   
+        end  
+        
+
+        if search_input && search_input != ""
+            gram       = Echogram.all.order(created_at: :desc)
+            temp       = gram.where("image_filename like ?", "%#{search_input}%")
+            @display   = temp.paginate(page: params[:page],per_page: 10)
+            @count     = temp.count
+            @text_spec = "Search input: \"#{search_input}\",  #{@count} items found."
+        end
+        
+
+        puts "==================================="
+
+        puts search_input
+
+        puts "==================================="
+
+
+
+
 
     end
 
