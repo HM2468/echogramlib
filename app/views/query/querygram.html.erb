@@ -1,61 +1,50 @@
 
-
 <div class = "container">
-  <h2> Filter by      <a href="#" onclick="return false;" data-toggle="popover" 
-          data-trigger="focus" data-placement="right"  title="How it works?" 
-          data-content="1) Select from the dropdown menu the filters you want to use for your search. You can filter for 1 category, for all 3 or combine them as you like.
-                        2) Click on search button. The results appear above the filter. 3) Click on the Echogram image to see the details.">
-          <span class="glyphicon glyphicon-info-sign" style="font-size:20px;"></span></a> </h2> 
-
-    <div class = "row" >
+  <div class = "row" >
       <div class = "col-sm-6">
-        <%= form_tag( {}, {method: "get", id: "filter"}) do %>
-            <%= label_tag "Species:" %>
-            <%= select_tag "species", options_for_select(@species_list) %>
-            <%= label_tag "Mean length:" %>
-            <%= select_tag "avglength", options_for_select(@avglength_list) %>
-            <%= label_tag "Percentage:" %>
-            <%= select_tag "percent", options_for_select(@percent_list) %>
-            <%= submit_tag("Filter", class: "btn btn-default btn-lg") %>
-        <% end %>
+          <h2> 
+              Filter by  
+              <a href="#" onclick="return false;" data-toggle="popover" 
+                  data-trigger="focus" data-placement="right"  title="How it works?" 
+                  data-content="1) Select from the dropdown menu the filters you want to use for your search. 
+                                  You can filter for 1 category, for all 3 or combine them as you like.
+                                2) Click on search button. The results appear above the filter. 
+                                3) Click on the Echogram image to see the details.">
+                  <span class="glyphicon glyphicon-info-sign" style="font-size:20px;"></span>
+              </a> 
+          </h2>        
+          <%= form_tag( {}, {method: "get", id: "filter"}) do %>
+              <%= label_tag "Species:" %>
+              <%= select_tag "species", options_for_select(@species_list) %>
+              <%= label_tag "Mean length:" %>
+              <%= select_tag "avglength", options_for_select(@avglength_list) %>
+              <%= label_tag "Percentage:" %>
+              <%= select_tag "percent", options_for_select(@percent_list) %>
+              <%= submit_tag("Filter", class: "btn btn-default btn-lg") %>
+          <% end %>
       </div> 
-    </div>
 
-    <br>
-
-    <h2> Search by      <a href="#" onclick="return false;" data-toggle="popover" 
-    data-trigger="focus" data-placement="right"  title="How it works?" 
-    data-content="1) Input a string you want to search.
-                  2) The results are all echogram images whose file name contain the string you input.">
-    <span class="glyphicon glyphicon-info-sign" style="font-size:20px;"></span></a> </h2> 
-
-    <div class = "row" >
-    <div class = "col-sm-6">
-      <%= form_tag( {}, {method: "get", id: "filter"}) do %>
-          <%= label_tag "Enter a string to search:" %>
-          <%= text_field_tag(:searching )%>
-          <%= submit_tag("Search", class: "btn btn-default btn-lg") %>
-      <% end %>
-    </div> 
+      <div class = "col-sm-6">
+          <h2> Search by </h2> 
+          <P> 
+              1) Enter a string you want to search.<br>
+              2) The results are all echogram images whose file name 
+                contain the string you input.<br>
+              3) eg. If you enter "2003", you et all echogram images
+                 whose image file name contain "2003".
+          </P>
+          <%= form_tag( {}, {method: "get", id: "filter"}) do %>
+              <%= label_tag "Enter a string to search:" %>
+              <%= text_field_tag(:searching )%>
+              <%= submit_tag("Search", class: "btn btn-default btn-lg") %>
+          <% end %>
+      </div> 
   </div>
-
-
-
-
-</div>
-
-
-
-
-
-<div class="container">
-    <h5> Results found <br><br> <%= @text_spec %> </h5>
-   
-
-    <%if @count != 0 %>
-        <%= render "all_records" %>
-    <% end %>
-
+  <br>
+  <h5> <%= @text_spec %> </h5> 
+  <%if @count != 0 %>
+      <%= render "all_records" %>
+  <% end %>
 </div>
 
 

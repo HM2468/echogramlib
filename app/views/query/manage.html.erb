@@ -1,0 +1,49 @@
+<h2> Manage All Echogram Images  </h2> 
+
+<div class = "container" >  
+    <div class = "row">
+        <%= form_tag( {}, {method: "get", id: "filter"}) do %>
+            <%= label_tag "Search Images:" %>
+            <%= text_field_tag(:searching )%>
+            <%= submit_tag("Search", class: "btn btn-default btn-lg") %>
+        <% end %>
+    </div> 
+
+    <h5> <%= @text_spec %> </h5> 
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+            <th>Echogram Image</th>
+            <th>Image File Name</th>
+            <th> Operation </th>  
+            </tr>
+        </thead>
+
+        <tbody>
+                <% @display.each do |item| %>
+                    <tr>                
+                        <td>                                     
+                            <% name = "/images/" + item.image_filename.to_s %>
+                            <%= image_tag(name, options = {size: "200x150"}) %>            
+                        </td>
+
+                        <td> <%= item.image_filename %> </td>
+
+                        <td> 
+                            <%= link_to "Delete",
+                                {:controller => "query",
+                                :action=>"delete_gram",
+                                :item => item.echogram_name},
+                                data: { confirm: 'Are you sure?' } %> 
+                        </td>
+                    </tr>
+                <% end %>
+        </tbody>
+    </table>
+    
+    <div class="col-md-offset-2 col-lg-offset-2 col-xl-offset-2">
+        <%= will_paginate @display%>
+    </div>
+
+</div>

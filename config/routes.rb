@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     get    '/search',       to: 'homepage#search'
     get    '/querygram',    to: 'query#querygram'
     get    '/details',      to: 'query#details'
+    get    '/manage',       to: 'query#manage'
+    get    '/delete_gram',  to: 'query#delete_gram' 
     get    '/submit',       to: 'upload#submit'
     get    '/confirm',      to: 'upload#confirm'
     get    '/accept',       to: 'upload#accept'
@@ -19,7 +21,6 @@ Rails.application.routes.draw do
     get    '/login',        to: 'sessions#new'
     post   '/login',        to: 'sessions#create'
     delete '/logout',       to: 'sessions#destroy'
-
 
     root 'homepage#home'
     

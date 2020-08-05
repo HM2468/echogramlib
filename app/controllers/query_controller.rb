@@ -1,4 +1,6 @@
 class QueryController < ApplicationController
+
+    before_action :logged_in_admin, only: [:manage,:delete_gram]
     
     def querygram
 
@@ -171,6 +173,49 @@ class QueryController < ApplicationController
             array.push(t)
         end
         @data = array
+    end
+
+    def manage
+        #initialize guery page parameters
+        gram       = Echogram.all.order(created_at: :desc)
+        @display   = gram.paginate(page: params[:page],per_page: 10)
+        @count     = gram.count
+        @text_spec = "All #{@count} items in the database."
+
+        search_input   = params[:searching] 
+
+        if search_input && search_input != ""
+            gram       = Echogram.all.order(created_at: :desc)
+            temp       = gram.where("image_filename like ?", "%#{search_input}%")
+            @display   = temp.paginate(page: params[:page],per_page: 10)
+            @count     = temp.count
+            @text_spec = "Search input: \"#{search_input}\",  #{@count} items found."
+        end
+    end
+
+    def delete_gram
+        gramname = params[:item]
+        composition_to_delete = Composition.where(echogram_name:gramname)
+        if composition_to_delete.count > 0
+            composition_to_delete.each do |r|
+                r.destroy
+            end
+        end
+
+        haul_to_delete = Haul.where(echogram_name:gramname)
+        haul_to_delete.each do |r|
+            r.destroy
+        end
+
+        gram_to_delete = Echogram.where(echogram_name:gramname)
+        gram_to_delete.each do |r|
+            image_file_dir = Rails.root + "/public/images/" + r.image_filename
+            File.delete(image_file_dir) if File.exist?(image_file_dir)
+            r.destroy
+        end
+
+        flash[:success] = "Image deleted sucessfully."
+        redirect_to manage_path
     end
 
     private
