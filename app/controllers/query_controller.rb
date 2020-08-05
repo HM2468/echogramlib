@@ -209,8 +209,12 @@ class QueryController < ApplicationController
 
         gram_to_delete = Echogram.where(echogram_name:gramname)
         gram_to_delete.each do |r|
-            image_file_dir = Rails.root + "/public/images/" + r.image_filename
-            File.delete(image_file_dir) if File.exist?(image_file_dir)
+            image_file_dir = Rails.root + "public/images/" + r.image_filename
+
+            if File.exist?(image_file_dir)
+                File.delete(image_file_dir) 
+            end
+            
             r.destroy
         end
 
