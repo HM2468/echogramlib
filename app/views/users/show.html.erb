@@ -1,47 +1,29 @@
-<!--
-
 <% provide(:title, @user.name) %>
-
-
-<div id = "userInfo">
-    <ul>
-        <li>Name: <%= @user.name %> </li>
-        <li>Email: <%= @user.email %> </li>
-        <li>Phone:  <%= @user.phone %> </li>
-    </ul>
-</div>
-
--->
-
 
 <div class="container">
+    <div class="uploadpage">
+        <h2>User Profile</h2> <br>
+        <p>
+            <strong> Name:</strong>
+            <%= @user.name %>
+        </p>
+        <p>
+            <strong> Email:</strong>
+            <%= @user.email %>
+        </p>
+        <p>
+            <strong>Phone:</strong>
+            <%= @user.phone %>
+        </p>
+    </div>
 
-<% provide(:title, @user.name) %>
+    <br>
 
+    <%= link_to 'Back', :back,  class:"btn btn-default btn-lg"%> |
 
-<div id = "userInfo">
-<div class="table-responsive">  
-<h2>User details</h2>
-    <table class="table table-bordered">
-        <thead class="thead-dark">
-            <tr>
-                <th>Name:</th>
-                <td><%= @user.name %></td>
-            </tr>
-             <tr>
-                <th>Email:</th>
-                <td><%= @user.email %></td>
-            </tr>
-            <tr>
-                <th>Phone:</th>
-                <td><%= @user.phone %></td>
-            </tr>
-        </thead>
-    </table>
-</div>
-<p><%= link_to "Edit My Data", edit_user_path(current_user),  class:"btn btn-primary btn-lg"%></p>
-</div>
+    <% if current_user.admin %>   
+        <%= link_to 'User Uploading', "#",  class:"btn btn-default btn-lg"%> |
+    <% end %>
 
-
-
+    <%= link_to "Edit Profile", edit_user_path(current_user),  class:"btn btn-primary btn-lg"%>
 </div>
