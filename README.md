@@ -111,7 +111,7 @@ Following command will do the job for you:
 
   1. Create a virtue machine/Google engine on Google Cloud platform. 
      Choose the OS system as Ubuntu and the area as european
-  2. Create an guest acoount in this machine and install Ruby on Rails 
+  2. Create an guest account in this machine and install Ruby on Rails 
      environment under this account. Ruby version and Rails version 
      should be exactly the same as specified above.
      PS: never install under root account, it would cause mounts of problems.
@@ -124,12 +124,12 @@ Following command will do the job for you:
   4. Install _psql_ on this virtue machine as specified above
   5. Then run 
      ```
-     $ cd home/huangmiao/codes/echogramlib
+     $ cd echogramlib
      $ bundle install
      $ rails db:migrate
      $ rails db:seed
      $ rake data:importdata  
-     $ rails s -b 0.0.0.0 -p 3000
+     $ nohup rails s -b 0.0.0.0 -p 3000
      ```
   6. Now the website can be accessed at http://xx.xx.xx.xx:3000/ where 
      xx.xx.xx.xx is the external IP of your Goole virtue machine
@@ -138,7 +138,7 @@ Following command will do the job for you:
      read to the Google Cloud drive directly. It would make it possible to utilize large 
      files on virtue machine for free.
      All details can be found at https://github.com/rclone/rclone
-    
+ 
 ## How to run the testing
 
 **Using RSpec testing framework to Ruby on Rails**

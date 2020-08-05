@@ -144,17 +144,6 @@ class QueryController < ApplicationController
             @text_spec = "Search input: \"#{search_input}\",  #{@count} items found."
         end
         
-
-        puts "==================================="
-
-        puts search_input
-
-        puts "==================================="
-
-
-
-
-
     end
 
 
