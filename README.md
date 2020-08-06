@@ -133,6 +133,7 @@ Following command will do the job for you:
      ```
   6. Now the website can be accessed at http://xx.xx.xx.xx:3000/ where 
      xx.xx.xx.xx is the external IP of your Goole virtue machine
+     for this application, the link is http://34.105.132.83:3000/
   7. The most important and usefull step is to make your Google Cloud drive as a 
      hard disk in your virtue machine. That means your virtue machine can write and 
      read to the Google Cloud drive directly. It would make it possible to utilize large 
@@ -147,4 +148,16 @@ Following command will do the job for you:
 2. If you want specific test :
    run commands "rspec + the path of test file  " on the terminal . 
    For example:"rspec /home/ubuntu/environment/echogramlib/spec/controllers/users_controller_spec.rb"
+
+## Administrator Account
+1. Administrator account: echogramlib@gmail.com
+   password: echogram1234
+2. Administrator email to receive uploading request and administrator conforimation link
+   email: echogramlib@gmail.com
+   password: echogram2020
+   log in this email account and you can receive all uploading request.
+3. All images are stored in Google Cloud Drive, the same account as above.
+   in the file named as gram_images.
+   You can log in to see the details.
+
  

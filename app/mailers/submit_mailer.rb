@@ -7,7 +7,7 @@ class SubmitMailer < ApplicationMailer
         #@url = "http://localhost:3000/confirm?id=#{user_id}"
         #@url = request.base_url + "/confirm?id=#{user_id}"
         @url = url       
-        mail(to: "huangmiao2468@gmail.com", subject: 'New uploading.')
+        mail(to: "echogramlib@gmail.com", subject: 'New uploading.')
     end
 
     def mail_user(user_id)
