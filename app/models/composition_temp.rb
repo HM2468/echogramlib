@@ -4,7 +4,6 @@ class CompositionTemp < ApplicationRecord
     validate :species_valid
     validate :numbers_valid
     validate :mean_length_valid
-
     validates_uniqueness_of :species, :scope=>[:echogram_name], :message => "Species already exists."
  
     private

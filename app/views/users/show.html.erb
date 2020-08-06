@@ -21,9 +21,9 @@
 
     <%= link_to 'Back', :back,  class:"btn btn-default btn-lg"%> |
 
-    <% if current_user.admin %>   
-        <%= link_to 'User Uploading', "#",  class:"btn btn-default btn-lg"%> |
+    <% if current_user.id == 1 %>   
+        <%= link_to 'Set Admin', admin_path(:id => @user.id),  class:"btn btn-default btn-lg"%> |
     <% end %>
 
-    <%= link_to "Edit Profile", edit_user_path(current_user),  class:"btn btn-primary btn-lg"%>
+    <%= link_to "Edit Profile", edit_user_path(current_user),  class:"btn btn-default btn-lg"%>
 </div>
