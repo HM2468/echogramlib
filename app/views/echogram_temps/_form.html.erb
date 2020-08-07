@@ -29,10 +29,14 @@
     <%= label_tag "Select an image:" %>
     <%= form.file_field :gram %>
 
-    <% if echogram_temp.gram.attached? && echogram_temp.gram.representable? %>
-      <br>
-      <%= image_tag(echogram_temp.gram.representation(resize: '250x250').processed) %>
-    <% end %>
+    <br>
+    <% if echogram_temp.gram.attached? %>    
+        <% if echogram_temp.gram.representable? %>         
+            <%= image_tag(echogram_temp.gram.representation(resize: '250x250').processed) %>
+        <% else %> 
+            <h5><strong> Unknow Image Format </strong></h5>
+        <% end %>
+    <% end %>  
   </div>
 
   <br>

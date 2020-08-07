@@ -27,11 +27,15 @@
       <div class = "col-sm-6">
           <h2> Search by </h2> 
           <P> 
+              <strong>
               1) Enter a string you want to search.<br>
+              </strong>
+                 e.g. If you want to get all images in year 2003, you can input
+                 "2003" as a searching string.<br>
+                 <strong>
               2) The results are all echogram images whose file name 
-                contain the string you input.<br>
-              3) eg. If you enter "2003", you et all echogram images
-                 whose image file name contain "2003".
+                 contain the string you input.<br>
+                 </strong>
           </P>
           <%= form_tag( {}, {method: "get", id: "filter"}) do %>
               <%= label_tag "Enter a string to search:" %>

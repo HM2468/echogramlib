@@ -1,7 +1,4 @@
 
-
-
-
 <div class = "container">
     <h3>My uploads: <a href="#" onclick="return false;" data-toggle="popover" 
           data-trigger="focus" data-placement="right"  title="How it works?" 
@@ -16,9 +13,13 @@
         <% @display.each do |item| %>
           <tr>                
               <td>
-                  <% if item.gram.attached? %>            
-                      <%= link_to image_tag(item.gram.representation(resize: '200x150').processed),item %> 
-                  <% end %> 
+                  <% if item.gram.attached? %>    
+                      <% if item.gram.representable? %>         
+                          <%= link_to image_tag(item.gram.representation(resize: '200x150').processed),item %> 
+                      <% else %> 
+                          <h5><strong> Unknow Image Format </strong></h5>
+                      <% end %>
+                  <% end %>  
               </td>
 
               <td> 
@@ -26,7 +27,11 @@
                   <br>                                       
                   <br>
                   <% if item.editable %>
-                     <%= link_to "Delete", item, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger btn-lg"    %> 
+                     <%= link_to "Delete", 
+                                  item,
+                                  method: :delete,
+                                  data: { confirm: 'Are you sure?' }, 
+                                  class:"btn btn-danger btn-lg" %> 
                   <% end %>
               </td>
           </tr>
@@ -44,12 +49,27 @@
     <% if @display.count == 0 %>
         <p> You haven't uploaded any images.<p>  
         <br> 
-        <%= link_to 'Back', :back, class:"btn btn-default btn-lg", style:"margin-right:20px" %>
-        <%= link_to 'Upload New Images', new_echogram_temp_path, class:"btn btn-primary btn-lg", style:"margin-right:20px" %>
+        <%= link_to 'Back', :back, 
+                     class:"btn btn-default btn-lg", 
+                     style:"margin-right:20px" %>
+
+        <%= link_to 'Upload New Images', 
+                     new_echogram_temp_path, 
+                     class:"btn btn-primary btn-lg", 
+                     style:"margin-right:20px" %>
     <% else %> 
-        <%= link_to 'Back', :back, class:"btn btn-default btn-lg", style:"margin-right:20px" %>
-        <%= link_to 'Upload New Images', new_echogram_temp_path, class:"btn btn-primary btn-lg", style:"margin-right:20px" %>
-        <%= link_to  button_tag("Confirm Uploading", data: { confirm: "Are you sure?" }, class:"btn btn-success btn-lg" ), submit_path %>
+        <%= link_to 'Back', :back, 
+                     class:"btn btn-default btn-lg", 
+                     style:"margin-right:20px" %>
+
+        <%= link_to 'Upload New Images', 
+                     new_echogram_temp_path, 
+                     class:"btn btn-primary btn-lg", 
+                     style:"margin-right:20px" %>
+
+        <%= link_to  button_tag("Confirm Uploading", 
+                     data: { confirm: "Are you sure?" }, 
+                     class:"btn btn-success btn-lg" ), submit_path %>
     <% end %>       
 </div>
 

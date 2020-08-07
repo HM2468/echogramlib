@@ -42,9 +42,13 @@
 
       <p>
         <strong> Echogram Image: </strong> <br><br>
-        <% if @echogram_temp.gram.attached? %>
-            <%= image_tag(@echogram_temp.gram.representation(resize: '400x300').processed) %>
-        <% end %>
+        <% if @echogram_temp.gram.attached? %>    
+            <% if @echogram_temp.gram.representable? %>         
+                <%= image_tag(@echogram_temp.gram.representation(resize: '400x300').processed) %>
+            <% else %> 
+                <h5><strong> Unknow Image Format </strong></h5>
+            <% end %>
+        <% end %>  
       </p>
   </div>
 
