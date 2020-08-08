@@ -6,7 +6,6 @@
           <tr>
             <th>Echogram Image</th>
             <th>Echogram name</th>
-            <th>Frequency</th>  
           </tr>
         </thead>
 
@@ -20,10 +19,7 @@
                               :action=>"details",
                               :item => item.echogram_name} %>            
               </td>
-              <td> <%= item.echogram_name %> </td>
-              <td> 
-                  <%= item.frequency.to_s + " kHz" %>
-              </td>
+              <td> <%= item.image_filename %> </td>
 
             </tr>
           <% end %>
