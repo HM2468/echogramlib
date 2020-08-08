@@ -46,10 +46,12 @@
   </div>
   <br>
   <h5> <%= @text_spec %> </h5> 
-  <%if @count != 0 %>
-      <%= render "all_records" %>
-  <% end %>
+
 </div>
+
+<%if @count != 0 %>
+    <%= render "all_records" %>
+<% end %>
 
 
 <script>
