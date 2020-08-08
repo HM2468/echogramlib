@@ -137,7 +137,6 @@ class QueryController < ApplicationController
             end   
         end  
         
-
         if search_input && search_input != ""
             gram       = Echogram.all.order(created_at: :desc)
             temp       = gram.where("image_filename like ?", "%#{search_input}%")
