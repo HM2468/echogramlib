@@ -36,13 +36,7 @@
         <tbody>
           <tr>                
             <td> 
-                <% @gram.each do |item| %>
-                    <% if item != @gram.last %> 
-                        <%= item.echogram_name %> <br>
-                    <% else %>
-                        <%= item.echogram_name %> 
-                    <% end %>
-                <% end %>           
+                <%= @gram.first.echogram_name %> <br>       
             </td>
             <td> 
                 <% @gram.each do |item| %>
