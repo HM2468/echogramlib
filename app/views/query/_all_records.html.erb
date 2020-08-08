@@ -5,7 +5,7 @@
         <thead>
           <tr>
             <th>Echogram Image</th>
-            <th>Echogram name</th>
+            <th>Image File Name</th>
           </tr>
         </thead>
 
@@ -19,7 +19,14 @@
                               :action=>"details",
                               :item => item.echogram_name} %>            
               </td>
-              <td> <%= item.image_filename %> </td>
+
+              <td> 
+                  <span class = "image_name"> 
+                      <%= item.image_filename[0,9] %><br>
+                      <%= item.image_filename[9,16] %><br>
+                      <%= item.image_filename[25,10] %><br>   
+                  </span> 
+              </td>
 
             </tr>
           <% end %>
