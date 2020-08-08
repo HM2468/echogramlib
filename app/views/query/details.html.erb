@@ -33,21 +33,33 @@
       
             </tr>
         </thead>
-
         <tbody>
-          <% @gram.each do |item| %>
-            <tr>                
-              <td> <%= item.echogram_name %> </td>
-              <td> <%= item.frequency.to_s + " kHz" %> </td>
-              <td> <%= item.longitude %> </td>
-              <td> <%= item.latitude %> </td>
-            </tr>
-          <% end %>
-        </tbody>
+          <tr>                
+            <td> 
+                <% @gram.each do |item| %>
+                    <% if item != @gram.last %> 
+                        <%= item.echogram_name %> <br>
+                    <% else %>
+                        <%= item.echogram_name %> 
+                    <% end %>
+                <% end %>           
+            </td>
+            <td> 
+                <% @gram.each do |item| %>
+                    <% if item != @gram.last %> 
+                        <%= item.frequency.to_s + " kHz" %> <br>
+                    <% else %>
+                        <%= item.frequency.to_s + " kHz" %> 
+                    <% end %>
+                <% end %> 
+            </td>
+            <td> <%= @gram.first.longitude %> </td>
+            <td> <%= @gram.first.latitude %> </td>
+          </tr>
+      </tbody>
     </table>
     </div>
-
-
+    
     <br>
     <br>
 
