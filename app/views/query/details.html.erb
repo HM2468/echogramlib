@@ -1,18 +1,16 @@
-
-
 <br>
 <div class = "container">
 
     <div class = "row">
-      <div class = "col-sm-6">
-        <br>
-        <div id="charts" style="width:100%;height:500px;"></div>
-      </div>
+        <div class = "col-sm-6">
+            <br>
+            <div id="charts" style="width:100%;height:500px;"></div>
+        </div>
 
-      <div class = "col-sm-6">
-        <br>
-        <div id="gmap" style='width: 100%; height:500px;'></div> 
-     </div>
+        <div class = "col-sm-6">
+            <br>
+            <div id="gmap" style='width: 100%; height:500px;'></div> 
+        </div>
     </div> 
     
     <br>
@@ -21,73 +19,69 @@
 
     <h2>Detailed information</h2>
     <br>
-
-    <div class="table-responsive"> 
-    <table class="table table-bordered">
-        <thead class="thead-dark">
-            <tr>
-                <th> Image name  </th>
-                <th> Frequency   </th>   
-                <th> Longitude   </th>  
-                <th> Latitude    </th>
-      
-            </tr>
-        </thead>
-        <tbody>
-          <tr>                
-            <td> 
-                <%= @gram.first.echogram_name %> <br>       
-            </td>
-            <td> 
-                <% @gram.each do |item| %>
-                    <% if item != @gram.last %> 
-                        <%= item.frequency.to_s + " kHz" %> <br>
-                    <% else %>
-                        <%= item.frequency.to_s + " kHz" %> 
-                    <% end %>
-                <% end %> 
-            </td>
-            <td> <%= @gram.first.longitude %> </td>
-            <td> <%= @gram.first.latitude %> </td>
-          </tr>
-      </tbody>
-    </table>
-    </div>
-    
-    <br>
-    <br>
-
-    <div class="table-responsive"> 
-    <table class="table table-bordered">
-        <thead class="thead-dark">
-            <tr>
-                <th> Species code </th>  
-                <th> Scientific name </th>
-                <th> Common name </th>
-                <th> Individuals num </th>   
-                <th> Percentage </th>
-                <th> Mean length </th>       
-            </tr>
-        </thead>
-
-        <tbody>
-            <% @composition.each do |item| %>
-            <tr>
-                <td> <%= item.scode %> </td>
-                <td> <%= item.sciname %> </td>
-                <td> <%= item.engname %> </td>
-                <td> <%= item.num %> </td>
-                <td> <%= (item.percent.to_d * 100).to_s + "%" %> </td>
-                <td> <%= item.avglength %> </td>
-            </tr>
-            <% end %>
-        </tbody>
-    </table>
-    </div>
-
 </div>
 
-   
+    <div class="table-responsive"> 
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th> Echogram Name  </th>
+                    <th> Frequency   </th>   
+                    <th> Longitude   </th>  
+                    <th> Latitude    </th>       
+                </tr>
+            </thead>
+            <tbody class = "table_content">
+                <tr>                
+                    <td> 
+                        <%= @gram.first.echogram_name[0,9] %> <br> 
+                        <%= @gram.first.echogram_name[9,24] %>      
+                    </td>
+                    <td> 
+                        <% @gram.each do |item| %>
+                            <% if item != @gram.last %> 
+                                <%= item.frequency.to_s + " kHz" %> <br>
+                            <% else %>
+                                <%= item.frequency.to_s + " kHz" %> 
+                            <% end %>
+                        <% end %> 
+                    </td>
+                    <td> <%= @gram.first.longitude %> </td>
+                    <td> <%= @gram.first.latitude %> </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>  
+    <br>
+    <br>
+    <div class="table-responsive"> 
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th> Species code </th>  
+                    <th> Scientific name </th>
+                    <th> Common name </th>
+                    <th> Individuals num </th>   
+                    <th> Percentage </th>
+                    <th> Mean length </th>       
+                </tr>
+            </thead>
+
+            <tbody class = "table_content">
+                <% @composition.each do |item| %>
+                <tr>
+                    <td> <%= item.scode %> </td>
+                    <td> <%= item.sciname %> </td>
+                    <td> <%= item.engname %> </td>
+                    <td> <%= item.num %> </td>
+                    <td> <%= (item.percent.to_d * 100).to_s + "%" %> </td>
+                    <td> <%= item.avglength %> </td>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+
     <div class="container">
     <h2>Echogram images</h2>
         <div class="row">
@@ -171,5 +165,4 @@
             });
         });
  </script>
-
  
