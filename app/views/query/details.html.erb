@@ -16,11 +16,8 @@
     <br>
     <br>
     <br>
-
-    <h2>Detailed information</h2>
-    <br>
 </div>
-
+    <h3> Echogram Details</h3>
     <div class="table-responsive"> 
         <table class="table table-bordered">
             <thead class="thead-dark">
@@ -52,8 +49,8 @@
             </tbody>
         </table>
     </div>  
-    <br>
-    <br>
+
+    <h3> Species Composition</h3>
     <div class="table-responsive"> 
         <table class="table table-bordered">
             <thead class="thead-dark">
@@ -83,8 +80,8 @@
     </div>
 
     <div class="container">
-    <h2>Echogram images</h2>
         <div class="row">
+        <h2>Echogram Images</h2>
             <div class="col-md-offset-2 col-lg-offset-2 col-xl-offset-4">
             <% @gram.each do |item| %> <br><br>
                 <h4> Echogram frequency: <%= item.frequency.to_s + " kHz" %> </h4>                                
@@ -165,4 +162,3 @@
             });
         });
  </script>
- 
