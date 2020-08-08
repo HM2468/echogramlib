@@ -5,7 +5,7 @@ class QueryController < ApplicationController
     def querygram
 
         #initialize guery page parameters
-        gram       = Echogram.all.order(created_at: :desc)
+        gram       = Echogram.all.order(echogram_name: :desc)
         @display   = gram.paginate(page: params[:page],per_page: 10)
         @count     = gram.count
         @text_spec = "All #{@count} items in the database."
