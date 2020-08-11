@@ -28,7 +28,13 @@
                             <%= image_tag(name, options = {size: "200x150"}) %>            
                         </td>
 
-                        <td> <%= item.image_filename %> </td>
+                        <td> 
+                            <span class = "image_name"> 
+                                <%= item.image_filename[0,9] %><br>
+                                <%= item.image_filename[9,16] %><br>
+                                <%= item.image_filename[25,10] %><br>   
+                            </span>                       
+                        </td>
 
                         <td> 
                             <%= link_to "Delete",
