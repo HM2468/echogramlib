@@ -11,20 +11,20 @@ generate_Admin = Proc.new{
              admin:     true)
 }
 
-# Generate a bunch of additional users.
-generate_users = Proc.new{
-  10.times do |n|
-    name  = Faker::Name.name
-    email = "example-#{n+1}@echogram.com"
-    phone = Faker::PhoneNumber.cell_phone.to_s
-    password = "password"
-    User.create!(name:  name,
-                email: email,
-                phone: phone,
-                password:              password,
-                password_confirmation: password)
-  end
-}
-User.destroy_all
-generate_Admin.call
+#User.destroy_all
+#generate_Admin.call
+
+sql =  "SELECT compositions.echogram_name as gramname ,species.scientific_name as sciname,
+        species.english_name as engname, species.species_code as scode,
+        compositions.percentage as percent, compositions.mean_length as avglength,
+        compositions.n_individuals as num
+        FROM compositions INNER JOIN species ON compositions.species_code = species.species_code 
+        ORDER BY compositions.echogram_name"
+
+
+records = ActiveRecord::Base.connection.execute(sql)
+
+puts "======================"
+puts records.class
+puts "======================"
 
