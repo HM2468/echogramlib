@@ -11,21 +11,21 @@ development:
 
 
 test:
-  host: localhost
+  host: ec2-54-75-244-161.eu-west-1.compute.amazonaws.com
   adapter: postgresql
   encoding: unicode
-  database: echogramlib
-  username: postgres
-  password: miao
-  pool: 5
+  database: d7f80ntekg419q
+  username: btkzpfyfkgmmxj
+  password: e9a1225418ac91dedc883bc95e0eca2ef83b91f5f6660790083d764e67fc4707
+  pool: 5432
   timeout: 5000
 
 production:
-  host: ec2-18-210-51-239.compute-1.amazonaws.com
+  host: ec2-54-75-244-161.eu-west-1.compute.amazonaws.com
   adapter: postgresql
   encoding: unicode
-  database: echogramlib
-  username: postgres
-  password: miao
-  pool: 5
+  database: d7f80ntekg419q
+  username: btkzpfyfkgmmxj
+  password: e9a1225418ac91dedc883bc95e0eca2ef83b91f5f6660790083d764e67fc4707
+  pool: 5432
   timeout: 5000
