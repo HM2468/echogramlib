@@ -14,7 +14,6 @@ class QueryController < ApplicationController
         @species_list   = species_order_by_freq_desc
         @percent_list   = percent_list
         @avglength_list = avglength_list
-
       
         #get parameters from front end download
         chosen_species = params[:species]
@@ -30,118 +29,78 @@ class QueryController < ApplicationController
        if  chosen_species || chosen_length || chosen_percent       
             if  chosen_species != "All" && chosen_length ==  "All" && chosen_percent ==  "All"
                 temp = MyComposition.where(sciname:chosen_species)
-                name = []
-                temp.each do |item|
-                    name << item.gramname
-                end
-                gramname = name.uniq
-                temp1 = Echogram.where(echogram_name:gramname)
-                @count = temp1.count
-                @display = temp1.paginate(page: params[:page],per_page: 10)
-                @text_spec = "Filt by Species = #{chosen_species},
-                            #{@count} records found."
+                gramname = gramname_collection(temp)
+                result = Echogram.where(echogram_name:gramname)
+
+                result_display(result)
+                set_spec_text(chosen_species,chosen_percent,chosen_length)
 
             elsif chosen_species != "All" && chosen_length !=  "All" && chosen_percent ==  "All" 
                 temp = MyComposition.where(sciname:chosen_species)
                 temp1 = temp.where('avglength>?',len)
-                name = []
-                temp1.each do |item|
-                    name << item.gramname
-                end
-                gramname = name.uniq
-                temp2 = Echogram.where(echogram_name:gramname)
-                @count = temp2.count
-                @display = temp2.paginate(page: params[:page],per_page: 10)
-                @text_spec = "Species: #{chosen_species}, 
-                                Mean length #{chosen_length},
-                                #{@count} items found."
+                gramname = gramname_collection(temp1)
+                result = Echogram.where(echogram_name:gramname)
+
+                result_display(result)
+                set_spec_text(chosen_species,chosen_percent,chosen_length)
 
             elsif chosen_species != "All" && chosen_length ==  "All" && chosen_percent !=  "All" 
                 temp = MyComposition.where(sciname:chosen_species)
                 temp1 = temp.where('percent>?',per)
-                name = []
-                temp1.each do |item|
-                    name << item.gramname
-                end
-                gramname = name.uniq
-                temp2 = Echogram.where(echogram_name:gramname)
-                @count = temp2.count
-                @display = temp2.paginate(page: params[:page],per_page: 10)
-                @text_spec = "Species: #{chosen_species}, 
-                                Percentage #{chosen_percent},
-                                #{@count} items found."
+                gramname = gramname_collection(temp1)
+                result = Echogram.where(echogram_name:gramname)
+
+                result_display(result)
+                set_spec_text(chosen_species,chosen_percent,chosen_length)
 
             elsif chosen_species != "All" && chosen_length !=  "All" && chosen_percent !=  "All" 
                 temp = MyComposition.where(sciname:chosen_species)
                 temp1 = temp.where('percent>?',per)
                 temp2 = temp1.where('avglength>?',len)
-                name = []
-                temp2.each do |item|
-                    name << item.gramname
-                end
-                gramname = name.uniq
-                temp3 = Echogram.where(echogram_name:gramname)
-                @count = temp3.count
-                @display = temp3.paginate(page: params[:page],per_page: 10)
-                @text_spec = "Species: #{chosen_species}, 
-                                Mean length #{chosen_length},
-                                Percentage #{chosen_percent},
-                                #{@count} items found."
+                gramname = gramname_collection(temp2)
+                result = Echogram.where(echogram_name:gramname)
+
+                result_display(result)
+                set_spec_text(chosen_species,chosen_percent,chosen_length)
 
             elsif chosen_species == "All" && chosen_length !=  "All" && chosen_percent ==  "All" 
                 temp = MyComposition.where('avglength>?',len)
-                gram = []
-                temp.each do |item|
-                    gram << item.gramname
-                end
-                findname = gram.uniq
-                temp1 = Echogram.where(echogram_name:findname)
-                @count = temp1.count
-                @display = temp1.paginate(page: params[:page],per_page: 10)
-                @text_spec = " Mean length #{chosen_length},
-                            #{@count} items found."
+                gramname = gramname_collection(temp)
+                result = Echogram.where(echogram_name:gramname)
+
+                result_display(result)
+                set_spec_text(chosen_species,chosen_percent,chosen_length)
             
             elsif chosen_species == "All" && chosen_length ==  "All" && chosen_percent !=  "All" 
 
                 temp = MyComposition.where('percent>?',per)
-                gram = []
-                temp.each do |item|
-                    gram << item.gramname
-                end
-                findname = gram.uniq
-                temp1 = Echogram.where(echogram_name:findname)           
-                @count = temp1.count
-                @display = temp1.paginate(page: params[:page],per_page: 10)
-                @text_spec = "Percentage #{chosen_percent},
-                                #{@count} items found."
+                gramname = gramname_collection(temp)
+                result = Echogram.where(echogram_name:gramname)  
+
+                result_display(result)
+                set_spec_text(chosen_species,chosen_percent,chosen_length)
 
             elsif chosen_species == "All" && chosen_length != "All" && chosen_percent != "All" 
 
-                temp = MyComposition.where('percent>?',   per)
+                temp = MyComposition.where('percent>?', per)
                 temp1 = temp.where('avglength>?', len)
-                gram = []
-                temp1.each do |item|
-                    gram << item.gramname
-                end
-                findname = gram.uniq
-                temp2 = Echogram.where(echogram_name:findname)            
-                @count = temp2.count
-                @display = temp2.paginate(page: params[:page],per_page: 10)
-                @text_spec = "Mean length #{chosen_length},
-                                Percentage #{chosen_percent},
-                                #{@count} items found."
+                gramname = gramname_collection(temp1)
+                result = Echogram.where(echogram_name:gramname)  
+
+                result_display(result)
+                set_spec_text(chosen_species,chosen_percent,chosen_length)
             else
-                    @display
-                    @text_spec
-                    @count
+                @display
+                @text_spec
+                @count
             end   
         end  
         
         if search_input && search_input != ""
-            gram       = Echogram.all.order(created_at: :desc)
-            temp       = gram.where("image_filename like ?", "%#{search_input}%")
-            @display   = temp.paginate(page: params[:page],per_page: 10)
-            @count     = temp.count
+            gram    = Echogram.all.order(created_at: :desc)
+            result  = gram.where("image_filename like ?", "%#{search_input}%")
+
+            result_display(result)
             @text_spec = "Search input: \"#{search_input}\",  #{@count} items found."
         end
         
@@ -150,7 +109,6 @@ class QueryController < ApplicationController
 
     def details
         temp = params[:item] 
-
 
         temp1 = params[:item].first.to_s  
         @gram = Echogram.all.where(echogram_name: temp)
@@ -175,7 +133,7 @@ class QueryController < ApplicationController
     end
 
     def manage
-        #initialize guery page parameters
+        #initialize query page parameters
         gram       = Echogram.all.order(created_at: :desc)
         @display   = gram.paginate(page: params[:page],per_page: 10)
         @count     = gram.count
@@ -185,9 +143,8 @@ class QueryController < ApplicationController
 
         if search_input && search_input != ""
             gram       = Echogram.all.order(created_at: :desc)
-            temp       = gram.where("image_filename like ?", "%#{search_input}%")
-            @display   = temp.paginate(page: params[:page],per_page: 10)
-            @count     = temp.count
+            result       = gram.where("image_filename like ?", "%#{search_input}%")
+            result_display(result)
             @text_spec = "Search input: \"#{search_input}\",  #{@count} items found."
         end
     end
@@ -222,24 +179,18 @@ class QueryController < ApplicationController
     end
 
     private
+        require "set"
 
+        #sort species dropdown list by frequency desc
         def species_order_by_freq_desc
-            species_arr = []
+            freq_h = Hash.new(0)
             MyComposition.all.each do |item|
-                species_arr << item.sciname
+                freq_h["#{item.sciname}"] += 1
             end
-            species_uniq = species_arr.uniq
-            freq_h = Hash.new
-            species_uniq.each do |r|
-              freq_h["#{r}"] = 0
-            end
-            species_arr.each do |r|
-              freq_h["#{r}"] += 1
-            end
+
             sorted_h = freq_h.sort_by {|k,v| -v}
             sorted_arr = []
-            sorted_h.each{ |key,value| sorted_arr << key }
-    
+            sorted_h.each{ |key,value| sorted_arr << key }   
             return sorted_arr.insert(0,"All")
         end
 
@@ -275,5 +226,32 @@ class QueryController < ApplicationController
 
         end
 
+        def gramname_collection(middle_obj)
+            gram = Set.new
+            middle_obj.each do |item|
+                gram << item.gramname
+            end
+            return gram.to_a
+        end
+
+        def set_spec_text(species,percent,length)
+            text = "Filter by:"
+            if species != "All"
+                text += " Species = #{species}"
+            end
+            if percent != "All"
+                text += " Percent #{percent}"
+            end
+            if length != "All"
+                text += " Length #{length}"
+            end
+            text += ". #{@count} items found."
+            @text_spec = text
+        end
+
+        def result_display(result)
+            @count = result.count
+            @display = result.paginate(page: params[:page],per_page: 10)
+        end
 
 end

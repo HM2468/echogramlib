@@ -4,41 +4,24 @@ class EchogramTemp < ApplicationRecord
     # allows destroying an echogram via a profile's update action
     accepts_nested_attributes_for :gram_attachment, allow_destroy: true  
 
-    validate :lat_valid
-    validate :long_valid
+
+    validates :latitude,:longitude, presence: {message: "%{attribute} input is empty."}
+    validates :latitude,:longitude, numericality: {message: "%{attribute} input is not a valid number."},allow_blank:true
+    validate :range_valid
+
     validate :gram_valid
     validates_uniqueness_of :image_filename, message: "Image file name already exists."
 
 
-   
-    
     private
-      def lat_valid
-        if latitude.empty?
-            errors.add :echogram_temp, 'Latitude input is empty' 
-        else   
-          if float_valid?(latitude)    
-            if latitude.to_f > 90 || latitude.to_f < -90 
+      def range_valid
+          if latitude.to_f > 90 || latitude.to_f < -90 
               errors.add :echogram_temp, 'Latitude is out of range.' 
-            end
-          else
-            errors.add :echogram_temp, 'Latitude input invalid.' 
           end
-        end
-      end
 
-      def long_valid
-        if longitude.empty?
-            errors.add :echogram_temp, 'Longitude input is empty' 
-        else    
-          if float_valid?(longitude)
-            if longitude.to_f > 180 || longitude.to_f < -180 
-              errors.add :echogram_temp, 'Longitude is out of range.' 
-            end
-          else
-            errors.add :echogram_temp, 'Longitude input invalid.' 
+          if longitude.to_f > 180 || longitude.to_f < -180 
+            errors.add :echogram_temp, 'Longitude is out of range.' 
           end
-        end
       end
 
       def gram_valid
@@ -155,41 +138,4 @@ class EchogramTemp < ApplicationRecord
         match  = ["gif","jpg","jpeg","png"].include?(format)
         return match
       end
-
-      #to judge whether an input is a valid float number form
-      def float_valid?(input)
-        temp = input.to_s
-        true_num = true
-        #invalid input if there are more than one "."
-        #and start with "."
-        dot_num = temp.count(".")  
-        if dot_num != 0
-          if dot_num > 1
-            true_num = false
-          end
-          if temp.index(".") == 0
-            true_num = false
-          end
-        end
-        #invalid input if there are more than one "-"
-        #and not start with "-"
-        minus_num = temp.count("-")
-        if minus_num != 0
-          if minus_num > 1
-            true_num = false
-          end
-          if temp.index("-") != 0
-            true_num = false
-          end
-        end
-      
-        #invalid input if there are other symbols
-        temp.each_char do |r|
-            flag = (45..57).cover?(r.ord) && r.ord != 47
-            if !flag
-                true_num = false
-            end
-        end
-        return true_num
-      end  
   end
